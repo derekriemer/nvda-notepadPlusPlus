@@ -96,10 +96,42 @@ class EditWindow(EditableTextWithAutoSelectDetection):
 		if textInfo.bookmark.endOffset - textInfo.bookmark.startOffset >= config.conf["notepadPp"]["maxLineLength"]:
 			tones.beep(500, 50)
 
+	def script_reportLineOverflow(self, gesture):
+		self.script_caret_moveByLine(gesture)
+		info = self.makeTextInfo(textInfos.POSITION_CARET)
+		info.expand(textInfos.UNIT_LINE)
+		if len(info.text.strip('\r\n')) > config.conf["notepadPp"]["maxLineLength"]:
+			tones.beep(500, 50)
+
+	def script_reportCharacterOverflow(self, gesture):
+		self.script_caret_moveByCharacter(gesture)
+		caretInfo = self.makeTextInfo(textInfos.POSITION_CARET)
+		lineStartInfo = self.makeTextInfo(textInfos.POSITION_CARET).copy()
+		caretInfo.expand(textInfos.UNIT_CHARACTER)
+		lineStartInfo.expand(textInfos.UNIT_LINE)
+		caretPosition = caretInfo.bookmark.startOffset -lineStartInfo.bookmark.startOffset
+		if caretPosition > config.conf["notepadPp"]["maxLineLength"] -1 and caretInfo.text not in ['\r', '\n']:
+			tones.beep(500, 50)
+
+	def script_goToFirstOverflowingCharacter(self, gesture):
+		info = self.makeTextInfo(textInfos.POSITION_CARET)
+		info.expand(textInfos.UNIT_LINE)
+		if len(info.text) > config.conf["notepadPp"]["maxLineLength"]:
+			info.move(textInfos.UNIT_CHARACTER, config.conf["notepadPp"]["maxLineLength"], "start")
+			info.updateCaret()
+			info.collapse()
+			info.expand(textInfos.UNIT_CHARACTER)
+			speech.speakMessage(info.text)
+
 	__gestures = {
 		"kb:control+b" : "gotoMatchingBrace",
 		"kb:f2": "goToNextBookmark",
 		"kb:shift+f2": "goToPreviousBookmark",
+		"kb:leftArrow": "reportCharacterOverflow",
+		"kb:rightArrow": "reportCharacterOverflow",
+		"kb:upArrow": "reportLineOverflow",
+		"kb:downArrow": "reportLineOverflow",
+		"kb:nvda+g": "goToFirstOverflowingCharacter",
 	}
 
 class KeyMapperList:
