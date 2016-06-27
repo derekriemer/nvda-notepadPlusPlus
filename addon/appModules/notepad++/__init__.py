@@ -2,20 +2,32 @@ from logHandler import log
 import appModuleHandler
 import config
 from NVDAObjects.window.scintilla  import Scintilla
-from NVDAObjects.behaviors import EditableTextWithAutoSelectDetection
+from NVDAObjects.behaviors import EditableTextWithAutoSelectDetection, LiveText
 from editableText import EditableText
 import textInfos
 import speech
 from queueHandler import registerGeneratorObject
+import queueHandler
 import eventHandler
 import controlTypes
 import tones
 import api
+import core
 
 class AppModule(appModuleHandler.AppModule):
 	def chooseNVDAObjectOverlayClasses(self,obj,clsList):
-		if obj.windowClassName == u'Scintilla':
+		if obj.windowClassName == u'Scintilla' and obj.windowControlID == 0:
 			clsList.insert(0,EditWindow)
+			return
+		if (
+			(obj.windowControlID == 1682 and obj.role == controlTypes.ROLE_EDITABLETEXT)
+			or
+			(obj.role == controlTypes.ROLE_BUTTON and obj.windowControlID in (67220, 67219))
+			):
+			clsList.insert(0, IncrementalFind)
+			return
+		if obj.windowControlID == 1689 and obj.role == controlTypes.ROLE_STATICTEXT:
+			clsList.insert(0, LiveTextControl)
 			return
 		try:
 			if obj.windowClassName == u'BABYGRID'  and  obj.firstChild and obj.firstChild.windowClassName == u'ListBox': 
@@ -43,6 +55,10 @@ class AppModule(appModuleHandler.AppModule):
 		config.conf.spec["notepadPp"] = confspec
 
 class EditWindow(EditableTextWithAutoSelectDetection):
+
+	def event_loseFocus(self):
+		self.appModule.edit = self
+
 	def script_gotoMatchingBrace(self, gesture):
 		gesture.send()
 		info = self.makeTextInfo(textInfos.POSITION_CARET).copy()
@@ -148,3 +164,21 @@ class KeyMapperTabber(object):
 		"kb:tab" : "tab",
 		"kb:shift+tab" : "shiftTab",
 	}
+	
+class IncrementalFind(object):
+
+	cacheBookmark = 0
+
+	def event_typedCharacter(self, ch):
+		edit = self.appModule.edit
+		textInfo = edit.makeTextInfo(textInfos.POSITION_SELECTION)
+		if textInfo.bookmark == self.cacheBookmark:
+			return #Nada has changed.
+		self.cacheBookmark = textInfo.bookmark
+		textInfo.expand(textInfos.UNIT_LINE)
+		queueHandler.queueFunction(queueHandler.eventQueue, speech.speakMessage, (textInfo.text))
+
+
+class LiveTextControl(object):
+	def event_nameChange(self):
+		queueHandler.queueFunction(queueHandler.eventQueue, speech.speakMessage, (self.name))
