@@ -22,7 +22,7 @@ addon_info = {
 	# version
 	"addon_version" : "0.1-dev",
 	# Author(s)
-	"addon_author" : u"Derek Riemer <driemer.riemer@gmail.com><insert your prefered author name and optional email here>",
+	"addon_author" : u"Derek Riemer <driemer.riemer@gmail.com>, Tuukka Ojala <tuukka.ojala@gmail.com>",
 	# URL for the add-on documentation support
 	"addon_url" : None,
 	# Documentation file name
