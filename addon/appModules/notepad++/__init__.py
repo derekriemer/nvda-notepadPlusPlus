@@ -2,7 +2,7 @@ from logHandler import log
 import appModuleHandler
 import config
 from NVDAObjects.window.scintilla  import Scintilla
-from NVDAObjects.behaviors import EditableTextWithAutoSelectDetection, EditableTextWithoutAutoSelectDetection
+from NVDAObjects.behaviors import EditableTextWithAutoSelectDetection
 from editableText import EditableText
 import textInfos
 import speech
@@ -10,15 +10,31 @@ from queueHandler import registerGeneratorObject
 import eventHandler
 import controlTypes
 import tones
+import api
 
 class AppModule(appModuleHandler.AppModule):
 	def chooseNVDAObjectOverlayClasses(self,obj,clsList):
 		if obj.windowClassName == u'Scintilla':
 			clsList.insert(0,EditWindow)
-		elif obj.windowClassName == u'BABYGRID'  and  obj.firstChild and obj.firstChild.windowClassName == u'ListBox': 
-			#History lesson: I was depending on the presence of a scroll bar, and for tabs whith very few items, it doesn't appear.
-			clsList.insert(0, KeyMapperList)
-
+			return
+		try:
+			if obj.windowClassName == u'BABYGRID'  and  obj.firstChild and obj.firstChild.windowClassName == u'ListBox': 
+				#History lesson: I was depending on the presence of a scroll bar, and for tabs whith very few items, it doesn't appear.
+				clsList.insert(0, KeyMapperList)
+		except AttributeError:
+			pass
+		try:
+			if (
+			(obj.windowClassName == u'Button' and obj.windowControlID == 1 and obj.location[0] == 430)
+			or
+			(obj.role == controlTypes.ROLE_TAB and obj.parent.childCount == 5)
+			or
+			(obj.role == controlTypes.ROLE_LISTITEM and obj.parent.parent.parent.role == controlTypes.ROLE_PANE)
+			):
+				clsList.insert(0, KeyMapperTabber)
+		except AttributeError:
+			pass
+	
 	def __init__(self, *args, **kwargs):
 		super(AppModule, self).__init__(*args, **kwargs)
 		confspec = {
@@ -26,10 +42,8 @@ class AppModule(appModuleHandler.AppModule):
 		}
 		config.conf.spec["notepadPp"] = confspec
 
-
 class EditWindow(EditableTextWithAutoSelectDetection):
 	def script_gotoMatchingBrace(self, gesture):
-	
 		gesture.send()
 		info = self.makeTextInfo(textInfos.POSITION_CARET).copy()
 		#Expand to line.
@@ -61,11 +75,10 @@ class EditWindow(EditableTextWithAutoSelectDetection):
 			speech.speakMessage(new.text)
 
 	def event_typedCharacter(self, ch):
-		super(AppModule, self).event_typedCharacter(ch)
+		super(EditWindow, self).event_typedCharacter(ch)
 		if config.conf["notepadPp"]["maxLineLength"] == 0:
 			return
 		textInfo = self.makeTextInfo(textInfos.POSITION_CARET)
-		
 		textInfo.expand(textInfos.UNIT_LINE)
 		if textInfo.bookmark.endOffset - textInfo.bookmark.startOffset >= config.conf["notepadPp"]["maxLineLength"]:
 			tones.beep(500, 50)
@@ -90,3 +103,48 @@ class KeyMapperList:
 			obj.firstChild.setFocus()
 
 
+class KeyMapperTabber(object):
+	"""
+	Manages the tab order of various controls, to manipulate them correctly.
+	"""
+	
+	@property
+	def dialogRoot(self):
+		"""Property to get the root dialog so that we can get the correct child window from it. Just return the foreground object, since that works. """
+		return api.getForegroundObject()
+	
+	@property
+	def nextTab(self):
+		if self.role == controlTypes.ROLE_BUTTON:
+			#We are on the close button
+			#tab Control should get focus here.
+			return self.dialogRoot.firstChild.firstChild 
+		elif self.role==controlTypes.ROLE_TAB:
+			#This is one of the tabs.
+			#We want to move to the list, by way of the pane.
+			return self.dialogRoot.getChild(4).firstChild
+	
+	@property
+	def previousTab(self):
+		if self.role == controlTypes.ROLE_LISTITEM:
+			return self.dialogRoot.firstChild #Focuses the tabList to focus the selected tab.
+		elif self.role == controlTypes.ROLE_TAB:
+			return self.dialogRoot.getChild(3).firstChild
+			
+	
+	def script_tab(self, gesture):
+		try:
+			self.nextTab.setFocus()
+		except AttributeError:
+			gesture.send()
+	
+	def script_shiftTab(self, gesture):
+		try:
+			self.previousTab.setFocus()
+		except AttributeError:
+			gesture.send()
+
+	__gestures = {
+		"kb:tab" : "tab",
+		"kb:shift+tab" : "shiftTab",
+	}
