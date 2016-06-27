@@ -2,17 +2,14 @@ from logHandler import log
 import appModuleHandler
 import config
 from NVDAObjects.window.scintilla  import Scintilla
-from NVDAObjects.behaviors import EditableTextWithAutoSelectDetection, LiveText
-from editableText import EditableText
+from NVDAObjects.behaviors import EditableTextWithAutoSelectDetection
 import textInfos
 import speech
 from queueHandler import registerGeneratorObject
 import queueHandler
-import eventHandler
 import controlTypes
 import tones
 import api
-import core
 
 class AppModule(appModuleHandler.AppModule):
 	def chooseNVDAObjectOverlayClasses(self,obj,clsList):
