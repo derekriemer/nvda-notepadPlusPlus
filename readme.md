@@ -13,7 +13,15 @@ Then,  when you want to come back to this bookmark, press f2 to jump to the next
 You can set as many bookmarks as you would like.
 
 ### Maximum line length announcement
-`<write me please>`
+Notepad++ has a ruler that can be used for checking a line's length. However, this feature
+is neither accessible or meaningful to blind users, so this add-on has an audible line length
+indicator that beeps whenever a line is longer than the specified number of characters.
+
+To enable this feature, first activate Notepad++, then go to the NVDA menu and activate Notepad++
+under the settings menu. Tick the "enable line length indicator" checkbox and change the maximum
+number of characters as necessary. When the feature is enabled you will hear a beep when scrolling
+across lines that are too long or characters that are over the maximum length. Alternatively, you
+can press NVDA+g to jump to the first overflowing character on the active line.
 
 ### Move to matching brace.
 
