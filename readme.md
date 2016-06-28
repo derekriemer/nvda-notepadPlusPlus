@@ -13,6 +13,7 @@ Then,  when you want to come back to this bookmark, press f2 to jump to the next
 You can set as many bookmarks as you would like.
 
 ### Maximum line length announcement
+
 Notepad++ has a ruler that can be used for checking a line's length. However, this feature
 is neither accessible or meaningful to blind users, so this add-on has an audible line length
 indicator that beeps whenever a line is longer than the specified number of characters.
@@ -54,3 +55,8 @@ Pressing nvda+shift+\ (back slash) at any time will report the following:
 * the column number I.E. how far into the line you are.
 * the selection size, (number of characters horizontally selected, followed by a | symbol, followed by the number of characters vertically selected, which would make a rectangle.
 
+## Non-default Notepad++ keyboard shortcuts
+
+This add-on expects that Notepad++ is being used with the default shortcut keys. If this is not the
+case, please change this app module's key commands to reflect your Notepad++ commands as necessary
+in NVDA's input gestures dialog.
