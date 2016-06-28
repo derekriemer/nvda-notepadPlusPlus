@@ -77,13 +77,20 @@ class EditWindow(EditableTextWithAutoSelectDetection):
 		else:
 			speech.speakMessage(info.text)
 
+	script_gotoMatchingBrace.__doc__ = "Goes to the brace that matches the one under the caret"
+	script_gotoMatchingBrace.category = "Notepad++"
+
 	def script_goToNextBookmark(self, gesture):
-		#Goes to the next bookmark.
 		self.speakActiveLineIfChanged(gesture)
 
+	script_goToNextBookmark.__doc__ = "Goes to the next bookmark"
+	script_goToNextBookmark.category = "Notepad++"
+
 	def script_goToPreviousBookmark(self, gesture):
-		#Goes to the previous bookmark.
 		self.speakActiveLineIfChanged(gesture)
+
+	script_goToPreviousBookmark.__doc__ = "Goes to the previous bookmark"
+	script_goToPreviousBookmark.category = "Notepad++"
 
 	def speakActiveLineIfChanged(self, gesture):
 		old = self.makeTextInfo(textInfos.POSITION_CARET)
@@ -133,10 +140,15 @@ class EditWindow(EditableTextWithAutoSelectDetection):
 			info.expand(textInfos.UNIT_CHARACTER)
 			speech.speakMessage(info.text)
 
+	script_goToFirstOverflowingCharacter.__doc__ = "Moves to the first character that is after the maximum line length"
+	script_goToFirstOverflowingCharacter.category = "Notepad++"
+
 	def script_reportLineInfo(self, gesture):
-		#speak the line info item on the status bar.
 		ui.message(self.parent.next.next.firstChild.getChild(2).name) 
-	
+
+	script_reportLineInfo.__doc__ = "speak the line info item on the status bar"
+	script_reportLineInfo.category = "Notepad++"
+
 	__gestures = {
 		"kb:control+b" : "gotoMatchingBrace",
 		"kb:f2": "goToNextBookmark",
