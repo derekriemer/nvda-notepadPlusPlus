@@ -28,7 +28,7 @@ can press NVDA+g to jump to the first overflowing character on the active line.
 
 In Notepad++ you can move to the matching brace of a program by pressing control+b. 
 To move You must be one character inside the  brace that you wish to match.
-When you press this command, nvda will read the line you landed on, and if the line consists of only a brace, it will read the line above and below the bace so you can get a feel for context.
+When you press this command, nvda will read the line you landed on, and if the line consists of only a brace, it will read the line above and below the brace so you can get a feel for context.
 
 ### Keyboard shortcut mapper.
 
