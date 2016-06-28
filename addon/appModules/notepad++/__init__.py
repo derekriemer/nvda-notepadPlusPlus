@@ -5,6 +5,7 @@ from NVDAObjects.window.scintilla  import Scintilla
 from NVDAObjects.behaviors import EditableTextWithAutoSelectDetection
 import textInfos
 import speech
+import ui
 from queueHandler import registerGeneratorObject
 import queueHandler
 import controlTypes
@@ -28,7 +29,7 @@ class AppModule(appModuleHandler.AppModule):
 			clsList.insert(0, LiveTextControl)
 			return
 		try:
-			if obj.windowClassName == u'BABYGRID'  and  obj.firstChild and obj.firstChild.windowClassName == u'ListBox': 
+			if obj.windowClassName == u'BABYGRID'  and  obj.firstChild and obj.firstChild.windowClassName == u'ListBox':
 				#History lesson: I was depending on the presence of a scroll bar, and for tabs whith very few items, it doesn't appear.
 				clsList.insert(0, KeyMapperList)
 		except AttributeError:
@@ -44,17 +45,20 @@ class AppModule(appModuleHandler.AppModule):
 				clsList.insert(0, KeyMapperTabber)
 		except AttributeError:
 			pass
-	
+
 	def __init__(self, *args, **kwargs):
 		super(AppModule, self).__init__(*args, **kwargs)
 		confspec = {
 			"maxLineLength" : "integer(min=0, default=0)",
+			"maxLineNotifications" : "boolean(default=False)",
 		}
 		config.conf.spec["notepadPp"] = confspec
 
 class EditWindow(EditableTextWithAutoSelectDetection):
+	"""An edit widnow that implements all of the scripts on the edit field for Notepad++"""
 
 	def event_loseFocus(self):
+		#Hack: finding the edit field from the foreground window is unreliable, so cache it here.
 		self.appModule.edit = self
 
 	def script_gotoMatchingBrace(self, gesture):
@@ -62,7 +66,8 @@ class EditWindow(EditableTextWithAutoSelectDetection):
 		info = self.makeTextInfo(textInfos.POSITION_CARET).copy()
 		#Expand to line.
 		info.expand(textInfos.UNIT_LINE)
-		if info.text.strip() in ('{', '}'): #This line has only one brace. Not very helpful to read, lets read the previous and next line as well.
+		if info.text.strip() in ('{', '}'):
+			#This line is only one brace. Not very helpful to read, lets read the previous and next line as well.
 			#Move it's start back a line.
 			info.move(textInfos.UNIT_LINE, -1, endPoint = "start")
 			# Move it's end one line, forward.
@@ -90,7 +95,7 @@ class EditWindow(EditableTextWithAutoSelectDetection):
 
 	def event_typedCharacter(self, ch):
 		super(EditWindow, self).event_typedCharacter(ch)
-		if config.conf["notepadPp"]["maxLineLength"] == 0:
+		if not config.conf["notepadPp"]["maxLineNotifications"]:
 			return
 		textInfo = self.makeTextInfo(textInfos.POSITION_CARET)
 		textInfo.expand(textInfos.UNIT_LINE)
@@ -99,6 +104,8 @@ class EditWindow(EditableTextWithAutoSelectDetection):
 
 	def script_reportLineOverflow(self, gesture):
 		self.script_caret_moveByLine(gesture)
+		if not config.conf["notepadPp"]["maxLineNotifications"]:
+			return
 		info = self.makeTextInfo(textInfos.POSITION_CARET)
 		info.expand(textInfos.UNIT_LINE)
 		if len(info.text.strip('\r\n')) > config.conf["notepadPp"]["maxLineLength"]:
@@ -106,6 +113,8 @@ class EditWindow(EditableTextWithAutoSelectDetection):
 
 	def script_reportCharacterOverflow(self, gesture):
 		self.script_caret_moveByCharacter(gesture)
+		if not config.conf["notepadPp"]["maxLineNotifications"]:
+			return
 		caretInfo = self.makeTextInfo(textInfos.POSITION_CARET)
 		lineStartInfo = self.makeTextInfo(textInfos.POSITION_CARET).copy()
 		caretInfo.expand(textInfos.UNIT_CHARACTER)
@@ -124,10 +133,15 @@ class EditWindow(EditableTextWithAutoSelectDetection):
 			info.expand(textInfos.UNIT_CHARACTER)
 			speech.speakMessage(info.text)
 
+	def script_reportLineInfo(self, gesture):
+		#speak the line info item on the status bar.
+		ui.message(self.parent.next.next.firstChild.getChild(2).name) 
+	
 	__gestures = {
 		"kb:control+b" : "gotoMatchingBrace",
 		"kb:f2": "goToNextBookmark",
 		"kb:shift+f2": "goToPreviousBookmark",
+		"kb:nvda+shift+\\": "reportLineInfo",
 		"kb:leftArrow": "reportCharacterOverflow",
 		"kb:rightArrow": "reportCharacterOverflow",
 		"kb:upArrow": "reportLineOverflow",
@@ -136,12 +150,12 @@ class EditWindow(EditableTextWithAutoSelectDetection):
 	}
 
 class KeyMapperList:
-	
+
 	def event_gainFocus(self):
 		obj = self.firstChild.firstChild
 		try:
 			obj.getChild(obj.IAccessibleObject.AccSelection-1).setFocus()
-		except TypeError: 
+		except TypeError:
 			#There is no selection, set focus to the first item.
 			obj.firstChild.setFocus()
 		except COMError:
@@ -153,37 +167,37 @@ class KeyMapperTabber(object):
 	"""
 	Manages the tab order of various controls, to manipulate them correctly.
 	"""
-	
+
 	@property
 	def dialogRoot(self):
 		"""Property to get the root dialog so that we can get the correct child window from it. Just return the foreground object, since that works. """
 		return api.getForegroundObject()
-	
+
 	@property
 	def nextTab(self):
 		if self.role == controlTypes.ROLE_BUTTON:
 			#We are on the close button
 			#tab Control should get focus here.
-			return self.dialogRoot.firstChild.firstChild 
+			return self.dialogRoot.firstChild.firstChild
 		elif self.role==controlTypes.ROLE_TAB:
 			#This is one of the tabs.
 			#We want to move to the list, by way of the pane.
 			return self.dialogRoot.getChild(4).firstChild
-	
+
 	@property
 	def previousTab(self):
 		if self.role == controlTypes.ROLE_LISTITEM:
 			return self.dialogRoot.firstChild #Focuses the tabList to focus the selected tab.
 		elif self.role == controlTypes.ROLE_TAB:
 			return self.dialogRoot.getChild(3).firstChild
-			
-	
+
+
 	def script_tab(self, gesture):
 		try:
 			self.nextTab.setFocus()
 		except AttributeError:
 			gesture.send()
-	
+
 	def script_shiftTab(self, gesture):
 		try:
 			self.previousTab.setFocus()
@@ -194,7 +208,7 @@ class KeyMapperTabber(object):
 		"kb:tab" : "tab",
 		"kb:shift+tab" : "shiftTab",
 	}
-	
+
 class IncrementalFind(object):
 
 	cacheBookmark = 0
@@ -213,7 +227,7 @@ class IncrementalFind(object):
 
 class LiveTextControl(object):
 	_cache = None
-	
+
 	def event_nameChange(self):
 		if LiveTextControl._cache and self._cache == self.name:
 			return #No changes to the text, spurious nameChange.
