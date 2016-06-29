@@ -12,6 +12,10 @@ import controlTypes
 import tones
 import api
 import core
+import addonHandler
+import addonGui
+
+addonHandler.initTranslation()
 
 class AppModule(appModuleHandler.AppModule):
 	def chooseNVDAObjectOverlayClasses(self,obj,clsList):
@@ -53,6 +57,13 @@ class AppModule(appModuleHandler.AppModule):
 			"maxLineNotifications" : "boolean(default=False)",
 		}
 		config.conf.spec["notepadPp"] = confspec
+		self.guiManager = addonGui.GuiManager()
+
+	def terminate(self):
+		self.guiManager = None #deletes the object by way of reference count 0 
+
+
+		
 
 class EditWindow(EditableTextWithAutoSelectDetection):
 	"""An edit widnow that implements all of the scripts on the edit field for Notepad++"""
@@ -60,6 +71,12 @@ class EditWindow(EditableTextWithAutoSelectDetection):
 	def event_loseFocus(self):
 		#Hack: finding the edit field from the foreground window is unreliable, so cache it here.
 		self.appModule.edit = self
+
+	def event_gainFocus(self):
+		#Hack: finding the edit field from the foreground window is unreliable. If we previously cached an object, this will clean it up.
+		self.appModule.edit = None
+
+
 
 	def script_gotoMatchingBrace(self, gesture):
 		gesture.send()
@@ -77,19 +94,22 @@ class EditWindow(EditableTextWithAutoSelectDetection):
 		else:
 			speech.speakMessage(info.text)
 
-	script_gotoMatchingBrace.__doc__ = "Goes to the brace that matches the one under the caret"
+	#Translators: when pressed, goes to    the matching brace in Notepad++
+	script_gotoMatchingBrace.__doc__ = _("Goes to the brace that matches the one under the caret")
 	script_gotoMatchingBrace.category = "Notepad++"
 
 	def script_goToNextBookmark(self, gesture):
 		self.speakActiveLineIfChanged(gesture)
 
-	script_goToNextBookmark.__doc__ = "Goes to the next bookmark"
+	#Translators: Script to move to the next bookmark in Notepad++.
+	script_goToNextBookmark.__doc__ = _("Goes to the next bookmark")
 	script_goToNextBookmark.category = "Notepad++"
 
 	def script_goToPreviousBookmark(self, gesture):
 		self.speakActiveLineIfChanged(gesture)
 
-	script_goToPreviousBookmark.__doc__ = "Goes to the previous bookmark"
+	#Translators: Script to move to the next bookmark in Notepad++.
+	script_goToPreviousBookmark.__doc__ = _("Goes to the previous bookmark")
 	script_goToPreviousBookmark.category = "Notepad++"
 
 	def speakActiveLineIfChanged(self, gesture):
@@ -140,13 +160,15 @@ class EditWindow(EditableTextWithAutoSelectDetection):
 			info.expand(textInfos.UNIT_CHARACTER)
 			speech.speakMessage(info.text)
 
-	script_goToFirstOverflowingCharacter.__doc__ = "Moves to the first character that is after the maximum line length"
+	#Translators: Script to move the cursor to the first character on the current line that excedes the users maximum allowed line length.
+	script_goToFirstOverflowingCharacter.__doc__ = _("Moves to the first character that is after the maximum line length")
 	script_goToFirstOverflowingCharacter.category = "Notepad++"
 
 	def script_reportLineInfo(self, gesture):
 		ui.message(self.parent.next.next.firstChild.getChild(2).name) 
 
-	script_reportLineInfo.__doc__ = "speak the line info item on the status bar"
+	#Translators: Script that announces information about the current line.
+	script_reportLineInfo.__doc__ = _("speak the line info item on the status bar")
 	script_reportLineInfo.category = "Notepad++"
 
 	__gestures = {
