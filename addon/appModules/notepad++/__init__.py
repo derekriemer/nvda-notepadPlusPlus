@@ -73,6 +73,7 @@ class EditWindow(EditableTextWithAutoSelectDetection):
 		self.appModule.edit = self
 
 	def event_gainFocus(self):
+		super(EditWindow, self).event_gainFocus()
 		#Hack: finding the edit field from the foreground window is unreliable. If we previously cached an object, this will clean it up.
 		self.appModule.edit = None
 
