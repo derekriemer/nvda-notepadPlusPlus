@@ -47,7 +47,7 @@ class AppModule(appModuleHandler.AppModule):
 		super(AppModule, self).__init__(*args, **kwargs)
 		confspec = {
 			"maxLineLength" : "integer(min=0, default=0)",
-			"maxLineNotifications" : "boolean(default=False)",
+			"lineLengthIndicator" : "boolean(default=False)",
 		}
 		config.conf.spec["notepadPp"] = confspec
 		self.guiManager = addonGui.GuiManager()

@@ -65,7 +65,7 @@ class EditWindow(EditableTextWithAutoSelectDetection):
 
 	def event_typedCharacter(self, ch):
 		super(EditWindow, self).event_typedCharacter(ch)
-		if not config.conf["notepadPp"]["maxLineNotifications"]:
+		if not config.conf["notepadPp"]["lineLengthIndicator"]:
 			return
 		textInfo = self.makeTextInfo(textInfos.POSITION_CARET)
 		textInfo.expand(textInfos.UNIT_LINE)
@@ -74,7 +74,7 @@ class EditWindow(EditableTextWithAutoSelectDetection):
 
 	def script_reportLineOverflow(self, gesture):
 		self.script_caret_moveByLine(gesture)
-		if not config.conf["notepadPp"]["maxLineNotifications"]:
+		if not config.conf["notepadPp"]["lineLengthIndicator"]:
 			return
 		info = self.makeTextInfo(textInfos.POSITION_CARET)
 		info.expand(textInfos.UNIT_LINE)
@@ -83,7 +83,7 @@ class EditWindow(EditableTextWithAutoSelectDetection):
 
 	def script_reportCharacterOverflow(self, gesture):
 		self.script_caret_moveByCharacter(gesture)
-		if not config.conf["notepadPp"]["maxLineNotifications"]:
+		if not config.conf["notepadPp"]["lineLengthIndicator"]:
 			return
 		caretInfo = self.makeTextInfo(textInfos.POSITION_CARET)
 		lineStartInfo = self.makeTextInfo(textInfos.POSITION_CARET).copy()
