@@ -1,9 +1,7 @@
-from logHandler import log
 import appModuleHandler
 import config
 from NVDAObjects.window.scintilla  import Scintilla
 import speech
-import ui
 import controlTypes
 import addonHandler
 import addonGui
@@ -15,13 +13,13 @@ addonHandler.initTranslation()
 class AppModule(appModuleHandler.AppModule):
 	def chooseNVDAObjectOverlayClasses(self,obj,clsList):
 		if obj.windowClassName == u'Scintilla' and obj.windowControlID == 0:
-			clsList.insert(0,editWindow.EditWindow)
+			clsList.insert(0, editWindow.EditWindow)
 			return
 		if (
-			(obj.windowControlID == 1682 and obj.role == controlTypes.ROLE_EDITABLETEXT)
-			or
-			(obj.role == controlTypes.ROLE_BUTTON and obj.windowControlID in (67220, 67219))
-			):
+		(obj.windowControlID == 1682 and obj.role == controlTypes.ROLE_EDITABLETEXT)
+		or
+		(obj.role == controlTypes.ROLE_BUTTON and obj.windowControlID in (67220, 67219))
+		):
 			clsList.insert(0, incrementalFind.IncrementalFind)
 			return
 		if obj.windowControlID == 1689 and obj.role == controlTypes.ROLE_STATICTEXT:

@@ -10,7 +10,7 @@ import ui
 addonHandler.initTranslation()
 
 class EditWindow(EditableTextWithAutoSelectDetection):
-	"""An edit widnow that implements all of the scripts on the edit field for Notepad++"""
+	"""An edit window that implements all of the scripts on the edit field for Notepad++"""
 
 	def event_loseFocus(self):
 		#Hack: finding the edit field from the foreground window is unreliable, so cache it here.
@@ -21,7 +21,7 @@ class EditWindow(EditableTextWithAutoSelectDetection):
 		#Hack: finding the edit field from the foreground window is unreliable. If we previously cached an object, this will clean it up.
 		self.appModule.edit = None
 
-	def script_gotoMatchingBrace(self, gesture):
+	def script_goToMatchingBrace(self, gesture):
 		gesture.send()
 		info = self.makeTextInfo(textInfos.POSITION_CARET).copy()
 		#Expand to line.
@@ -38,8 +38,8 @@ class EditWindow(EditableTextWithAutoSelectDetection):
 			speech.speakMessage(info.text)
 
 	#Translators: when pressed, goes to    the matching brace in Notepad++
-	script_gotoMatchingBrace.__doc__ = _("Goes to the brace that matches the one under the caret")
-	script_gotoMatchingBrace.category = "Notepad++"
+	script_goToMatchingBrace.__doc__ = _("Goes to the brace that matches the one under the caret")
+	script_goToMatchingBrace.category = "Notepad++"
 
 	def script_goToNextBookmark(self, gesture):
 		self.speakActiveLineIfChanged(gesture)
@@ -103,7 +103,7 @@ class EditWindow(EditableTextWithAutoSelectDetection):
 			info.expand(textInfos.UNIT_CHARACTER)
 			speech.speakMessage(info.text)
 
-	#Translators: Script to move the cursor to the first character on the current line that excedes the users maximum allowed line length.
+	#Translators: Script to move the cursor to the first character on the current line that exceeds the users maximum allowed line length.
 	script_goToFirstOverflowingCharacter.__doc__ = _("Moves to the first character that is after the maximum line length")
 	script_goToFirstOverflowingCharacter.category = "Notepad++"
 
@@ -115,7 +115,7 @@ class EditWindow(EditableTextWithAutoSelectDetection):
 	script_reportLineInfo.category = "Notepad++"
 
 	__gestures = {
-		"kb:control+b" : "gotoMatchingBrace",
+		"kb:control+b" : "goToMatchingBrace",
 		"kb:f2": "goToNextBookmark",
 		"kb:shift+f2": "goToPreviousBookmark",
 		"kb:nvda+shift+\\": "reportLineInfo",

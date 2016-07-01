@@ -1,6 +1,6 @@
 import controlTypes
 
-class KeyMapperList:
+class KeyMapperList(object):
 	def event_gainFocus(self):
 		obj = self.firstChild.firstChild
 		try:
