@@ -46,7 +46,7 @@ class AppModule(appModuleHandler.AppModule):
 	def __init__(self, *args, **kwargs):
 		super(AppModule, self).__init__(*args, **kwargs)
 		confspec = {
-			"maxLineLength" : "integer(min=0, default=0)",
+			"maxLineLength" : "integer(min=0, default=80)",
 			"lineLengthIndicator" : "boolean(default=False)",
 		}
 		config.conf.spec["notepadPp"] = confspec
