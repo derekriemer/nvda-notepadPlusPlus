@@ -15,6 +15,7 @@ class KeyMapperList(object):
 class KeyMapperTabber(object):
 	"""
 	Manages the tab order of various controls, to manipulate them correctly.
+	ToDO: When #5960 incubates into a stable version, use that functionality.
 	"""
 
 	@property
