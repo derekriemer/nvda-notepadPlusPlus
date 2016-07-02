@@ -2,6 +2,7 @@ import queueHandler
 from queueHandler import registerGeneratorObject
 import speech
 import textInfos
+import core
 
 class IncrementalFind(object):
 	cacheBookmark = 0
