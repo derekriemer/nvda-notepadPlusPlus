@@ -21,6 +21,11 @@ class EditWindow(EditableTextWithAutoSelectDetection):
 		#Hack: finding the edit field from the foreground window is unreliable. If we previously cached an object, this will clean it up.
 		self.appModule.edit = None
 
+	def initOverlayClass(self):
+		#Notepad++ names the edit window "N" for some stupid reason.
+		#Nuke the name, because it really doesn't matter.
+		self.name = ""
+
 	def script_goToMatchingBrace(self, gesture):
 		gesture.send()
 		info = self.makeTextInfo(textInfos.POSITION_CARET).copy()
