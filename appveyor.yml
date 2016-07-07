@@ -7,8 +7,10 @@ install:
 
 build_script:
   - PY scons.py
+  - PY scons.py pot
 
 artifacts:
   - path: '*.nvda-addon'
-    name: "Version  {}, revision{build}"
     type: application/x-nvda-addon
+  - path: '*.pot'
+    type: application/x-pot
