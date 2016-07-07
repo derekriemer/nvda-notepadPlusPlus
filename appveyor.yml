@@ -9,4 +9,6 @@ build_script:
   - PY scons.py
 
 artifacts:
-  - path: NotepadPlusPlus-0.1-dev.nvda-addon
+  - path: '*.nvda-addon'
+    name: "Version  {}, revision{build}"
+    type: application/x-nvda-addon
