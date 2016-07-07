@@ -1,23 +1,12 @@
 version: "{branch}-{build}"
 environment:
  PY_PYTHON: 2.7-32
-install_script:
-  py -m pip install scons
-  py -m pip install scons
-  py -m pip install markdown
+install:
+  - py -m pip install markdown
   
 
 build_script:
-  -py scons.py
+  - PY scons.py
 
 artifacts:
- - path: .ndda-addon
-
-notifications:
-- provider: Email
-  to:
-  - derek.riemer@colorado.edu
-  subject: done
-  on_build_success: true
-  on_build_failure: true
-  on_build_status_changed: true
+  - path: .ndda-addon
