@@ -11,7 +11,7 @@ build_script:
   -py scons.py
 
 artifacts:
- - path: *.ndda-addon
+ - path: .ndda-addon
 
 notifications:
 - provider: Email
