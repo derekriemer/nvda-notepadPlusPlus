@@ -89,11 +89,17 @@ class EditWindow(EditableTextWithAutoSelectDetection):
 			return
 		info = self.makeTextInfo(textInfos.POSITION_CARET)
 		info.expand(textInfos.UNIT_LINE)
-		if len(info.text.strip('\r\n')) > config.conf["notepadPp"]["maxLineLength"]:
+		#Think of this as how far from the right we are (Are we farther from the right than the length we want?
+		if info.bookmark.endOffset - info.bookmark.startOffset <= config.conf["notepadPp"]["maxLineLength"]:
+			#Return since the caret event handles this.
+			#There's currently no ill side affect for playing the tone twice.
+			#It's not clean  to assume the user won't hear the beginning of one tone before then the other tone play.
+			return
+		if len(info.text.strip('\r\n\t ')) > config.conf["notepadPp"]["maxLineLength"]:
 			tones.beep(500, 50)
 
-	def script_reportCharacterOverflow(self, gesture):
-		self.script_caret_moveByCharacter(gesture)
+	def event_caret(self):
+		super(EditWindow, self).event_caret()
 		if not config.conf["notepadPp"]["lineLengthIndicator"]:
 			return
 		caretInfo = self.makeTextInfo(textInfos.POSITION_CARET)
@@ -103,6 +109,7 @@ class EditWindow(EditableTextWithAutoSelectDetection):
 		caretPosition = caretInfo.bookmark.startOffset -lineStartInfo.bookmark.startOffset
 		if caretPosition > config.conf["notepadPp"]["maxLineLength"] -1 and caretInfo.text not in ['\r', '\n']:
 			tones.beep(500, 50)
+
 
 	def script_goToFirstOverflowingCharacter(self, gesture):
 		info = self.makeTextInfo(textInfos.POSITION_CARET)
@@ -125,14 +132,25 @@ class EditWindow(EditableTextWithAutoSelectDetection):
 	script_reportLineInfo.__doc__ = _("speak the line info item on the status bar")
 	script_reportLineInfo.category = "Notepad++"
 
+	def script_reportFindResult(self, gesture):
+		old = self.makeTextInfo(textInfos.POSITION_SELECTION)
+		gesture.send()
+		new = self.makeTextInfo(textInfos.POSITION_SELECTION)
+		if new.bookmark.startOffset != old.bookmark.startOffset:
+			new.expand(textInfos.UNIT_LINE)
+			speech.speakMessage(new.text)
+		else:
+			speech.speakMessage(_("No more search results in this direction."))
+
+
 	__gestures = {
 		"kb:control+b" : "goToMatchingBrace",
 		"kb:f2": "goToNextBookmark",
 		"kb:shift+f2": "goToPreviousBookmark",
 		"kb:nvda+shift+\\": "reportLineInfo",
-		"kb:leftArrow": "reportCharacterOverflow",
-		"kb:rightArrow": "reportCharacterOverflow",
 		"kb:upArrow": "reportLineOverflow",
 		"kb:downArrow": "reportLineOverflow",
 		"kb:nvda+g": "goToFirstOverflowingCharacter",
+		"kb:f3" : "reportFindResult",
+		"kb:shift+f3" : "reportFindResult",
 	}

@@ -15,12 +15,21 @@ addonHandler.initTranslation()
 """File for managing GUI for the appModule for notepad++"""
 
 class GuiManager(object):
+	isMultiInst = False
+
+	def __new__(cls):
+		if GuiManager.isMultiInst:
+			#Do not create another GUI, as this is another instance of notepad++
+			return
+		return super(GuiManager, cls).__new__(cls)
 
 	def __init__(self):
+		GuiManager.isMultiInst = True
 		def _popupMenu(evt):
 			gui.mainFrame._popupSettingsDialog(SettingsDialog)
 		self.prefsMenuItem  = item = gui.mainFrame.sysTrayIcon.preferencesMenu.Append(wx.ID_ANY, _("Notepad++..."))
 		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, _popupMenu, item)
+		gui.mainFrame.sysTrayIcon.preferencesMenu.notepadPPExists = True
 
 	def enableItem(self):
 		self.prefsMenuItem.Enable(True)
