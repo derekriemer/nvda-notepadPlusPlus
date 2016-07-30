@@ -20,7 +20,7 @@ addon_info = {
 	"addon_description" : _(""" Notepad++ App Module.
 	This addon improves the accessibility of Notepad ++. To learn more, press the add-on help button."""),
 	# version
-	"addon_version" : "0.1-dev",
+	"addon_version" : "1.0",
 	# Author(s)
 	"addon_author" : u"Derek Riemer <driemer.riemer@gmail.com>, Tuukka Ojala <tuukka.ojala@gmail.com>",
 	# URL for the add-on documentation support

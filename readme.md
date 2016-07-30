@@ -1,4 +1,4 @@
-# Notepad++ Add-on for NVDA.
+# Notepad++ Add-on for NVDA. #
 
 This add-on improves the accessibility of notepad++. Notepad++ is a text editor for windows, and has many features. You can learn more about  it at https://notepad-plus-plus.org/
 
@@ -55,8 +55,15 @@ Pressing nvda+shift+\ (back slash) at any time will report the following:
 * the column number I.E. how far into the line you are.
 * the selection size, (number of characters horizontally selected, followed by a | symbol, followed by the number of characters vertically selected, which would make a rectangle.
 
+### Support for the previous/next find feature.
+
+By Default, if you press control+f you bring up the find dialog. 
+If you type text here and press enter, the text in the window is selected and the document is moved to the next search result. 
+In Notepad++ you can press f3 or shift+f3 to repeat the search in the forward or backward direction respectively. 
+NVDA will read both the current line, and the selection within the line which represents the found text.
+
 ## Non-default Notepad++ keyboard shortcuts
 
-This add-on expects that Notepad++ is being used with the default shortcut keys. If this is not the
-case, please change this app module's key commands to reflect your Notepad++ commands as necessary
-in NVDA's input gestures dialog.
+This add-on expects that Notepad++ is being used with the default shortcut keys. 
+If this is not the case, please change this app module's key commands to reflect your Notepad++ commands as necessary in NVDA's input gestures dialog.
+All of the add-ons commands are under the notepad++ section.
