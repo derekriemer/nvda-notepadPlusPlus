@@ -4,7 +4,8 @@
 #This file is covered by the GNU General Public License.
 #See the file COPYING for more details.
 
-
+from threading import Thread
+import time
 import queueHandler
 from queueHandler import registerGeneratorObject
 import speech
@@ -15,16 +16,30 @@ class IncrementalFind(object):
 	cacheBookmark = 0
 
 	def event_typedCharacter(self, ch):
-		def later():
+		#We have to watch the editor until a change occurs, or until we decide it's unlikely a change will occur. 
+		print "hi"
+		#We want to do this in a background thread to prevent NVDA from locking.
+		def changeWatcher():
 			edit = self.appModule.edit
-			textInfo = edit.makeTextInfo(textInfos.POSITION_SELECTION)
-			if textInfo.bookmark == self.cacheBookmark:
-				return #Nada has changed.
-			self.cacheBookmark = textInfo.bookmark
-			textInfo.expand(textInfos.UNIT_LINE)
-			queueHandler.queueFunction(queueHandler.eventQueue, speech.speakMessage, (textInfo.text))
-		core.callLater(100, later)
+			safety = .3
+			while safety > 0:
+				textInfo = edit.makeTextInfo(textInfos.POSITION_SELECTION)
+				if textInfo.bookmark == self.cacheBookmark:
+					time.sleep(.0625)
+					safety -= .0625
+					continue
+				self.cacheBookmark = textInfo.bookmark
+				textInfo.expand(textInfos.UNIT_LINE)
+				queueHandler.queueFunction(queueHandler.eventQueue, speech.speakMessage, (textInfo.text))
+				return
+		t = Thread(target=changeWatcher)
+		print t
+		t.start()
 
+	def event_stateChange(self):
+		#Squelch the "pressed" message as this gets quite annoying, I must say.
+		pass
+		
 class LiveTextControl(object):
 	_cache = None
 
