@@ -17,7 +17,6 @@ class IncrementalFind(object):
 
 	def event_typedCharacter(self, ch):
 		#We have to watch the editor until a change occurs, or until we decide it's unlikely a change will occur. 
-		print "hi"
 		#We want to do this in a background thread to prevent NVDA from locking.
 		def changeWatcher():
 			edit = self.appModule.edit
@@ -30,10 +29,11 @@ class IncrementalFind(object):
 					continue
 				self.cacheBookmark = textInfo.bookmark
 				textInfo.expand(textInfos.UNIT_LINE)
-				queueHandler.queueFunction(queueHandler.eventQueue, speech.speakMessage, (textInfo.text))
+				def present():
+					queueHandler.queueFunction(queueHandler.eventQueue, speech.speakMessage, (textInfo.text))
+				core.callLater(present, 100) #Slightly delay presentation in case the status changes.
 				return
 		t = Thread(target=changeWatcher)
-		print t
 		t.start()
 
 	def event_stateChange(self):
