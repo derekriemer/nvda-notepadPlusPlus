@@ -31,7 +31,7 @@ class IncrementalFind(object):
 				textInfo.expand(textInfos.UNIT_LINE)
 				def present():
 					queueHandler.queueFunction(queueHandler.eventQueue, speech.speakMessage, (textInfo.text))
-				core.callLater(present, 100) #Slightly delay presentation in case the status changes.
+				core.callLater(100, present) #Slightly delay presentation in case the status changes.
 				return
 		t = Thread(target=changeWatcher)
 		t.start()
