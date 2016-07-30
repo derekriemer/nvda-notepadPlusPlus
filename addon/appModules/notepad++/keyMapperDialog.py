@@ -1,4 +1,4 @@
-#addonGui.py
+#keyMapperDialog.py
 #A part of theNotepad++ addon for NVDA
 #Copyright (C) 2016 Tuukka Ojala, Derek Riemer
 #This file is covered by the GNU General Public License.
@@ -6,6 +6,7 @@
 
 
 import controlTypes
+import api
 
 class KeyMapperList(object):
 	def event_gainFocus(self):
@@ -32,7 +33,7 @@ class KeyMapperTabber(object):
 
 	@property
 	def nextTab(self):
-		if self.role == controlTypes.ROLE_BUTTON:
+		if self.role == controlTypes.ROLE_BUTTON and self.windowControlID == 1:
 			#We are on the close button
 			#tab Control should get focus here.
 			return self.dialogRoot.firstChild.firstChild
@@ -47,6 +48,8 @@ class KeyMapperTabber(object):
 			return self.dialogRoot.firstChild #Focuses the tabList to focus the selected tab.
 		elif self.role == controlTypes.ROLE_TAB:
 			return self.dialogRoot.getChild(3).firstChild
+		elif self.role == controlTypes.ROLE_BUTTON and self.windowControlID == 2602:
+				return self.dialogRoot.getChild(4).firstChild
 
 
 	def script_tab(self, gesture):

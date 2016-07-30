@@ -39,7 +39,7 @@ class AppModule(appModuleHandler.AppModule):
 			pass
 		try:
 			if (
-			(obj.windowClassName == u'Button' and obj.windowControlID == 1 and obj.location[0] == 430)
+			(obj.windowClassName == u'Button' and obj.windowControlID in  (1, 2602)) #Close and modify button
 			or
 			(obj.role == controlTypes.ROLE_TAB and obj.parent.childCount == 5)
 			or

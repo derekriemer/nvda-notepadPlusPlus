@@ -24,7 +24,7 @@ class EditWindow(EditableTextWithAutoSelectDetection):
 
 	def event_gainFocus(self):
 		super(EditWindow, self).event_gainFocus()
-		#Hack: finding the edit field from the foreground window is unreliable. If we previously cached an object, this will clean it up.
+		#Hack: finding the edit field from the foreground window is unreliable. If we previously cached an object, this will clean it up, allowing it to be garbage collected.
 		self.appModule.edit = None
 
 	def initOverlayClass(self):
@@ -93,7 +93,7 @@ class EditWindow(EditableTextWithAutoSelectDetection):
 		if info.bookmark.endOffset - info.bookmark.startOffset <= config.conf["notepadPp"]["maxLineLength"]:
 			#Return since the caret event handles this.
 			#There's currently no ill side affect for playing the tone twice.
-			#It's not clean  to assume the user won't hear the beginning of one tone before then the other tone play.
+			#However, It's not clean  to assume the user won't hear the beginning of one tone before the other one starts, then the other tone play.
 			return
 		if len(info.text.strip('\r\n\t ')) > config.conf["notepadPp"]["maxLineLength"]:
 			tones.beep(500, 50)
@@ -107,6 +107,7 @@ class EditWindow(EditableTextWithAutoSelectDetection):
 		caretInfo.expand(textInfos.UNIT_CHARACTER)
 		lineStartInfo.expand(textInfos.UNIT_LINE)
 		caretPosition = caretInfo.bookmark.startOffset -lineStartInfo.bookmark.startOffset
+		#Is it not a blank line, and are we further in the line than the marker position?
 		if caretPosition > config.conf["notepadPp"]["maxLineLength"] -1 and caretInfo.text not in ['\r', '\n']:
 			tones.beep(500, 50)
 
@@ -140,8 +141,12 @@ class EditWindow(EditableTextWithAutoSelectDetection):
 			new.expand(textInfos.UNIT_LINE)
 			speech.speakMessage(new.text)
 		else:
+			#Translators: Message shown when there are no more search results in this direction using the notepad++ find command.
 			speech.speakMessage(_("No more search results in this direction."))
-
+	
+	#Translators: when pressed, goes to    the Next search result in Notepad++
+	script_reportFindResult.__doc__ = _("Queries the next or previous search result and speaks the selection and current line of it.")
+	script_reportFindResult.category = "Notepad++"
 
 	__gestures = {
 		"kb:control+b" : "goToMatchingBrace",
