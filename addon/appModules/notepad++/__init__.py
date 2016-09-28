@@ -68,7 +68,7 @@ class AppModule(appModuleHandler.AppModule):
 		self.isAutocomplete=False
 
 	def terminate(self):
-		self.guiManager = None #deletes the object by way of reference count 0 
+		del self.guiManager #deletes the object by way of reference count 0 
 
 	def requestEvents(self):
 		eventHandler.requestEvents("show", self.processID, u'ListBoxX')
