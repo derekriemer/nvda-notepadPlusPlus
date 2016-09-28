@@ -3,16 +3,19 @@
 #Copyright (C) 2016 Tuukka Ojala, Derek Riemer
 #This file is covered by the GNU General Public License.
 #See the file COPYING for more details.
-
+import threading
+import time
 import appModuleHandler
 import config
-from NVDAObjects.window.scintilla  import Scintilla
-import speech
-import controlTypes
+import os
 import addonHandler
 import addonGui
-
-from . import editWindow, incrementalFind, keyMapperDialog
+import controlTypes
+import eventHandler
+import speech
+import nvwave
+from NVDAObjects.window.scintilla  import Scintilla
+from . import editWindow, incrementalFind, keyMapperDialog, autocomplete
 
 addonHandler.initTranslation()
 
@@ -21,6 +24,10 @@ class AppModule(appModuleHandler.AppModule):
 		if obj.windowClassName == u'Scintilla' and obj.windowControlID == 0:
 			clsList.insert(0, editWindow.EditWindow)
 			return
+		if obj.parent.windowClassName == u'ListBox' and obj.parent.parent.parent.windowClassName == u'ListBoxX' and obj.role == controlTypes.ROLE_LISTITEM:
+			clsList.insert(0, autocomplete.AutocompleteList)
+			return
+	
 		if (
 		(obj.windowControlID == 1682 and obj.role == controlTypes.ROLE_EDITABLETEXT)
 		or
@@ -57,6 +64,26 @@ class AppModule(appModuleHandler.AppModule):
 		}
 		config.conf.spec["notepadPp"] = confspec
 		self.guiManager = addonGui.GuiManager()
+		self.requestEvents()
 
 	def terminate(self):
 		self.guiManager = None #deletes the object by way of reference count 0 
+
+	def requestEvents(self):
+		eventHandler.requestEvents("show", self.processID, u'ListBoxX')
+		eventHandler.requestEvents("destroy", self.processID, u'ListBoxX')
+
+	def event_show(self, obj, nextHandler):
+		if obj.role == controlTypes.ROLE_PANE:
+			nvwave.playWaveFile(os.path.join(os.path.dirname(__file__), "waves", "autocompleteOpen.wav"))
+			thread = threading.Thread(target=self.waitforAndReportDestruction,args=[obj])
+			thread.start()
+		nextHandler()
+
+
+	def waitforAndReportDestruction(self, obj):
+		while obj.parent: #None when no parent.
+			time.sleep(.05)
+		#The object is dead.
+		nvwave.playWaveFile(os.path.join(os.path.dirname(__file__), "waves", "autocompleteClose.wav"))
+
