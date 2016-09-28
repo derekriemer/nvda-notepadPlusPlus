@@ -71,7 +71,6 @@ class AppModule(appModuleHandler.AppModule):
 
 	def requestEvents(self):
 		eventHandler.requestEvents("show", self.processID, u'ListBoxX')
-		eventHandler.requestEvents("destroy", self.processID, u'ListBoxX')
 
 	def event_show(self, obj, nextHandler):
 		if obj.role == controlTypes.ROLE_PANE:
