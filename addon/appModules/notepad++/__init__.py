@@ -3,7 +3,7 @@
 #Copyright (C) 2016 Tuukka Ojala, Derek Riemer
 #This file is covered by the GNU General Public License.
 #See the file COPYING for more details.
-import threading
+import core
 import time
 import appModuleHandler
 import config
@@ -75,14 +75,14 @@ class AppModule(appModuleHandler.AppModule):
 	def event_show(self, obj, nextHandler):
 		if obj.role == controlTypes.ROLE_PANE:
 			nvwave.playWaveFile(os.path.join(os.path.dirname(__file__), "waves", "autocompleteOpen.wav"))
-			thread = threading.Thread(target=self.waitforAndReportDestruction,args=[obj])
-			thread.start()
+			core.callLater(100, self.waitforAndReportDestruction,obj)
 		nextHandler()
 
 
 	def waitforAndReportDestruction(self, obj):
-		while obj.parent: #None when no parent.
-			time.sleep(.05)
+		if obj.parent: #None when no parent.
+			core.callLater(100, self.waitforAndReportDestruction,obj)
+			return
 		#The object is dead.
 		nvwave.playWaveFile(os.path.join(os.path.dirname(__file__), "waves", "autocompleteClose.wav"))
 
