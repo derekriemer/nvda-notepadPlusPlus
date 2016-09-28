@@ -84,6 +84,9 @@ class EditWindow(EditableTextWithAutoSelectDetection):
 			tones.beep(500, 50)
 
 	def script_reportLineOverflow(self, gesture):
+		if self.appModule.isAutocomplete:
+			gesture.send()
+			return
 		self.script_caret_moveByLine(gesture)
 		if not config.conf["notepadPp"]["lineLengthIndicator"]:
 			return

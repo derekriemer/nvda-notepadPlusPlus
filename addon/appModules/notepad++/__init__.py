@@ -65,6 +65,7 @@ class AppModule(appModuleHandler.AppModule):
 		config.conf.spec["notepadPp"] = confspec
 		self.guiManager = addonGui.GuiManager()
 		self.requestEvents()
+		self.isAutocomplete=False
 
 	def terminate(self):
 		self.guiManager = None #deletes the object by way of reference count 0 
@@ -75,6 +76,7 @@ class AppModule(appModuleHandler.AppModule):
 	def event_show(self, obj, nextHandler):
 		if obj.role == controlTypes.ROLE_PANE:
 			nvwave.playWaveFile(os.path.join(os.path.dirname(__file__), "waves", "autocompleteOpen.wav"))
+			self.isAutocomplete=True
 			core.callLater(100, self.waitforAndReportDestruction,obj)
 		nextHandler()
 
@@ -84,5 +86,6 @@ class AppModule(appModuleHandler.AppModule):
 			core.callLater(100, self.waitforAndReportDestruction,obj)
 			return
 		#The object is dead.
+		self.isAutocomplete=False
 		nvwave.playWaveFile(os.path.join(os.path.dirname(__file__), "waves", "autocompleteClose.wav"))
 

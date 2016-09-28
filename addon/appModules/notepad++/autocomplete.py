@@ -6,5 +6,6 @@ import os
 class AutocompleteList(IAccessible):
 
 	def event_selection(self):
+		speech.cancelSpeech()
 		speech.speakText(self.name)
 	
