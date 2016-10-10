@@ -24,9 +24,12 @@ class AppModule(appModuleHandler.AppModule):
 		if obj.windowClassName == u'Scintilla' and obj.windowControlID == 0:
 			clsList.insert(0, editWindow.EditWindow)
 			return
-		if obj.parent.windowClassName == u'ListBox' and obj.parent.parent.parent.windowClassName == u'ListBoxX' and obj.role == controlTypes.ROLE_LISTITEM:
-			clsList.insert(0, autocomplete.AutocompleteList)
-			return
+		try: 
+			if obj.parent.windowClassName == u'ListBox' and obj.parent.parent.parent.windowClassName == u'ListBoxX' and obj.role == controlTypes.ROLE_LISTITEM:
+				clsList.insert(0, autocomplete.AutocompleteList)
+				return
+		except AttributeError:
+			pass
 	
 		if (
 		(obj.windowControlID == 1682 and obj.role == controlTypes.ROLE_EDITABLETEXT)
@@ -66,7 +69,6 @@ class AppModule(appModuleHandler.AppModule):
 		self.guiManager = addonGui.GuiManager()
 		self.requestEvents()
 		self.isAutocomplete=False
-
 	def terminate(self):
 		del self.guiManager #deletes the object by way of reference count 0 
 
