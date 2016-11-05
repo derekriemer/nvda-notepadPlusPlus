@@ -4,11 +4,14 @@
 #This file is covered by the GNU General Public License.
 #See the file COPYING for more details.
 
-
+import time
 import controlTypes
 import api
+import winUser
+import speech
+from NVDAObjects import NVDAObject
 
-class KeyMapperList(object):
+class KeyMapperList(NVDAObject):
 	def event_gainFocus(self):
 		obj = self.firstChild.firstChild
 		try:
@@ -20,19 +23,36 @@ class KeyMapperList(object):
 			#We're screwed.
 			obj.firstChild.setFocus()
 
-class KeyMapperTabber(object):
+class KeyMapperTabItem(NVDAObject):
+	def click(self):
+		speech.cancelSpeech()
+		left, top, width, height = self.location
+		x = left+(width/2)
+		y = top+(height/2)
+		#click the middle of the screen after moving to this location.
+		winUser.setCursorPos(x,y)
+		winUser.mouse_event(winUser.MOUSEEVENTF_LEFTDOWN,0,0,None,None)
+		winUser.mouse_event(winUser.MOUSEEVENTF_LEFTUP,0,0,None,None)
+		speech.cancelSpeech()
+
+	def event_gainFocus(self):
+		self.click()
+		time.sleep(.025)
+		super(KeyMapperTabItem, self).event_gainFocus()
+			
+
+
+class KeyMapperTabber(NVDAObject):
 	"""
 	Manages the tab order of various controls, to manipulate them correctly.
 	ToDO: When #5960 incubates into a stable version, use that functionality.
 	"""
 
-	@property
-	def dialogRoot(self):
+	def _get_dialogRoot(self):
 		"""Property to get the root dialog so that we can get the correct child window from it. Just return the foreground object, since that works. """
 		return api.getForegroundObject()
 
-	@property
-	def nextTab(self):
+	def _get_nextTab(self):
 		if self.role == controlTypes.ROLE_BUTTON and self.windowControlID == 1:
 			#We are on the close button
 			#tab Control should get focus here.
@@ -42,8 +62,7 @@ class KeyMapperTabber(object):
 			#We want to move to the list, by way of the pane.
 			return self.dialogRoot.getChild(4).firstChild
 
-	@property
-	def previousTab(self):
+	def _get_previousTab(self):
 		if self.role == controlTypes.ROLE_LISTITEM:
 			return self.dialogRoot.firstChild #Focuses the tabList to focus the selected tab.
 		elif self.role == controlTypes.ROLE_TAB:

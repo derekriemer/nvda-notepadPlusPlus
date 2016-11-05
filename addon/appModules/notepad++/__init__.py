@@ -56,6 +56,8 @@ class AppModule(appModuleHandler.AppModule):
 			(obj.role == controlTypes.ROLE_LISTITEM and obj.parent.parent.parent.role == controlTypes.ROLE_PANE)
 			):
 				clsList.insert(0, keyMapperDialog.KeyMapperTabber)
+			if 			(obj.role == controlTypes.ROLE_TAB and obj.parent.childCount == 5):
+				clsList.insert(0, keyMapperDialog.KeyMapperTabItem)
 		except AttributeError:
 			pass
 
