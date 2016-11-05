@@ -25,7 +25,7 @@ class AppModule(appModuleHandler.AppModule):
 			clsList.insert(0, editWindow.EditWindow)
 			return
 		try: 
-			if obj.parent.windowClassName == u'ListBox' and obj.parent.parent.parent.windowClassName == u'ListBoxX' and obj.role == controlTypes.ROLE_LISTITEM:
+			if obj.role == controlTypes.ROLE_LISTITEM and obj.parent.windowClassName == u'ListBox' and obj.parent.parent.parent.windowClassName == u'ListBoxX':
 				clsList.insert(0, autocomplete.AutocompleteList)
 				return
 		except AttributeError:
