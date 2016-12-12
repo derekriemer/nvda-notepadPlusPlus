@@ -7,11 +7,14 @@
 import addonHandler
 import config
 from NVDAObjects.behaviors import EditableTextWithAutoSelectDetection
+from editableText import EditableText
+import api
 from queueHandler import registerGeneratorObject
 import speech
 import textInfos
 import tones
 import ui
+import eventHandler
 
 addonHandler.initTranslation()
 
@@ -113,7 +116,6 @@ class EditWindow(EditableTextWithAutoSelectDetection):
 		#Is it not a blank line, and are we further in the line than the marker position?
 		if caretPosition > config.conf["notepadPp"]["maxLineLength"] -1 and caretInfo.text not in ['\r', '\n']:
 			tones.beep(500, 50)
-
 
 	def script_goToFirstOverflowingCharacter(self, gesture):
 		info = self.makeTextInfo(textInfos.POSITION_CARET)
