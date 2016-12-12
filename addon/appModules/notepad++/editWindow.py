@@ -95,12 +95,6 @@ class EditWindow(EditableTextWithAutoSelectDetection):
 			return
 		info = self.makeTextInfo(textInfos.POSITION_CARET)
 		info.expand(textInfos.UNIT_LINE)
-		#Think of this as how far from the right we are (Are we farther from the right than the length we want?
-		if info.bookmark.endOffset - info.bookmark.startOffset <= config.conf["notepadPp"]["maxLineLength"]:
-			#Return since the caret event handles this.
-			#There's currently no ill side affect for playing the tone twice.
-			#However, It's not clean  to assume the user won't hear the beginning of one tone before the other one starts, then the other tone play.
-			return
 		if len(info.text.strip('\r\n\t ')) > config.conf["notepadPp"]["maxLineLength"]:
 			tones.beep(500, 50)
 
