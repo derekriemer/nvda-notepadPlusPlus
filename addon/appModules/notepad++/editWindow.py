@@ -15,6 +15,8 @@ import textInfos
 import tones
 import ui
 import eventHandler
+import re
+import locale
 
 addonHandler.initTranslation()
 
@@ -126,7 +128,19 @@ class EditWindow(EditableTextWithAutoSelectDetection):
 	script_goToFirstOverflowingCharacter.category = "Notepad++"
 
 	def script_reportLineInfo(self, gesture):
-		ui.message(self.parent.next.next.firstChild.getChild(2).name) 
+		lineInfo = self.parent.next.next.firstChild.getChild(2).name
+		# Get only the numbers we want from the statusBar.
+		lineInfoExpression = re.compile(r"^Ln\D+(\d\w*)\D+(\d\w*)\D+(\d\w*)\D+(\d\w*)")
+		lines, columns, selectedCharacters, selectedLines = lineInfoExpression.match(lineInfo).groups()
+		#Translators: The line and column position of the cursor.
+		lineInfo = _("line %s column %s" % (lines, columns))
+		if (locale.atoi(selectedCharacters)):	# Test the number not the string.
+			#Translators: The number of characters selected.
+			lineInfo += _(" %s characters selected" % (selectedCharacters))
+			if (locale.atoi(selectedLines)):	# Test the number not the string.
+				#Translators: The number of lines selected.
+				lineInfo += _(" %s lines selected" % (selectedLines))
+		ui.message(lineInfo)
 
 	#Translators: Script that announces information about the current line.
 	script_reportLineInfo.__doc__ = _("speak the line info item on the status bar")
