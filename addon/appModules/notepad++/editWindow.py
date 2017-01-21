@@ -156,7 +156,7 @@ class EditWindow(EditableTextWithAutoSelectDetection):
 		else:
 			#Translators: Message shown when there are no more search results in this direction using the notepad++ find command.
 			speech.speakMessage(_("No more search results in this direction."))
-	
+
 	#Translators: when pressed, goes to    the Next search result in Notepad++
 	script_reportFindResult.__doc__ = _("Queries the next or previous search result and speaks the selection and current line of it.")
 	script_reportFindResult.category = "Notepad++"
