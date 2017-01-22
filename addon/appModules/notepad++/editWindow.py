@@ -127,11 +127,11 @@ class EditWindow(EditableTextWithAutoSelectDetection):
 	script_goToFirstOverflowingCharacter.__doc__ = _("Moves to the first character that is after the maximum line length")
 	script_goToFirstOverflowingCharacter.category = "Notepad++"
 
+	lineInfoExpression = re.compile(r"^Ln\D+(\d\w*)\D+(\d\w*)\D+(\d\w*)\D+(\d\w*)")
 	def script_reportLineInfo(self, gesture):
 		lineInfo = self.parent.next.next.firstChild.getChild(2).name
 		# Get only the numbers we want from the statusBar.
-		lineInfoExpression = re.compile(r"^Ln\D+(\d\w*)\D+(\d\w*)\D+(\d\w*)\D+(\d\w*)")
-		lines, columns, selectedCharacters, selectedLines = lineInfoExpression.match(lineInfo).groups()
+		lines, columns, selectedCharacters, selectedLines = self.lineInfoExpression.match(lineInfo).groups()
 		#Translators: The line and column position of the cursor.
 		lineInfo = _("line %s column %s" % (lines, columns))
 		if (locale.atoi(selectedCharacters)):	# Test the number not the string.
