@@ -3,14 +3,27 @@ environment:
  PY_PYTHON: 2.7-32
 install:
   - py -m pip install markdown
+  - py -m pip install --egg scons
   
 
 build_script:
-  - PY scons.py
-  - PY scons.py pot
+  - scons
+  - scons pot
 
 artifacts:
   - path: '*.nvda-addon'
+    name: addon
     type: application/x-nvda-addon
   - path: '*.pot'
     type: application/x-pot
+deploy:
+  release: $(APPVEYOR_REPO_TAG_NAME)
+  description: $(APPVEYOR_REPO_TAG_NAME)
+  provider: GitHub
+  auth_token:
+    secure: D6nDTGin+O15mi48HCwAAu4gXJyUMxQd31t84RdWEFlfzYfgbu4FTH2VLC6l46Fy
+  artifact: addon
+  draft: false
+  prerelease: false
+  on:
+    appveyor_repo_tag: true        # deploy on tag push only
