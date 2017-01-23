@@ -30,7 +30,7 @@ In Notepad++ you can move to the matching brace of a program by pressing control
 To move You must be one character inside the  brace that you wish to match.
 When you press this command, nvda will read the line you landed on, and if the line consists of only a brace, it will read the line above and below the brace so you can get a feel for context.
 
-### Autocomplete.
+### Autocomplete
 
 The Autocomplete functionality of Notepad++ is not accessible by default. The autocomplete has many problems, including that it shows up in a floating window. To make this functionality accessible, three things are done. 
 
