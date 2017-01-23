@@ -161,6 +161,21 @@ class EditWindow(EditableTextWithAutoSelectDetection):
 	script_reportFindResult.__doc__ = _("Queries the next or previous search result and speaks the selection and current line of it.")
 	script_reportFindResult.category = "Notepad++"
 
+	def script_switchDocument(self, gesture):
+		gesture.send()
+		# Get the file name from the Notepad++ title bar.
+		title = self.parent.parent.parent.windowText
+		if (title):
+			if (title.endswith(" - Notepad++")):
+				# Split the title removing " - Notepad++".
+				fileName = title.rsplit(" - ", 2)[0]
+		if (fileName):
+			ui.message(fileName)
+
+	#translators: Says the file name when switching documents.
+	script_switchDocument.__doc__ = _("Switch between open documents and speak the result.")
+	script_switchDocument.category = "NotepadPlusPlus"
+
 	__gestures = {
 		"kb:control+b" : "goToMatchingBrace",
 		"kb:f2": "goToNextBookmark",
@@ -171,4 +186,6 @@ class EditWindow(EditableTextWithAutoSelectDetection):
 		"kb:nvda+g": "goToFirstOverflowingCharacter",
 		"kb:f3" : "reportFindResult",
 		"kb:shift+f3" : "reportFindResult",
+		"kb:control+tab" : "switchDocument",
+		"kb:control+shift+tab" : "switchDocument",
 	}

@@ -62,6 +62,10 @@ If you type text here and press enter, the text in the window is selected and th
 In Notepad++ you can press f3 or shift+f3 to repeat the search in the forward or backward direction respectively. 
 NVDA will read both the current line, and the selection within the line which represents the found text.
 
+### Support for switching documents.
+
+NVDA will speak the name of the new document on screen when switching between documents with control+tab and control+shift+tab.
+
 ## Non-default Notepad++ keyboard shortcuts
 
 This add-on expects that Notepad++ is being used with the default shortcut keys. 
