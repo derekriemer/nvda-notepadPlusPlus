@@ -30,6 +30,14 @@ In Notepad++ you can move to the matching brace of a program by pressing control
 To move You must be one character inside the  brace that you wish to match.
 When you press this command, nvda will read the line you landed on, and if the line consists of only a brace, it will read the line above and below the brace so you can get a feel for context.
 
+### Autocomplete.
+
+The Autocomplete functionality of Notepad++ is not accessible by default. The autocomplete has many problems, including that it shows up in a floating window. To make this functionality accessible, three things are done. 
+
+1. When an autocomplete suggestion appears, a whoosh sound is played. The reverse sound is made when the suggestions disappear.
+2. Pressing the down/up arrows read the next/previous suggested text. 
+3. The recommended text is spoken when the suggestions appear.
+
 ### Keyboard shortcut mapper.
 
 Sometimes you have to add or change the keyboard shortcuts in Notepad++. 
@@ -53,7 +61,7 @@ Pressing nvda+shift+\ (back slash) at any time will report the following:
 
 * the line number
 * the column number I.E. how far into the line you are.
-* the selection size, (number of characters horizontally selected, followed by a | symbol, followed by the number of characters vertically selected, which would make a rectangle.
+* the selection size, (number of characters horizontally selected, followed by  the number of characters vertically selected, which would make a rectangle. This info is only reported if relevant.
 
 ### Support for the previous/next find feature.
 
