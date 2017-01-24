@@ -92,4 +92,3 @@ class AppModule(appModuleHandler.AppModule):
 		#The object is dead.
 		self.isAutocomplete=False
 		nvwave.playWaveFile(os.path.join(os.path.dirname(__file__), "waves", "autocompleteClose.wav"))
-
