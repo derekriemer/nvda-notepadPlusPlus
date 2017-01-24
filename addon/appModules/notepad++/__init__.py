@@ -30,7 +30,7 @@ class AppModule(appModuleHandler.AppModule):
 				return
 		except AttributeError:
 			pass
-
+	
 		if (
 		(obj.windowControlID == 1682 and obj.role == controlTypes.ROLE_EDITABLETEXT)
 		or
@@ -83,6 +83,7 @@ class AppModule(appModuleHandler.AppModule):
 			self.isAutocomplete=True
 			core.callLater(100, self.waitforAndReportDestruction,obj)
 		nextHandler()
+
 
 	def waitforAndReportDestruction(self, obj):
 		if obj.parent: #None when no parent.
