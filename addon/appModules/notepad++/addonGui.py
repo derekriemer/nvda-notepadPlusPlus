@@ -40,6 +40,8 @@ class GuiManager(object):
 	def __del__(self):
 		try:
 			gui.mainFrame.sysTrayIcon.preferencesMenu.RemoveItem(self.prefsMenuItem)
+			#If we die, so did the app. If the user relaunches, so should we.
+			GuiManager.isMultiInst = False
 		except wx.PyDeadObjectError:
 			pass
 
