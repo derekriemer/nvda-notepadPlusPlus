@@ -4,9 +4,10 @@
 #This file is covered by the GNU General Public License.
 #See the file COPYING for more details.
 
+import weakref
 import addonHandler
 import config
-from NVDAObjects.behaviors import EditableTextWithAutoSelectDetection
+from NVDAObjects.behaviors import EditableTextWithAutoSelectDetection, EditableTextWithSuggestions
 from editableText import EditableText
 import api
 from queueHandler import registerGeneratorObject
@@ -18,21 +19,24 @@ import eventHandler
 
 addonHandler.initTranslation()
 
-class EditWindow(EditableTextWithAutoSelectDetection):
+class EditWindow(EditableTextWithAutoSelectDetection, EditableTextWithSuggestions):
 	"""An edit window that implements all of the scripts on the edit field for Notepad++"""
 
+	
 	def event_loseFocus(self):
 		#Hack: finding the edit field from the foreground window is unreliable, so cache it here.
+		#We can't use the weakref cache, because NVDA probably (?) kill this object off when it loses focus.
+		#Also, derek is too lazy to verify this when it already works.
 		self.appModule.edit = self
 
 	def event_gainFocus(self):
 		super(EditWindow, self).event_gainFocus()
 		#Hack: finding the edit field from the foreground window is unreliable. If we previously cached an object, this will clean it up, allowing it to be garbage collected.
 		self.appModule.edit = None
+		self.appModule._edit = weakref.ref(self)
 
 	def initOverlayClass(self):
 		#Notepad++ names the edit window "N" for some stupid reason.
-		#Nuke the name, because it really doesn't matter.
 		self.name = ""
 
 	def script_goToMatchingBrace(self, gesture):
