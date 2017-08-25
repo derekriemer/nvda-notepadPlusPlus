@@ -70,7 +70,33 @@ If you type text here and press enter, the text in the window is selected and th
 In Notepad++ you can press f3 or shift+f3 to repeat the search in the forward or backward direction respectively. 
 NVDA will read both the current line, and the selection within the line which represents the found text.
 
-## Non-default Notepad++ keyboard shortcuts
+### Preview of MarkDown or Hypertext as Web page 
+
+Notepad++ does natively not support MarkDown (*.md) with e.g. language highlighting.   
+However, you can preview such content as browsable message if you press NVDA+h (Escape to close the message). 
+Pressing this combination twice will open it in your standard browser.  
+Some popular Markdown extensions such as PHP Extra or TOC are supported.  
+It works also with (single-paged) Html. 
+
+To try it out, Copy the following block, paste it into a new Notepad++ document and press NVDA+h:
+
+<br>
+
+    ---
+    ## Where it began...  
+    > A long time ago,  
+    > in a foreign land.  
+    ## And where it went next  
+    1. First stage  
+    2. Second stage  
+    ## Eventually it became  
+    * unordered  
+    * but still  
+    * a list  
+
+<br>
+
+# Non-default Notepad++ keyboard shortcuts
 
 This add-on expects that Notepad++ is being used with the default shortcut keys. 
 If this is not the case, please change this app module's key commands to reflect your Notepad++ commands as necessary in NVDA's input gestures dialog.
