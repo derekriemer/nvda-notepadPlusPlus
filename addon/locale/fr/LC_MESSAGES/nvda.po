@@ -1,16 +1,16 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: NotepadPlusPlus 1.1-dev\n"
+"Project-Id-Version: NotepadPlusPlus 1.2-dev\n"
 "Report-Msgid-Bugs-To: 'nvda-translations@freelists.org'\n"
-"POT-Creation-Date: 2017-08-23 21:40+0200\n"
-"PO-Revision-Date: 2017-08-23 21:48+0200\n"
+"POT-Creation-Date: 2017-08-28 15:38+0200\n"
+"PO-Revision-Date: 2017-08-28 15:42+0200\n"
 "Last-Translator: Rémy Ruiz <remyruiz@gmail.com>\n"
 "Language-Team: Rémy Ruiz <remyruiz@gmail.com>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.12\n"
+"X-Generator: Poedit 2.0.3\n"
 "X-Poedit-Basepath: c:/users/Rémy Ruiz/appdata/roaming/nvda/addons/"
 "NotepadPlusPlus\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
@@ -61,22 +61,22 @@ msgstr ""
 
 #. Translators: Script that announces information about the current line.
 #: addon\appModules\notepad++\editWindow.py:142
-msgid "speak the line info item on the status bar"
-msgstr "annonce l'élément information de ligne sur la barre d'état"
+msgid "Speak the line info item on the status bar"
+msgstr "Annonce l'élément information de ligne sur la barre d'état"
 
 #. Translators: Message shown when there are no more search results in this direction using the notepad++ find command.
 #: addon\appModules\notepad++\editWindow.py:154
-msgid "No more search results in this direction."
-msgstr "Aucun autre résultat de recherche dans cette direction\"."
+msgid "No more search results in this direction"
+msgstr "Aucun autre résultat de recherche dans cette direction"
 
 #. Translators: when pressed, goes to	   the Next search result in Notepad++
 #: addon\appModules\notepad++\editWindow.py:157
 msgid ""
 "Queries the next or previous search result and speaks the selection and "
-"current line of it."
+"current line of it"
 msgstr ""
 "Consulte le résultat de la recherche précédente ou suivante et annonce la "
-"sélection et la ligne actuelle de la même."
+"sélection et la ligne actuelle de la même"
 
 #. Translators: The title of the browseable message
 #: addon\appModules\notepad++\editWindow.py:169
@@ -86,15 +86,15 @@ msgstr "Aperçu de MarkDown ou HTML"
 #. Translators: when pressed once, opens a message box or, pressed twice, the default browser and interprets the Editor text	as markdown/HTML
 #: addon\appModules\notepad++\editWindow.py:184
 msgid ""
-"Shows the Editor Window Content after converting to HTML.\n"
-"\tPressing once shows it within the internal Browser, Pressing twice sends "
-"it to the default Browser.\n"
-"\tThe temporary file is removed after 20 seconds"
+"Shows the Editor Window Content after converting it to HTML.\n"
+"Pressing once shows it within the internal Browser, Pressing twice sends it "
+"to the default Browser.\n"
+"The temporary file is removed after 20 seconds."
 msgstr ""
 "Affiche le contenu de la fenêtre de l'éditeur après la conversion en HTML.\n"
-"\tEn appuyant une fois, le montre dans le navigateur interne, en appuyant "
-"deux fois l'envoie au navigateur par défaut.\n"
-"\tLe fichier temporaire est supprimé après 20 secondes"
+"En appuyant une fois, le montre dans le navigateur interne, en appuyant deux "
+"fois l'envoie au navigateur par défaut.\n"
+"Le fichier temporaire est supprimé après 20 seconds."
 
 #. Add-on summary, usually the user visible name of the addon.
 #. Translators: Summary for this add-on to be shown on installation and add-on information.
@@ -106,19 +106,19 @@ msgstr "Notepad++"
 #. Translators: Long description to be shown for this add-on on add-on information from add-ons manager
 #: buildVars.py:20
 msgid ""
-" Notepad++ App Module.\n"
-"\tThis addon improves the accessibility of Notepad ++. To learn more, press "
+"Notepad++ App Module.\n"
+"This addon improves the accessibility of Notepad ++. To learn more, press "
 "the add-on help button."
 msgstr ""
-" App Module pour Notepad++.\n"
-"\tCe module complémentaire améliore l'accessibilité de Notepad ++. Pour en "
+"App Module pour Notepad++.\n"
+"Ce module complémentaire améliore l'accessibilité de Notepad ++. Pour en "
 "savoir plus, appuyez sur le bouton Aide de ce module complémentaire."
 
 #~ msgid ""
-#~ "Notepad++ App Module.\n"
-#~ "\tThis addon improves the accessibility of Notepad ++. To learn more, "
-#~ "press the add-on help button."
+#~ "Notepad++ App Module\n"
+#~ "This addon improves the accessibility of Notepad ++. To learn more, press "
+#~ "the add-on help button."
 #~ msgstr ""
 #~ "App Module pour Notepad++.\n"
-#~ "\tCe module complémentaire améliore l'accessibilité de Notepad ++. Pour "
-#~ "en savoir plus, appuyez sur le bouton Aide de ce module complémentaire."
+#~ "Ce module complémentaire améliore l'accessibilité de Notepad ++. Pour en "
+#~ "savoir plus, appuyez sur le bouton Aide de ce module complémentaire."

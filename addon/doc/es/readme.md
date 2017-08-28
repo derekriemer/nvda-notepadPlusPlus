@@ -1,10 +1,10 @@
-# Notepad++ Complemento  para NVDA. #
+# Notepad++ Complemento  para NVDA #
 
-Este complemento mejora la accesibilidad de notepad++. Notepad++ es un editor de texto para Windows, y tiene muchas características. Puedes obtener más información al respecto  en https://notepad-plus-plus.org/
+Este complemento mejora la accesibilidad de notepad++. Notepad++ es un editor de texto para Windows, y tiene muchas características. Puedes obtener más información al respecto  en <https://notepad-plus-plus.org/>
 
 ## Caracteristicas:
 
-### Apoyo para marcadores.
+### Apoyo para marcadores
 
 Notepad++ te permite establecer marcadores en tu texto.
 Un marcador te permite volver rápidamente a una ubicación en el editor en cualquier momento.
@@ -20,7 +20,7 @@ que emitirá un pitido cuando una línea es más larga que el número especifica
 Para activar esta función, primero activa Notepad++, luego vas al menú de NVDA y activaNotepad++
 bajo el menú Opciones. Marca la casilla "Activar el indicador de longitud de línea" y cambiar el máximo número de caracteres según sea necesario. Cuando la función está activada, escuchará un pitido al desplazarte a través de líneas que son demasiado largas o caracteres que están sobre la longitud máxima. Alternativamente, puedes pulsar NVDA+g para saltar al primer carácter de desbordamiento en la línea activa.
 
-### Moverse al delimitador simétrico.
+### Moverse al delimitador simétrico
 
 En Notepad++ puedes desplazarte al delimitador simétrico de un programa puulsando control+b. 
 Para moverte tienes que estar   en Un carácter de la llave que deseas hacer coincidir.
@@ -34,7 +34,7 @@ La funcionalidad de autocompletado de Notepad++ no es accesible por defecto. El 
 2. Al pulsar las flechas abajo/arriba lee el texto sugerido siguiente/anterior. 
 3. El texto recomendado se verbaliza cuando aparecen las sugerencias.
 
-### Mapeador de atajos de teclado.
+### Mapeador de atajos de teclado
 
 A veces tienes que agregar o cambiar los atajos de teclado en Notepad++. 
 Por ejemplo, puedes guardar una macro para eliminar el último carácter de una línea en cada líneaa.
@@ -59,7 +59,7 @@ Pulsando NVDA+shift+\ (barra inversa) en cualquier momento se anunciara lo sigui
 * el número de la columna, es decir, cuan lejos estás en la línea.
 * el tamaño de la seleccion, (número de caracteres horizontalmente seleccionados, seguido por un símbolo, seguido por el número de caracteres seleccionados verticalmente, lo que haría un rectángulo.
  
-### Apoyo a la funcion de busqueda anterior / siguiente.
+### Apoyo a la funcion de busqueda anterior / siguiente
 
 Por defecto, si pulsas control+f aparece el cuadro de diálogo Buscar. 
 Si tecleas un texto aquí y pulsas Intro, el texto en la ventana es seleccionado y el documento  se desplaza hacia  el resultado de la búsqueda siguiente.

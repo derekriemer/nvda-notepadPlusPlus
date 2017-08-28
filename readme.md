@@ -12,7 +12,7 @@ To set a bookmark, from the line you wish to bookmark, press control+f2.
 Then,  when you want to come back to this bookmark, press f2 to jump to the next  bookmark, or shift+f2 to jump backwards to the previous one.
 You can set as many bookmarks as you would like.
 
-### Maximum Length for Lines Announcement
+### Maximum Line Length Announcement
 
 Notepad++ has a ruler that can be used for checking a line's length. However, this feature
 is neither accessible or meaningful to blind users, so this add-on has an audible line length

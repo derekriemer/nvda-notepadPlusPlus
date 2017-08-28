@@ -1,10 +1,10 @@
-# Notepad++ Module complémentaire pour NVDA. #
+# Notepad++ Module complémentaire pour NVDA #
 
-Ce module complémentaire améliore l'accessibilité de notepad++. Notepad++ est un éditeur de texte pour windows, et possède de nombreuses fonctionnalités. Pour en savoir plus à ce sujet  aller sur https://notepad-plus-plus.org/
+Ce module complémentaire améliore l'accessibilité de notepad++. Notepad++ est un éditeur de texte pour windows, et possède de nombreuses fonctionnalités. Pour en savoir plus à ce sujet  aller sur <https://notepad-plus-plus.org/>
 
 ## Caractéristiques :
 
-### Prise en charge des signets.
+### Prise en charge des signets
 
 Notepad++ permet de définir des signets dans votre texte.
 Un signet vous permet de revenir rapidement vers un emplacement dans l’éditeur à n’importe quel moment.
@@ -19,7 +19,7 @@ qui émet un bip chaque fois qu’une ligne est plus longue que le nombre de car
 
 Pour activer cette fonctionnalité, tout d’abord activer Notepad++, puis allez dans le menu NVDA et activer Notepad++ dans le menu paramètres. Cocher la case "Activer l'indicateur de longueur de ligne" et changer le nombre  maximum de caractères que nécessaire. Lorsque la fonctionnalité est activée, vous entendrez un bip lors du défilement à travers des lignes qui sont trop longues ou des caractères qui dépassent la longueur maximale. Vous pouvez également appuyer sur NVDA+g pour aller jusqu’au premier caractère débordant sur la ligne active.
 
-### Se déplacer au délimiteur symétrique.
+### Se déplacer au délimiteur symétrique
 
 Dans Notepad++ vous pouvez vous déplacer au délimiteur symétrique d'un programme en appuyant sur  contrôle+b. 
 Pour se déplacer vous devez être dans un caractère de l'accolade à laquelle vous souhaitez correspondre.
@@ -33,7 +33,7 @@ La fonctionnalité de la saisie automatique de Notepad++ n'est pas accessible pa
 2. En appuyant sur les flèches bas/haut il   lira le texte suggéré suivant/précédent. 
 3. Le texte recommandé est verbalisé lorsque les suggestions apparaissent.
 
-### Mappeur de raccourcis clavier.
+### Mappeur de raccourcis clavier
 
 Parfois, vous devez ajouter ou modifier les raccourcis clavier dans Notepad++. 
 Par exemple, vous pouvez enregistrer une macro pour supprimer le dernier caractère d'une ligne sur chaque ligne.
@@ -58,7 +58,7 @@ Appuyer sur NVDA+maj+\ (barre oblique inverser) à tout moment  il va annoncé c
 * le numéro de colonne C'EST À DIRE. Jusqu'où vous êtes éloigné dans la ligne.
 * la taille de la sélection, (nombre de caractères sélectionnés horizontalement, suivi d'un symbole |, suivi du nombre de caractères sélectionnés verticalement, ce qui ferait un rectangle.
 
-### Prise en charge de la fonction de recherche précédente / suivante.
+### Prise en charge de la fonction de recherche précédente / suivante
 
 Par défaut, si vous appuyez sur contrôle+f vous ouvrez la boîte de dialogue de recherche. 
 Si vous tapez du texte ici et appuyez sur Entrée, le texte dans la fenêtre est sélectionné et le document est déplacé vers le résultat de recherche suivant. 

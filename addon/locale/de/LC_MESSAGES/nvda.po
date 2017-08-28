@@ -7,16 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 'NotepadPlusPlus' '1.2-dev'\n"
 "Report-Msgid-Bugs-To: 'nvda-translations@freelists.org'\n"
-"POT-Creation-Date: 2017-08-25 13:01+0200\n"
-"PO-Revision-Date: 2017-08-28 12:14+0200\n"
+"POT-Creation-Date: 2017-08-28 15:38+0200\n"
+"PO-Revision-Date: 2017-08-28 15:45+0200\n"
+"Last-Translator: Rémy Ruiz <remyruiz@gmail.com>\n"
 "Language-Team: Robert Hänggi\n"
+"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 2.0.3\n"
-"Last-Translator: Rémy Ruiz <remyruiz@gmail.com>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"Language: de\n"
 
 #: addon\appModules\notepad++\addonGui.py:30
 msgid "Notepad++..."
@@ -60,19 +60,19 @@ msgstr ""
 
 #. Translators: Script that announces information about the current line.
 #: addon\appModules\notepad++\editWindow.py:142
-msgid "speak the line info item on the status bar"
+msgid "Speak the line info item on the status bar"
 msgstr "Spricht die sich auf der Statuszeile befindliche Zeileninformation"
 
 #. Translators: Message shown when there are no more search results in this direction using the notepad++ find command.
 #: addon\appModules\notepad++\editWindow.py:154
-msgid "No more search results in this direction."
-msgstr "Keine weiteren Suchergebnisse in dieser Richtung."
+msgid "No more search results in this direction"
+msgstr "Keine weiteren Suchergebnisse in dieser Richtung"
 
 #. Translators: when pressed, goes to	   the Next search result in Notepad++
 #: addon\appModules\notepad++\editWindow.py:157
 msgid ""
 "Queries the next or previous search result and speaks the selection and "
-"current line of it."
+"current line of it"
 msgstr ""
 "Fragt das nächste oder voherige Suchergebnis ab und spricht sowohl Auswahl "
 "als auch Zeileninhalt"
@@ -85,12 +85,12 @@ msgstr "Vorschau von MarkDown oder Html Inhalten"
 #. Translators: when pressed once, opens a message box or, pressed twice, the default browser and interprets the Editor text	as markdown/HTML
 #: addon\appModules\notepad++\editWindow.py:184
 msgid ""
-"Shows the Editor Window Content after converting to HTML.\n"
-"\tPressing once shows it within the internal Browser, Pressing twice sends "
-"it to the default Browser.\n"
-"\tThe temporary file is removed after 20 seconds"
+"Shows the Editor Window Content after converting it to HTML.\n"
+"Pressing once shows it within the internal Browser, Pressing twice sends it "
+"to the default Browser.\n"
+"The temporary file is removed after 20 seconds."
 msgstr ""
-"Zeigt den Fensterinhalt, nachdem er zu Html konvertiert worden ist.\n"
+"Zeigt den Fensterinhalt an, nachdem er zu Html konvertiert worden ist.\n"
 "Durch einmaliges Drücken wird er im internen Browser dargestellt, "
 "Zweimaliges Drücken sendet ihn an den Standard Browser.\n"
 "Die temporäre Datei wird nach 20 Sekunden automatisch entfernt."
@@ -105,11 +105,10 @@ msgstr "Notepad++"
 #. Translators: Long description to be shown for this add-on on add-on information from add-ons manager
 #: buildVars.py:20
 msgid ""
-" Notepad++ App Module.\n"
-"\tThis addon improves the accessibility of Notepad ++. To learn more, press "
+"Notepad++ App Module.\n"
+"This addon improves the accessibility of Notepad ++. To learn more, press "
 "the add-on help button."
 msgstr ""
-"Notepad++ Anwendungsmodul.\n"
+" Notepad++ Anwendungsmodul.\n"
 "Diese Erweiterung verbessert die barrierefreie Bedienung von  Notepad++. "
-"Drücken Sie den Schalter \"Hilfe über diese Erweiterung\"um mehr zu "
-"erfahren."
+"Drücken Sie den Schalter \"Hilfe über diese Erweiterung\"um mehr zu erfahren."

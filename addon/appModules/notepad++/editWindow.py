@@ -181,9 +181,9 @@ class EditWindow(EditableTextWithAutoSelectDetection):
 			ui.browseableMessage(html, title, True)
 
 	#Translators: when pressed once, opens a message box or, pressed twice, the default browser and interprets the Editor text	as markdown/HTML
-	script_htmlPreview.__doc__ = _("""Shows the Editor Window Content after converting to HTML.
+	script_htmlPreview.__doc__ = _("""Shows the Editor Window Content after converting it to HTML.
 Pressing once shows it within the internal Browser, Pressing twice sends it to the default Browser.
-The temporary file is removed after 20 seconds""")
+The temporary file is removed after 20 seconds.""")
 	script_htmlPreview.category = "Notepad++"
 
 	__gestures = {
