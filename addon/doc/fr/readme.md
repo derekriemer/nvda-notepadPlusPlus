@@ -65,6 +65,32 @@ Si vous tapez du texte ici et appuyez sur Entrée, le texte dans la fenêtre est
 Dans Notepad++ Vous pouvez appuyer sur f3 ou maj+f3 pour répéter la recherche dans la direction vers l'avant ou vers l'arrière respectivement. 
 NVDA lira à la fois la ligne courante et la sélection dans la ligne qui représente le texte trouvé.
 
+### Aperçu de MarkDown ou Hypertext en tant que page Web 
+
+Notepad++ Nativement, ne supporte pas MarkDown (*.md) avec par exemple la coloration de langage.   
+Cependant, vous pouvez prévisualiser ce contenu comme un message consultable si vous appuyez sur NVDA+h (Échap pour fermer le message). 
+Appuyez deux fois sur cette combinaison pour l'ouvrir dans votre navigateur standard.  
+Certaines extensions Markdown populaires telles que PHP Extra ou TOC sont prises en charge.  
+Il fonctionne également avec (single-paged) Html. 
+
+Pour l'essayer, copiez le bloc suivant, collez-le dans un nouveau document Notepad ++ et appuyez sur NVDA+h :
+
+<br>
+
+    ---
+    ## D'où cela a commencé...  
+    > Il y a longtemps,  
+    > dans un pays étranger.  
+    ## Et où est-il allé ensuite  
+    1. Première étape  
+    2. Deuxième étape  
+    ## Finalement, il est devenu  
+    * non ordonné  
+    * mais reste  
+    * une liste  
+
+<br>
+
 ## Raccourcis clavier Notepad++ non par défaut
 
 Ce module complémentaire suppose que Notepad++ est utilisé avec les touches de raccourci par défaut. 

@@ -139,7 +139,7 @@ class EditWindow(EditableTextWithAutoSelectDetection):
 		ui.message(self.parent.next.next.firstChild.getChild(2).name) 
 
 	#Translators: Script that announces information about the current line.
-	script_reportLineInfo.__doc__ = _("speak the line info item on the status bar")
+	script_reportLineInfo.__doc__ = _("Speak the line info item on the status bar")
 	script_reportLineInfo.category = "Notepad++"
 
 	def script_reportFindResult(self, gesture):
@@ -151,10 +151,10 @@ class EditWindow(EditableTextWithAutoSelectDetection):
 			speech.speakMessage(new.text)
 		else:
 			#Translators: Message shown when there are no more search results in this direction using the notepad++ find command.
-			speech.speakMessage(_("No more search results in this direction."))
+			speech.speakMessage(_("No more search results in this direction"))
 
 	#Translators: when pressed, goes to	   the Next search result in Notepad++
-	script_reportFindResult.__doc__ = _("Queries the next or previous search result and speaks the selection and current line of it.")
+	script_reportFindResult.__doc__ = _("Queries the next or previous search result and speaks the selection and current line of it")
 	script_reportFindResult.category = "Notepad++"
 
 	def script_htmlPreview(self, gesture):
@@ -182,8 +182,8 @@ class EditWindow(EditableTextWithAutoSelectDetection):
 
 	#Translators: when pressed once, opens a message box or, pressed twice, the default browser and interprets the Editor text	as markdown/HTML
 	script_htmlPreview.__doc__ = _("""Shows the Editor Window Content after converting to HTML.
-	Pressing once shows it within the internal Browser, Pressing twice sends it to the default Browser.
-	The temporary file is removed after 20 seconds""")
+Pressing once shows it within the internal Browser, Pressing twice sends it to the default Browser.
+The temporary file is removed after 20 seconds""")
 	script_htmlPreview.category = "Notepad++"
 
 	__gestures = {

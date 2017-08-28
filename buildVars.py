@@ -17,7 +17,7 @@ addon_info = {
 	"addon_summary" : _("Notepad++"),
 	# Add-on description
 	# Translators: Long description to be shown for this add-on on add-on information from add-ons manager
-	"addon_description" : _(""" Notepad++ App Module.
+	"addon_description" : _(""" Notepad++ App Module
 	This addon improves the accessibility of Notepad ++. To learn more, press the add-on help button."""),
 	# version
 	"addon_version" : "1.2-dev",

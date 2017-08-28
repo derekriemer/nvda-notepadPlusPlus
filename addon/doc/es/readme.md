@@ -66,6 +66,32 @@ Si tecleas un texto aquí y pulsas Intro, el texto en la ventana es seleccionado
 En Notepad++ puedes pulsar f3 o shift+f3 para repetir la búsqueda en  dirección hacia    adelante o hacia atrás respectivamente. 
 NVDA leerá tanto la línea actual, y la selección dentro de la línea que representa el texto encontrado.
 
+### Vista previa de MarkDown o Hipertexto como página web 
+
+Notepad++ No es compatible con MarkDown (*.md) p.ej. el resaltado del lenguaje.   
+Sin embargo, puede obtener una vista previa de dicho contenido como mensaje navegable si pulsa NVDA+h (Escape para cerrar el mensaje). 
+Si pulsa esta combinación dos veces, la abrirá en su navegador estándar.  
+Algunas extensiones de Markdown populares como PHP Extra o TOC son compatibles.  
+Funciona también con (single-paged) Html. 
+
+Para probarlo, copie el siguiente bloque, péguelo en un nuevo documento de Notepad ++ y presione NVDA+h:
+
+<br>
+
+    ---
+    ## Donde empezó...  
+    > Hace mucho tiempo,  
+    > en un país extranjero.  
+    ## Y adonde fue después  
+    1. Primera etapa  
+    2. Segunda etapa  
+    ## Eventualmente se convirtió en  
+    * no ordenado  
+    * pero sigue siendo  
+    * una lista  
+
+<br>
+
 ## Atajos de teclado de Notepad++ no por defecto
 
 Este complemento supone que Notepad++ es utilizado con las teclas de acceso directo por defecto. 
