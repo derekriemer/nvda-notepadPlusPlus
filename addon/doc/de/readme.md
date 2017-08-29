@@ -1,25 +1,25 @@
-# Notepad++ Erweiterung für  NVDA #
+# Notepad++ Erweiterung für NVDA #
 
-Diese Erweiterung  verbessert die barrierefreie Bedienung  von Notepad++. Notepad++ ist ein Text Editor für Windows und verfügt über viele Funktionen. Sie können mehr erfahren bei  <https://notepad-plus-plus.org/>
+Diese Erweiterung verbessert die barrierefreie Bedienung von Notepad++. Notepad++ ist ein Text Editor für Windows und verfügt über viele Funktionen. Sie können mehr erfahren bei <https://notepad-plus-plus.org/>
 
 ## Besonderheiten:
 
 ### Unterstützung für Lesezeichen
 
 Notepad++ erlaubt es Ihnen im Text Lesezeichen zu setzen.
-Ein Lesezeichen gestattet  es Ihnen jederzeit  rasch an eine gespeicherte  Position im Editor   zurückzukehren.
-Um ein Lesezeichen zu setzen, drücken Sie Steuerung+F2 in der Zeile wo es  erstellt werden soll.
-Sie können nun F2 drücken um zum nächsten oder auch Umschalt+F2 um zum vorherigen Lesezeichen zu gelangen.  
+Ein Lesezeichen gestattet es Ihnen jederzeit rasch an eine gespeicherte Position im Editor zurückzukehren.
+Um ein Lesezeichen zu setzen, drücken Sie Steuerung+F2 in der Zeile wo es erstellt werden soll.
+Sie können nun F2 drücken um zum nächsten oder auch Umschalt+F2 um zum vorherigen Lesezeichen zu gelangen. 
 Sie können so viele Lesezeichen setzen wie Sie möchten.
 
 ### Signalisierung bei Erreichen der maximalen Zeilenlänge
 
-Notepad++ verfügt über ein Lineal das zum Überprüfen  der Zeilenlänge genutzt werden kann.
-Jedoch ist diese Funktion weder  zugänglich noch aussagekräftig für blinde Benutzer.
-Daher signalisiert diese Erweiterung durch einen Piepton   wann immer  die Zeile länger als die vorgegebene Anzahl von Zeichen ist.
-Um diese Funktion einzuschalten aktivieren  Sie zunächst Notepad++, öffnen dann das NVDA Menü und wählen  unter Einstellungen "Notepad++".
+Notepad++ verfügt über ein Lineal das zum Überprüfen der Zeilenlänge genutzt werden kann.
+Jedoch ist diese Funktion weder zugänglich noch aussagekräftig für blinde Benutzer.
+Daher signalisiert diese Erweiterung durch einen Piepton wann immer die Zeile länger als die vorgegebene Anzahl von Zeichen ist.
+Um diese Funktion einzuschalten aktivieren Sie zunächst Notepad++, öffnen dann das NVDA Menü und wählen unter Einstellungen "Notepad++".
 Aktivieren Sie daraufhin das Kontrollkästchen "Aktiviere Anzeige von überlangen Zeilen" und geben Sie unter "Maximal erlaubte Zeilenlänge:" die gewünschte Zahl ein.
- Wenn die Funktion eingeschaltet ist hören Sie einen Piepton wann immer  Sie zu einer überlangen Zeile navigieren oder wenn sich das Zeichen an der Einfügemarke  ausserhalb der  erlaubten Zeilenlänge befindet.
+ Wenn die Funktion eingeschaltet ist hören Sie einen Piepton wann immer Sie zu einer überlangen Zeile navigieren oder wenn sich das Zeichen an der Einfügemarke ausserhalb der erlaubten Zeilenlänge befindet.
 Sie können auch NVDA+G drücken um zum ersten Zeichen in der aktiven Zeile zu gelangen dessen Position grösser als die erlaubte Anzahl von Zeichen ist.
 
 ### Sprung zur zugehörigen Klammer
@@ -52,60 +52,58 @@ genau so wie Sie es von anderen Dialogen gewöhnt sind.
 
 ### Inkrementelle Suche
 
-Eine der interessantesten funktionen  von Notepad++ ist die
+Eine der interessantesten funktionen von Notepad++ ist die
 Fähigkeit eine inkrementelle Suche durchführen zu können.
-Das ist ein Suchmodus  bei welchem Sie nach einer Phrase suchen indem Sie  Text im Eingabefeld eintippen und das Programm in Realzeit zu der entsprechenden Stelle voranrückt.
-Während Sie tippen, wird das Dokument so verschoben das die Zeile mit der wahrscheinlichsten Übereinstimmung im Fokus ist
-und weitere Übereinstimmungen werden grafisch hervorgehoben und die Gesamtanzahl angezeigt.
-Es gibt Schalter um zur vorherigen oder nächsten Übereinstimmung zu wechseln.
+Das ist ein Suchmodus bei welchem Sie nach einer Phrase suchen indem Sie Text im Eingabefeld eintippen und das Programm in Realzeit zu der entsprechenden Stelle voranrückt.
+Während Sie tippen, wird die Zeile mit der wahrscheinlichsten Übereinstimmung fokusiert und weitere Übereinstimmungen farblich hervorgehoben und die Gesamtanzahl angezeigt.
+Es gibt Schalter um zur vorherigen oder nächsten Übereinstimmung zu wechseln. 
+Während Sie tippen , spricht NVDA die Zeile in der ein Suchergebnis gefunden worden ist. NVDA gibt zudem an wieviele Übereinstimmungen es gibt, jedoch nur wenn sich deren Zahl gerade geändert hat.
+Sobald Sie die gewünschte Zeile im Text gefunden haben, drücken Sie einfach Escape, und die Einfügemarke wird in diese Zeile gesetzt werden. 
+Um diesen Dialog zu öffnen, wählen Sie inkrementelle Suche im Menü Suchen oder drücken Sie Steuerung+Alt+E.
 
-As you type, NVDA will announce the line of text that notepad++ detected a search result in. NVDA also announces how many matches there are, but only if the number of matches has changed. 
-When you found the line of text you want, simply press escape, and that line of text will be at your cursor.
-To launch this dialog, select incremental search from the search menu, or press alt+control+i.
+### Information zur aktuellen Zeile erhalten
 
-### Reporting information about the  current line
+Drücken von Umschalttaste+NVDA+\ (Backslash), zu irgendeinem Zeitpunkt, lässt NVDA das Folgende sprechen:
 
-Pressing nvda+shift+\ (back slash) at any time will report the following:
+* die Zeilennummer
+* die Spaltennummer, das heisst, wie weit innerhalb der Zeile Sie sich befinden
+* die Auswahlgrösse (Anzahl der Zeichen die in horizontaler Richtung ausgewählt sind, gefolgt bei der Anzahl der Zeichen in vertikaler Richtung, also ein Rechteck., Diese Information wird nur angesagt wenn sie relevant ist.)
 
-* the line number
-* the column number I.E. how far into the line you are.
-* the selection size, (number of characters horizontally selected, followed by  the number of characters vertically selected, which would make a rectangle. This info is only reported if relevant.
+### Unterstützung für die Funktionen "Weitersuchen" und "Rückwärts suchen"
 
-### Support for the previous/next find feature.
+Steuerung+F öffnet standardmässig den Suchen Dialog. 
+Wenn Sie hier Text eingeben und die Eingabetaste betätigen wird im Fenster der entsprechende Text ausgewählt und das Dokument zum nächsten Suchresultat verschoben. 
+In Notepad++ können Sie F3 oder Umschalt+F3 betätigen um die Suche in Vorwärts- oder Rückwärtsrichtung zu wiederholen.
+NVDA wird sowohl die aktuelle Zeile als auch den ausgewälten Text darin, der dem Suchergebnis entspricht, vorlesen.
 
-By Default, if you press control+f you bring up the find dialog. 
-If you type text here and press enter, the text in the window is selected and the document is moved to the next search result. 
-In Notepad++ you can press f3 or shift+f3 to repeat the search in the forward or backward direction respectively. 
-NVDA will read both the current line, and the selection within the line which represents the found text.
+### Vorschau von "MarkDown" oder Hypertext als Webseite
 
-### Preview of MarkDown or Hypertext as Web page 
+Notepad++ unterstützt normalerweise MarkDown (*.md) nicht durch beispielsweise Syntax-Hervorhebung.
+Nun können Sie sich solchen Inhalt in einem Browser-ähnlichen Fenster anzeigen lassen indem Sie NVDA+H betätigen (Escape zum Schliessen des Fensters). 
+Zweimaliges Drücken dieser Kombination öffnet jenen dagegen in Ihrem Standardbrowser.
+Einige populäre MarkDown-Erweiterungen wie beispielsweise PHP Extra oder TOC (Inhaltsverzeichnis) werden ebenfalls unterstützt.
+Zudem funktioniert es auch mit (ein-seitigem) Html.
 
-Notepad++ does natively not support MarkDown (*.md) with e.g. language highlighting.   
-However, you can preview such content as browsable message if you press NVDA+h (Escape to close the message). 
-Pressing this combination twice will open it in your standard browser.  
-Some popular Markdown extensions such as PHP Extra or TOC are supported.  
-It works also with (single-paged) Html. 
-
-To try it out, Copy the following block, paste it into a new Notepad++ document and press NVDA+h:
+Um es auszuprobieren, kopieren Sie bitte folgenden Block, fügen Sie ihn in ein leeres Notepad++ Dokument ein und betätigen Sie NVDA+H.
 
 <br>
 
     ---
-    ## Where it began...  
-    > A long time ago,  
-    > in a foreign country.  
-    ## And where it went next  
-    1. First stage  
-    2. Second stage  
-    ## Eventually it became  
-    * unordered  
-    * but still  
-    * a list  
+    ## Wo alles begann...  
+    > vor langer Zeit,  
+    > in einem fernen Land.  
+    ## Und wohin  es sich dann begab  
+    1. Erste Station  
+    2. Zweite Station  
+    ## Schlussendlich wurde es zu einer  
+    * zwar ungeordneten,  
+    * jedoch immer noch  
+    * verbleibenden Liste.  
 
 <br>
 
-# Non-default Notepad++ keyboard shortcuts
+# Nicht standardmässige Notepad++ Tastatur Kombinationen
 
-This add-on expects that Notepad++ is being used with the default shortcut keys. 
-If this is not the case, please change this app module's key commands to reflect your Notepad++ commands as necessary in NVDA's input gestures dialog.
-All of the add-ons commands are under the notepad++ section.
+Diese Erweiterung erwartet das Notepad++ mit den Standard Tastaturkürzeln genutzt wird. 
+Falls dies nicht der Fall sein sollte, ändern Sie bitte die Befehle dieses Anwendungsmoduls im "Eingabe" Dialog von NVDA so dass sie der reelen Belegung entsprechen.
+Alle Befehle dieser Erweiterung sind unter dem Abschnitt "Notepad++" aufgelistet.

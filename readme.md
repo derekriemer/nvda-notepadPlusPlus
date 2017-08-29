@@ -1,6 +1,6 @@
 # Notepad++ Add-on for NVDA #
 
-This add-on improves the accessibility of notepad++. Notepad++ is a text editor for windows, and has many features. You can learn more about  it at <https://notepad-plus-plus.org/>
+This add-on improves the accessibility of notepad++. Notepad++ is a text editor for windows, and has many features. You can learn more about it at <https://notepad-plus-plus.org/>
 
 ## Features:
 
@@ -9,7 +9,7 @@ This add-on improves the accessibility of notepad++. Notepad++ is a text editor 
 Notepad++ allows you to set bookmarks in your text.
 A bookmark allows you to quickly come back to a location in the editor at any point.
 To set a bookmark, from the line you wish to bookmark, press control+f2.
-Then,  when you want to come back to this bookmark, press f2 to jump to the next  bookmark, or shift+f2 to jump backwards to the previous one.
+Then, when you want to come back to this bookmark, press f2 to jump to the next bookmark, or shift+f2 to jump backwards to the previous one.
 You can set as many bookmarks as you would like.
 
 ### Maximum Line Length Announcement
@@ -27,7 +27,7 @@ can press NVDA+g to jump to the first overflowing character on the active line.
 ### Move to Matching Brace
 
 In Notepad++ you can move to the matching brace of a program by pressing control+b. 
-To move You must be one character inside the  brace that you wish to match.
+To move You must be one character inside the brace that you wish to match.
 When you press this command, nvda will read the line you landed on, and if the line consists of only a brace, it will read the line above and below the brace so you can get a feel for context.
 
 ### Autocomplete
@@ -55,13 +55,13 @@ As you type, NVDA will announce the line of text that Notepad++ detected a searc
 When you found the line of text you want, simply press escape, and that line of text will be at your cursor.
 To launch this dialog, select incremental search from the search menu, or press alt+control+i.
 
-### Reporting Information about the  Current Line
+### Reporting Information about the Current Line
 
 Pressing nvda+shift+\ (back slash) at any time will report the following:
 
 * the line number
 * the column number I.E. how far into the line you are.
-* the selection size, (number of characters horizontally selected, followed by  the number of characters vertically selected, which would make a rectangle. This info is only reported if relevant.
+* the selection size, (number of characters horizontally selected, followed by the number of characters vertically selected, which would make a rectangle. This info is only reported if relevant.
 
 ### Support for the Previous/Next Find Feature
 
@@ -72,10 +72,10 @@ NVDA will read both the current line, and the selection within the line which re
 
 ### Preview of MarkDown or Hypertext as Webpage
 
-Notepad++ does natively not support MarkDown (*.md) with e.g. language highlighting.   
+Notepad++ does natively not support MarkDown (*.md) with e.g. language highlighting. 
 However, you can preview such content as browsable message if you press NVDA+H (Escape to close the message). 
-Pressing this combination twice will open it in your standard browser.  
-Some popular Markdown extensions such as PHP Extra or TOC are supported.  
+Pressing this combination twice will open it in your standard browser. 
+Some popular Markdown extensions such as PHP Extra or TOC are supported. 
 It works also with (single-paged) Html. 
 
 To try it out, Copy the following block, paste it into a new Notepad++ document and press NVDA+H:

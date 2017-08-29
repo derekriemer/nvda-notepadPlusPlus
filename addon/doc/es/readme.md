@@ -1,6 +1,6 @@
-# Notepad++ Complemento  para NVDA #
+# Notepad++ Complemento para NVDA #
 
-Este complemento mejora la accesibilidad de notepad++. Notepad++ es un editor de texto para Windows, y tiene muchas características. Puedes obtener más información al respecto  en <https://notepad-plus-plus.org/>
+Este complemento mejora la accesibilidad de notepad++. Notepad++ es un editor de texto para Windows, y tiene muchas características. Puedes obtener más información al respecto en <https://notepad-plus-plus.org/>
 
 ## Caracteristicas:
 
@@ -9,7 +9,7 @@ Este complemento mejora la accesibilidad de notepad++. Notepad++ es un editor de
 Notepad++ te permite establecer marcadores en tu texto.
 Un marcador te permite volver rápidamente a una ubicación en el editor en cualquier momento.
 Para establecer un marcador, desde la línea que deseas marcar, pulsa control+f2.
-Luego, cuando quieras regresar a este marcador, pulsa f2  para saltar al siguiente   marcador, o shift+f2 para saltar hacia atrás al anterior.
+Luego, cuando quieras regresar a este marcador, pulsa f2 para saltar al siguiente marcador, o shift+f2 para saltar hacia atrás al anterior.
 Puedes establecer tantos marcadores como desees.
 
 ### Anuncio de longitud de línea máxima
@@ -23,8 +23,8 @@ bajo el menú Opciones. Marca la casilla "Activar el indicador de longitud de l�
 ### Moverse al delimitador simétrico
 
 En Notepad++ puedes desplazarte al delimitador simétrico de un programa puulsando control+b. 
-Para moverte tienes que estar   en Un carácter de la llave que deseas hacer coincidir.
-Al pulsar este comando, NVDA  leerá la línea en la que aterrizó y si la línea consiste sólo en una llave, leerá la línea arriba y debajo de la llave para que pueda tener una idea del contexto.
+Para moverte tienes que estar en Un carácter de la llave que deseas hacer coincidir.
+Al pulsar este comando, NVDA leerá la línea en la que aterrizó y si la línea consiste sólo en una llave, leerá la línea arriba y debajo de la llave para que pueda tener una idea del contexto.
 
 ### Autocompletado
 
@@ -44,10 +44,10 @@ Si estableces un atajo de teclado para esta macro o deseas cambiar un atajo de t
 ### Búsqueda incremental
 
 Una de las caracteristicas mas interesantes de notepad++ es la capacidad para usar la busqueda incremental. 
-La búsqueda incremental es un modo de búsqueda en la que  buscas una frase de prueba escribiendo en el campo de edición, y el documento se desplaza  mostrandote la búsqueda en tiempo real. 
-Mientras escribe, el documento se desplaza para mostrar la línea de texto con la frase más probable que estas buscando. También  resalta el texto que  coincida.
+La búsqueda incremental es un modo de búsqueda en la que buscas una frase de prueba escribiendo en el campo de edición, y el documento se desplaza mostrandote la búsqueda en tiempo real. 
+Mientras escribe, el documento se desplaza para mostrar la línea de texto con la frase más probable que estas buscando. También resalta el texto que coincida.
 El programa también te muestra cuántas coincidencias han sido detectadas. Hay botones para desplazarse hacia la coincidencia siguiente y anterior.
-Mientras escribes, NVDA anunciará la línea de texto que notepad++ detectó  en un resultado de búsqueda.  NVDA anuncia también cuántas coincidencias  hay, pero sólo si el número de  coincidencias han cambiado. 
+Mientras escribes, NVDA anunciará la línea de texto que notepad++ detectó en un resultado de búsqueda. NVDA anuncia también cuántas coincidencias hay, pero sólo si el número de coincidencias han cambiado. 
 Cuando has encontrado la línea de texto que quieras, simplemente pulsa escape, y esa línea de texto sera en tu cursor.
 Para lanzar este cuadro de diálogo, selecciona Búsqueda incremental Desde el menu Buscar, o pulsa alt+control+i.
 
@@ -62,16 +62,16 @@ Pulsando NVDA+shift+\ (barra inversa) en cualquier momento se anunciara lo sigui
 ### Apoyo a la funcion de busqueda anterior / siguiente
 
 Por defecto, si pulsas control+f aparece el cuadro de diálogo Buscar. 
-Si tecleas un texto aquí y pulsas Intro, el texto en la ventana es seleccionado y el documento  se desplaza hacia  el resultado de la búsqueda siguiente.
-En Notepad++ puedes pulsar f3 o shift+f3 para repetir la búsqueda en  dirección hacia    adelante o hacia atrás respectivamente. 
+Si tecleas un texto aquí y pulsas Intro, el texto en la ventana es seleccionado y el documento se desplaza hacia el resultado de la búsqueda siguiente.
+En Notepad++ puedes pulsar f3 o shift+f3 para repetir la búsqueda en dirección hacia adelante o hacia atrás respectivamente. 
 NVDA leerá tanto la línea actual, y la selección dentro de la línea que representa el texto encontrado.
 
 ### Vista previa de MarkDown o Hipertexto como página web 
 
-Notepad++ No es compatible con MarkDown (*.md) p.ej. el resaltado del lenguaje.   
+Notepad++ No es compatible con MarkDown (*.md) p.ej. el resaltado del lenguaje. 
 Sin embargo, puede obtener una vista previa de dicho contenido como mensaje navegable si pulsa NVDA+h (Escape para cerrar el mensaje). 
-Si pulsa esta combinación dos veces, la abrirá en su navegador estándar.  
-Algunas extensiones de Markdown populares como PHP Extra o TOC son compatibles.  
+Si pulsa esta combinación dos veces, la abrirá en su navegador estándar. 
+Algunas extensiones de Markdown populares como PHP Extra o TOC son compatibles. 
 Funciona también con (single-paged) Html. 
 
 Para probarlo, copie el siguiente bloque, péguelo en un nuevo documento de Notepad ++ y presione NVDA+h:
