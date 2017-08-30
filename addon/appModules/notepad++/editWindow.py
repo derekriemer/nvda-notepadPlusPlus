@@ -170,7 +170,7 @@ class EditWindow(EditableTextWithAutoSelectDetection):
 		html = markdown.markdown(unicode(raw), extensions=['extra','toc', 'nl2br'])
 		if repeatCount==1:
 			f= tempfile.NamedTemporaryFile(suffix='.html',delete=False)
-			f.write(html)
+			f.write(html.encode('utf-8'))
 			f.close()
 			# we assume that the default aplication for *.html is a browser            
 			# The webrowser module does not always open the file with the standard browser
