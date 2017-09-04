@@ -61,7 +61,7 @@ class EditWindow(EditableTextWithAutoSelectDetection):
 		else:
 			speech.speakMessage(info.text)
 
-	#Translators: when pressed, goes to	   the matching brace in Notepad++
+	#Translators: when pressed, goes to the matching brace in Notepad++
 	script_goToMatchingBrace.__doc__ = _("Goes to the brace that matches the one under the caret")
 	script_goToMatchingBrace.category = "Notepad++"
 
@@ -136,7 +136,7 @@ class EditWindow(EditableTextWithAutoSelectDetection):
 	script_goToFirstOverflowingCharacter.category = "Notepad++"
 
 	def script_reportLineInfo(self, gesture):
-		ui.message(self.parent.next.next.firstChild.getChild(2).name) 
+		ui.message(self.parent.next.next.firstChild.getChild(2).name)
 
 	#Translators: Script that announces information about the current line.
 	script_reportLineInfo.__doc__ = _("Speak the line info item on the status bar")
@@ -153,38 +153,46 @@ class EditWindow(EditableTextWithAutoSelectDetection):
 			#Translators: Message shown when there are no more search results in this direction using the notepad++ find command.
 			speech.speakMessage(_("No more search results in this direction"))
 
-	#Translators: when pressed, goes to	   the Next search result in Notepad++
+	#Translators: when pressed, goes to the Next search result in Notepad++
 	script_reportFindResult.__doc__ = _("Queries the next or previous search result and speaks the selection and current line of it")
 	script_reportFindResult.category = "Notepad++"
 
 	def script_htmlPreview(self, gesture):
-		repeatCount=scriptHandler.getLastScriptRepeatCount()
+		html = self.prepareHtml()
+		#Translators: The title of the browseable message
+		title=_("Preview of MarkDown or HTML")
+		ui.browseableMessage(html, title, True)
+
+	#Translators: interprets the edit window content as Markdown and shows it in the internal Browser
+	script_htmlPreview.__doc__ = _("Treat the edit window text as MarkDown and display it as browsable message")
+	script_htmlPreview.category = "Notepad++"
+
+	def script_externalHtmlPreview(self, gesture):
+		html = self.prepareHtml()
+		if html.find('<head>') ==-1:
+			#Translators: Title for the default browser, instead of the file name
+			title=_("Preview of MarkDown or HTML")
+			html = r'<head> <title>'+title+r'</title></head>'+r'<body>'+html+r'<body>'
+		with tempfile.NamedTemporaryFile(suffix='.html',delete=False) as f:
+			f.write(html.encode('utf-8'))
+		# we assume that the default aplication for *.html is a browser
+		# The webrowser module does not always open the file with the standard browser
+		# the file is valid for one minute, should be enough even for long files to load
+		os.startfile(f.name)
+		remover=Timer(60.0, os.remove, [f.name])
+		remover.start()
+
+	#Translators: interprets the edit window content as Markdown and shows it in the external (default)  Browser
+	script_externalHtmlPreview.__doc__ = _("Treat the edit window text as MarkDown and display it as webpage in the default browser")
+	script_externalHtmlPreview.category = "Notepad++"
+
+	def prepareHtml(self):
 		ti = self.makeTextInfo(textInfos.POSITION_ALL)
-		ti.expand(textInfos.UNIT_STORY)
-		raw = ti.text 
+		raw = ti.text
 		# the replacement in sconstruct can't be rendered, so we transform it back
 		# but we use regular expressions rather than .replace
 		raw = re.sub(r'\[\[!meta title=\"(.*)\"\]\]', r'# \1 #', raw)
-		#Translators: The title of the browseable message
-		title=_("Preview of MarkDown or HTML")
-		html = markdown.markdown(unicode(raw), extensions=['extra','toc', 'nl2br'])
-		if repeatCount==1:
-			f= tempfile.NamedTemporaryFile(suffix='.html',delete=False)
-			f.write(html.encode('utf-8'))
-			f.close()
-			# we assume that the default aplication for *.html is a browser            
-			# The webrowser module does not always open the file with the standard browser
-			os.startfile(f.name)
-			remover=Timer(20.0, os.remove, [f.name])
-			remover.start()
-		else:
-			ui.browseableMessage(html, title, True)
-
-	#Translators: when pressed once, opens a message box or, pressed twice, the default browser and interprets the Editor text	as markdown/HTML
-	script_htmlPreview.__doc__ = _("""Shows the Editor Window Content after converting it to HTML.
-Pressing once shows it within the internal Browser, Pressing twice sends it to the default Browser.
-The temporary file is removed after 20 seconds.""")
-	script_htmlPreview.category = "Notepad++"
+		return  markdown.markdown(unicode(raw), extensions=['extra','toc'])
 
 	__gestures = {
 		"kb:control+b" : "goToMatchingBrace",
@@ -195,6 +203,7 @@ The temporary file is removed after 20 seconds.""")
 		"kb:downArrow": "reportLineOverflow",
 		"kb:nvda+g": "goToFirstOverflowingCharacter",
 		"kb:nvda+h": "htmlPreview",
+		"kb:nvda+shift+h": "externalHtmlPreview",
 		"kb:f3" : "reportFindResult",
 		"kb:shift+f3" : "reportFindResult",
 	}
