@@ -61,7 +61,7 @@ Pressing nvda+shift+\ (back slash) at any time will report the following:
 
 * the line number
 * the column number I.E. how far into the line you are.
-* the selection size, (number of characters horizontally selected, followed by the number of characters vertically selected, which would make a rectangle. This info is only reported if relevant.
+* the selection size, (number of characters horizontally selected, followed by the number of characters vertically selected, which would make a rectangle.) This info is only reported if relevant.
 
 ### Support for the Previous/Next Find Feature
 
@@ -72,7 +72,7 @@ NVDA will read both the current line, and the selection within the line which re
 
 ### Preview of MarkDown or Hypertext as Webpage
 
-Notepad++ does natively not support MarkDown (*.md) with e.g. language highlighting. 
+Notepad++ does not natively support MarkDown (*.md) with e.g. language highlighting. 
 However, you can preview such content as browsable message if you press NVDA+H (Escape to close the message). 
 Pressing NVDA+Shift+H will open it in your standard browser. 
 Some popular Markdown extensions such as PHP Extra or TOC are supported. 
@@ -96,7 +96,7 @@ To try it out, Copy the following block, paste it into a new Notepad++ document 
 
 <br>
 
-# NonDdefault Notepad++ Keyboard Shortcuts
+## Non-Default Notepad++ Keyboard Shortcuts
 
 This add-on expects that Notepad++ is being used with the default shortcut keys. 
 If this is not the case, please change this app module's key commands to reflect your Notepad++ commands as necessary in NVDA's input gestures dialog.

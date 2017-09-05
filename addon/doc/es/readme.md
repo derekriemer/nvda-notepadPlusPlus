@@ -57,8 +57,8 @@ Pulsando NVDA+shift+\ (barra inversa) en cualquier momento se anunciara lo sigui
 
 * el número de línea
 * el número de la columna, es decir, cuan lejos estás en la línea.
-* el tamaño de la seleccion, (número de caracteres horizontalmente seleccionados, seguido por un símbolo, seguido por el número de caracteres seleccionados verticalmente, lo que haría un rectángulo.
- 
+* el tamaño de la seleccion, (número de caracteres horizontalmente seleccionados, seguido por un símbolo, seguido por el número de caracteres seleccionados verticalmente, lo que haría un rectángulo).
+
 ### Apoyo a la funcion de busqueda anterior / siguiente
 
 Por defecto, si pulsas control+f aparece el cuadro de diálogo Buscar. 

@@ -1,4 +1,4 @@
-﻿#editWindow.py
+#editWindow.py
 #A part of theNotepad++ addon for NVDA
 #Copyright (C) 2016 Tuukka Ojala, Derek Riemer
 #This file is covered by the GNU General Public License.

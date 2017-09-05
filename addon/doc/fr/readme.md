@@ -56,7 +56,7 @@ Appuyer sur NVDA+maj+\ (barre oblique inverser) à tout moment il va annoncé ce
 
 * le numéro de ligne
 * le numéro de colonne C'EST À DIRE. Jusqu'où vous êtes éloigné dans la ligne.
-* la taille de la sélection, (nombre de caractères sélectionnés horizontalement, suivi d'un symbole |, suivi du nombre de caractères sélectionnés verticalement, ce qui ferait un rectangle.
+* la taille de la sélection, (nombre de caractères sélectionnés horizontalement, suivi d'un symbole |, suivi du nombre de caractères sélectionnés verticalement, ce qui ferait un rectangle).
 
 ### Prise en charge de la fonction de recherche précédente / suivante
 

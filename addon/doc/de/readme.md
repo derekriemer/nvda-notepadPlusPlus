@@ -67,7 +67,7 @@ Drücken von Umschalttaste+NVDA+\ (Backslash), zu irgendeinem Zeitpunkt, lässt 
 
 * die Zeilennummer
 * die Spaltennummer, das heisst, wie weit innerhalb der Zeile Sie sich befinden
-* die Auswahlgrösse (Anzahl der Zeichen die in horizontaler Richtung ausgewählt sind, gefolgt bei der Anzahl der Zeichen in vertikaler Richtung, also ein Rechteck., Diese Information wird nur angesagt wenn sie relevant ist.)
+* die Auswahlgrösse (Anzahl der Zeichen die in horizontaler Richtung ausgewählt sind, gefolgt bei der Anzahl der Zeichen in vertikaler Richtung, also ein Rechteck). Diese Information wird nur angesagt wenn sie relevant ist.
 
 ### Unterstützung für die Funktionen "Weitersuchen" und "Rückwärts suchen"
 
@@ -102,7 +102,7 @@ Um es auszuprobieren, kopieren Sie bitte folgenden Block, fügen Sie ihn in ein 
 
 <br>
 
-# Nicht standardmässige Notepad++ Tastatur Kombinationen
+## Nicht standardmässige Notepad++ Tastatur Kombinationen
 
 Diese Erweiterung erwartet das Notepad++ mit den Standard Tastaturkürzeln genutzt wird. 
 Falls dies nicht der Fall sein sollte, ändern Sie bitte die Befehle dieses Anwendungsmoduls im "Eingabe" Dialog von NVDA so dass sie der reelen Belegung entsprechen.
