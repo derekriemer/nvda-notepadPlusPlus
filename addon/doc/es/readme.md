@@ -70,7 +70,7 @@ NVDA leerá tanto la línea actual, y la selección dentro de la línea que repr
 
 Notepad++ No es compatible con MarkDown (*.md) p.ej. el resaltado del lenguaje. 
 Sin embargo, puede obtener una vista previa de dicho contenido como mensaje navegable si pulsa NVDA+h (Escape para cerrar el mensaje). 
-Si pulsa esta combinación dos veces, la abrirá en su navegador estándar. 
+Si pulsa NVDA+shift+h, la abrirá en su navegador estándar. 
 Algunas extensiones de Markdown populares como PHP Extra o TOC son compatibles. 
 Funciona también con (single-paged) Html. 
 

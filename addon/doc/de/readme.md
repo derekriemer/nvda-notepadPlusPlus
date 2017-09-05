@@ -80,7 +80,7 @@ NVDA wird sowohl die aktuelle Zeile als auch den ausgewälten Text darin, der de
 
 Notepad++ unterstützt normalerweise MarkDown (*.md) nicht durch beispielsweise Syntax-Hervorhebung.
 Nun können Sie sich solchen Inhalt in einem Browser-ähnlichen Fenster anzeigen lassen indem Sie NVDA+H betätigen (Escape zum Schliessen des Fensters). 
-Zweimaliges Drücken dieser Kombination öffnet jenen dagegen in Ihrem Standardbrowser.
+Drücken von NVDA+Umschalt+H  öffnet jenen dagegen in Ihrem Standardbrowser.
 Einige populäre MarkDown-Erweiterungen wie beispielsweise PHP Extra oder TOC (Inhaltsverzeichnis) werden ebenfalls unterstützt.
 Zudem funktioniert es auch mit (ein-seitigem) Html.
 

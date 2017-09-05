@@ -74,7 +74,7 @@ NVDA will read both the current line, and the selection within the line which re
 
 Notepad++ does natively not support MarkDown (*.md) with e.g. language highlighting. 
 However, you can preview such content as browsable message if you press NVDA+H (Escape to close the message). 
-Pressing this combination twice will open it in your standard browser. 
+Pressing NVDA+Shift+H will open it in your standard browser. 
 Some popular Markdown extensions such as PHP Extra or TOC are supported. 
 It works also with (single-paged) Html. 
 

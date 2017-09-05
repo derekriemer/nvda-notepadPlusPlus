@@ -69,7 +69,7 @@ NVDA lira à la fois la ligne courante et la sélection dans la ligne qui repré
 
 Notepad++ Nativement, ne supporte pas MarkDown (*.md) avec par exemple la coloration de langage. 
 Cependant, vous pouvez prévisualiser ce contenu comme un message consultable si vous appuyez sur NVDA+h (Échap pour fermer le message). 
-Appuyez deux fois sur cette combinaison pour l'ouvrir dans votre navigateur standard. 
+Appuyez sur NVDA+maj+h pour l'ouvrir dans votre navigateur standard. 
 Certaines extensions Markdown populaires telles que PHP Extra ou TOC sont prises en charge. 
 Il fonctionne également avec (single-paged) Html. 
 
