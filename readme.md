@@ -38,13 +38,6 @@ The Autocomplete functionality of Notepad++ is not accessible by default. The au
 2. Pressing the down/up arrows read the next/previous suggested text. 
 3. The recommended text is spoken when the suggestions appear.
 
-### Keyboard Shortcut Mapper
-
-Sometimes you have to add or change the keyboard shortcuts in Notepad++. 
-For example, you might record a macro to remove the last character of a line on every line.
-If you set a keyboard shortcut for this macro, or wish to change a keyboard shortcut for another command in the editor, you will go to the preferences menu, and then go to the keyboard shortcuts dialog.
-Unfortunately, the keyboard shortcuts dialog is not friendly to NVDA by default. This add-on makes this dialog accessible. You can tab between the components and press the arrow keys to manipulate the controls like you would for any other dialog.
-
 ### Incremental Search
 
 One of the most interesting features of Notepad++ is the ability to use incremental search. 

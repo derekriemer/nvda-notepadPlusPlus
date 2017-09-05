@@ -16,7 +16,7 @@ import eventHandler
 import speech
 import nvwave
 from NVDAObjects.window.scintilla  import Scintilla
-from . import editWindow, incrementalFind, keyMapperDialog, autocomplete
+from . import editWindow, incrementalFind, autocomplete
 
 addonHandler.initTranslation()
 
@@ -42,25 +42,6 @@ class AppModule(appModuleHandler.AppModule):
 		if obj.windowControlID == 1689 and obj.role == controlTypes.ROLE_STATICTEXT:
 			clsList.insert(0, incrementalFind.LiveTextControl)
 			return
-		try:
-			if obj.windowClassName == u'BABYGRID'  and  obj.firstChild and obj.firstChild.windowClassName == u'ListBox':
-				#History lesson: I was depending on the presence of a scroll bar, and for tabs whith very few items, it doesn't appear.
-				clsList.insert(0, keyMapperDialog.KeyMapperList)
-		except AttributeError:
-			pass
-		try:
-			if (
-			(obj.windowClassName == u'Button' and obj.windowControlID in  (1, 2602)) #Close and modify button
-			or
-			(obj.role == controlTypes.ROLE_TAB and obj.parent.childCount == 5)
-			or
-			(obj.role == controlTypes.ROLE_LISTITEM and obj.parent.parent.parent.role == controlTypes.ROLE_PANE)
-			):
-				clsList.insert(0, keyMapperDialog.KeyMapperTabber)
-			if 			(obj.role == controlTypes.ROLE_TAB and obj.parent.childCount == 5):
-				clsList.insert(0, keyMapperDialog.KeyMapperTabItem)
-		except AttributeError:
-			pass
 
 	def __init__(self, *args, **kwargs):
 		super(AppModule, self).__init__(*args, **kwargs)
@@ -72,10 +53,12 @@ class AppModule(appModuleHandler.AppModule):
 		self.guiManager = addonGui.GuiManager()
 		self.requestEvents()
 		self.isAutocomplete=False
+
 	def terminate(self):
 		del self.guiManager #deletes the object by way of reference count 0 
 
 	def requestEvents(self):
+		#We need these for autocomplete
 		eventHandler.requestEvents("show", self.processID, u'ListBoxX')
 
 	def event_show(self, obj, nextHandler):
@@ -85,7 +68,6 @@ class AppModule(appModuleHandler.AppModule):
 			#get the edit field if the weak reference still has it.
 			edit = self._edit()
 			if not edit:
-				print "fails"
 				return
 			eventHandler.executeEvent("suggestionsOpened", edit)
 		nextHandler()
