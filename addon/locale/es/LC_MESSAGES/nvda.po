@@ -1,0 +1,163 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: NotepadPlusPlus 1.2-dev\n"
+"Report-Msgid-Bugs-To: 'nvda-translations@freelists.org'\n"
+"POT-Creation-Date: 2017-09-05 06:37+0200\n"
+"PO-Revision-Date: 2017-09-05 09:44+0200\n"
+"Last-Translator: Rémy Ruiz <remyruiz@gmail.com>\n"
+"Language-Team: Rémy Ruiz <remyruiz@gmail.com>\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.12\n"
+"X-Poedit-Basepath: c:/users/Rémy Ruiz/appdata/roaming/nvda/addons/"
+"NotepadPlusPlus\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-SearchPath-0: AppModules\n"
+"X-Poedit-SearchPath-1: globalPlugins/skype7\n"
+
+#: addon\appModules\notepad++\addonGui.py:30
+msgid "Notepad++..."
+msgstr "Notepad++..."
+
+#. Translators: Title for the settings dialog
+#: addon\appModules\notepad++\addonGui.py:48
+msgid "Notepad++ settings"
+msgstr "Opciones de Notepad++"
+
+#. Translators: A setting for enabling/disabling line length indicator.
+#: addon\appModules\notepad++\addonGui.py:55
+msgid "Enable &line length indicator"
+msgstr "Activar el indicador de &longitud de línea"
+
+#. Translators: Setting for maximum line length used by line length indicator
+#: addon\appModules\notepad++\addonGui.py:60
+msgid "&Maximum line length:"
+msgstr "Longitud de línea &máxima:"
+
+#. Translators: when pressed, goes to the matching brace in Notepad++
+#: addon\appModules\notepad++\editWindow.py:65
+msgid "Goes to the brace that matches the one under the caret"
+msgstr "Ir a la llave correspondiente aquélla bajo el punto de inserción"
+
+#. Translators: Script to move to the next bookmark in Notepad++.
+#: addon\appModules\notepad++\editWindow.py:72
+msgid "Goes to the next bookmark"
+msgstr "Ir al siguiente marcador"
+
+#. Translators: Script to move to the next bookmark in Notepad++.
+#: addon\appModules\notepad++\editWindow.py:79
+msgid "Goes to the previous bookmark"
+msgstr "Ir al marcador anterior"
+
+#. Translators: Script to move the cursor to the first character on the current line that exceeds the users maximum allowed line length.
+#: addon\appModules\notepad++\editWindow.py:135
+msgid "Moves to the first character that is after the maximum line length"
+msgstr ""
+"Moverse al primer carácter que está después de la longitud de línea máxima"
+
+#. Translators: Script that announces information about the current line.
+#: addon\appModules\notepad++\editWindow.py:142
+msgid "Speak the line info item on the status bar"
+msgstr "Anuncia el elemento información de línea en la barra de estado"
+
+#. Translators: Message shown when there are no more search results in this direction using the notepad++ find command.
+#: addon\appModules\notepad++\editWindow.py:154
+msgid "No more search results in this direction"
+msgstr "No hay más resultados de búsqueda en esta dirección"
+
+#. Translators: when pressed, goes to the Next search result in Notepad++
+#: addon\appModules\notepad++\editWindow.py:157
+msgid ""
+"Queries the next or previous search result and speaks the selection and "
+"current line of it"
+msgstr ""
+"Consulta el resultado de la búsqueda siguiente o anterior y anuncia la "
+"selección y la línea actual de la misma"
+
+#. Translators: The title of the browseable message
+#. Translators: Title for the default browser, instead of the file name
+#: addon\appModules\notepad++\editWindow.py:163
+#: addon\appModules\notepad++\editWindow.py:174
+msgid "Preview of MarkDown or HTML"
+msgstr "Vista previa de MarkDown o HTML"
+
+#. Translators: interprets the edit window content as Markdown and shows it in the internal Browser
+#: addon\appModules\notepad++\editWindow.py:167
+msgid ""
+"Treat the edit window text as MarkDown and display it as browsable message"
+msgstr ""
+"Trata el texto de la ventana de edición como MarkDown y lo muestra como "
+"mensaje navegable"
+
+#. Translators: interprets the edit window content as Markdown and shows it in the external (default)  Browser
+#: addon\appModules\notepad++\editWindow.py:186
+msgid ""
+"Treat the edit window text as MarkDown and display it as webpage in the "
+"default browser"
+msgstr ""
+"Trata el texto de la ventana de edición como MarkDown y lo muestra como "
+"página web en el navegador predeterminado"
+
+#. Add-on summary, usually the user visible name of the addon.
+#. Translators: Summary for this add-on to be shown on installation and add-on information.
+#: buildVars.py:17
+msgid "Notepad++"
+msgstr "Notepad++"
+
+#. Add-on description
+#. Translators: Long description to be shown for this add-on on add-on information from add-ons manager
+#: buildVars.py:20
+msgid ""
+"Notepad++ App Module.\n"
+"This addon improves the accessibility of Notepad ++. To learn more, press "
+"the add-on help button."
+msgstr ""
+"App Module para Notepad++.\n"
+"Este complemento mejora la accesibilidad de Notepad ++. Para obtener más "
+"información pulsar el botón Ayuda del Complemento."
+
+#~ msgid "speak the line info item on the status bar"
+#~ msgstr "anuncia el elemento información de línea en la barra de estado"
+
+#~ msgid "No more search results in this direction."
+#~ msgstr "No hay más resultados de búsqueda en esta dirección."
+
+#~ msgid ""
+#~ "Queries the next or previous search result and speaks the selection and "
+#~ "current line of it."
+#~ msgstr ""
+#~ "Consulta el resultado de la búsqueda siguiente o anterior y anuncia la "
+#~ "selección y la línea actual de la misma."
+
+#~ msgid ""
+#~ "Shows the Editor Window Content after converting to HTML.\n"
+#~ "\tPressing once shows it within the internal Browser, Pressing twice "
+#~ "sends it to the default Browser.\n"
+#~ "\tThe temporary file is removed after 20 seconds"
+#~ msgstr ""
+#~ "Muestra el contenido de la ventana del editor después de convertir a "
+#~ "HTML.\n"
+#~ "\tPulsando  una vez lo muestra en el navegador interno, pulsando dos "
+#~ "veces lo envía al navegador predeterminado.\n"
+#~ "\tEl archivo temporal se elimina después de 20 segundos"
+
+#~ msgid ""
+#~ " Notepad++ App Module.\n"
+#~ "\tThis addon improves the accessibility of Notepad ++. To learn more, "
+#~ "press the add-on help button."
+#~ msgstr ""
+#~ " App Module para Notepad++.\n"
+#~ "\tEste complemento mejora la accesibilidad de Notepad ++. Para obtener "
+#~ "más información pulsar el botón Ayuda del Complemento."
+
+#~ msgid ""
+#~ "Notepad++ App Module.\n"
+#~ "\tThis addon improves the accessibility of Notepad ++. To learn more, "
+#~ "press the add-on help button."
+#~ msgstr ""
+#~ "App Module para Notepad++.\n"
+#~ "\tEste complemento mejora la accesibilidad de Notepad ++. Para obtener "
+#~ "más información pulsar el botón Ayuda del Complemento."
