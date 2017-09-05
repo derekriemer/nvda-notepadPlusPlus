@@ -175,7 +175,7 @@ class EditWindow(EditableTextWithAutoSelectDetection):
 			html = r'<head> <title>'+title+r'</title></head>'+r'<body>'+html+r'<body>'
 		with tempfile.NamedTemporaryFile(suffix='.html',delete=False) as f:
 			f.write(html.encode('utf-8'))
-		# we assume that the default aplication for *.html is a browser
+		# we assume that the default application for *.html is a browser
 		# The webrowser module does not always open the file with the standard browser
 		# the file is valid for one minute, should be enough even for long files to load
 		os.startfile(f.name)
