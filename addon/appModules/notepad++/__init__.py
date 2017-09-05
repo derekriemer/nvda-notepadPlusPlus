@@ -8,6 +8,7 @@ import time
 import appModuleHandler
 import config
 import os
+import weakref
 import addonHandler
 import addonGui
 import controlTypes
@@ -79,9 +80,14 @@ class AppModule(appModuleHandler.AppModule):
 
 	def event_show(self, obj, nextHandler):
 		if obj.role == controlTypes.ROLE_PANE:
-			nvwave.playWaveFile(os.path.join(os.path.dirname(__file__), "waves", "autocompleteOpen.wav"))
 			self.isAutocomplete=True
 			core.callLater(100, self.waitforAndReportDestruction,obj)
+			#get the edit field if the weak reference still has it.
+			edit = self._edit()
+			if not edit:
+				print "fails"
+				return
+			eventHandler.executeEvent("suggestionsOpened", edit)
 		nextHandler()
 
 
@@ -91,5 +97,9 @@ class AppModule(appModuleHandler.AppModule):
 			return
 		#The object is dead.
 		self.isAutocomplete=False
-		nvwave.playWaveFile(os.path.join(os.path.dirname(__file__), "waves", "autocompleteClose.wav"))
+		#get the edit field if the weak reference still has it.
+		edit = self._edit()
+		if not edit:
+			return
+		eventHandler.executeEvent("suggestionsClosed", edit)
 
