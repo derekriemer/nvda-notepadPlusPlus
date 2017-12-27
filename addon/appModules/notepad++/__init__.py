@@ -48,6 +48,7 @@ class AppModule(appModuleHandler.AppModule):
 		confspec = {
 			"maxLineLength" : "integer(min=0, default=80)",
 			"lineLengthIndicator" : "boolean(default=False)",
+			"brailleAutocompleteSuggestions" : "boolean(default=True)",
 		}
 		config.conf.spec["notepadPp"] = confspec
 		self.guiManager = addonGui.GuiManager()
