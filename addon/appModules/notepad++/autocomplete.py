@@ -1,4 +1,4 @@
-# coding: utf8
+# coding: utf-8
 from NVDAObjects.IAccessible  import IAccessible
 import nvwave
 import speech
