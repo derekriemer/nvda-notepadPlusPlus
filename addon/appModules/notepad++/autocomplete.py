@@ -2,7 +2,8 @@
 from NVDAObjects.IAccessible  import IAccessible
 import nvwave
 import speech
-import braille, config
+import braille
+import config
 import os
 
 class AutocompleteList(IAccessible):
