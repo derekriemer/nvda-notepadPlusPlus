@@ -64,11 +64,16 @@ class SettingsDialog(gui.SettingsDialog):
 		self.maxLineLengthEdit.SetValue(str(config.conf["notepadPp"]["maxLineLength"]))
 		maxLineLengthSizer.AddMany([maxLineLengthLabel, self.maxLineLengthEdit])
 		settingsSizer.Add(maxLineLengthSizer, border=10, flag=wx.BOTTOM)
+		# Translators: A setting for enabling/disabling autocomplete suggestions in braille.
+		self.brailleAutocompleteSuggestionsCheckBox = wx.CheckBox(self, wx.NewId(), label=_("Show autocomplete &suggestions in braille"))
+		self.brailleAutocompleteSuggestionsCheckBox.SetValue(config.conf["notepadPp"]["brailleAutocompleteSuggestions"])
+		settingsSizer.Add(self.brailleAutocompleteSuggestionsCheckBox, border=10, flag=wx.BOTTOM)
 
 	def postInit(self):
 		self.lineLengthIndicatorCheckBox.SetFocus()
 
 	def onOk(self, evt):
 		config.conf["notepadPp"]["lineLengthIndicator"] = self.lineLengthIndicatorCheckBox.IsChecked()
+		config.conf["notepadPp"]["brailleAutocompleteSuggestions"] = self.brailleAutocompleteSuggestionsCheckBox.IsChecked()
 		config.conf["notepadPp"]["maxLineLength"] = int(self.maxLineLengthEdit.GetValue())
 		super(SettingsDialog, self).onOk(evt)
