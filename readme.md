@@ -1,6 +1,7 @@
 # Notepad++ Add-on for NVDA #
 
 This add-on improves the accessibility of notepad++. Notepad++ is a text editor for windows, and has many features. You can learn more about it at <https://notepad-plus-plus.org/>
+The original work for this addon was written by Derek Riemer and Tuukka Ojala. Features were later added by Robert-J-H and Andre9642.
 
 ## Features:
 
@@ -38,14 +39,16 @@ The Autocomplete functionality of Notepad++ is not accessible by default. The au
 2. Pressing the down/up arrows read the next/previous suggested text. 
 3. The recommended text is spoken when the suggestions appear.
 
+Note: All text is also brailled if a braille display is connected. This feature is currently experimental, do not hesitate to report any bugs with it.
+
 ### Incremental Search
 
 One of the most interesting features of Notepad++ is the ability to use incremental search. 
-Incremental search is a search mode in which you search for a phrase of test by typing in the edit field, and the document scrolls to show you the search in real time. 
+Incremental search is a search mode in which you search for a phrase of text by typing in the edit field, and the document scrolls to show you the search in real time. 
 As you type, the document scrolls to show the line of text with the most likely phrase you are looking for. It also highlights the text that matched.
 The program also shows you how many matches have been detected. There are buttons to move to the next and previous match.
 As you type, NVDA will announce the line of text that Notepad++ detected a search result in. NVDA also announces how many matches there are, but only if the number of matches has changed. 
-When you found the line of text you want, simply press escape, and that line of text will be at your cursor.
+When you find the line of text you want, simply press escape, and that line of text will be at your cursor.
 To launch this dialog, select incremental search from the search menu, or press alt+control+i.
 
 ### Reporting Information about the Current Line
@@ -69,9 +72,9 @@ Notepad++ does not natively support MarkDown (*.md) with e.g. language highlight
 However, you can preview such content as browsable message if you press NVDA+H (Escape to close the message). 
 Pressing NVDA+Shift+H will open it in your standard browser. 
 Some popular Markdown extensions such as PHP Extra or TOC are supported. 
-It works also with (single-paged) Html. 
+This feature also works with (single-paged) Html. 
 
-To try it out, Copy the following block, paste it into a new Notepad++ document and press NVDA+H:
+To try this feature out, Copy the following block, paste it into a new Notepad++ document and press NVDA+H:
 
 <br>
 
