@@ -49,6 +49,7 @@ class AppModule(appModuleHandler.AppModule):
 			"maxLineLength" : "integer(min=0, default=80)",
 			"lineLengthIndicator" : "boolean(default=False)",
 			"brailleAutocompleteSuggestions" : "boolean(default=True)",
+			"soundsAutocompleteSuggestions" : "boolean(default=True)",
 		}
 		config.conf.spec["notepadPp"] = confspec
 		self.guiManager = addonGui.GuiManager()
@@ -70,7 +71,8 @@ class AppModule(appModuleHandler.AppModule):
 			edit = self._edit()
 			if not edit:
 				return
-			eventHandler.executeEvent("suggestionsOpened", edit)
+			if config.conf["notepadPp"]["soundsAutocompleteSuggestions"]:
+				eventHandler.executeEvent("suggestionsOpened", edit)
 		nextHandler()
 
 
@@ -84,5 +86,6 @@ class AppModule(appModuleHandler.AppModule):
 		edit = self._edit()
 		if not edit:
 			return
-		eventHandler.executeEvent("suggestionsClosed", edit)
+		if config.conf["notepadPp"]["soundsAutocompleteSuggestions"]:
+			eventHandler.executeEvent("suggestionsClosed", edit)
 
