@@ -41,14 +41,52 @@ So, we apply the expressions in the following order:
 * finally we apply strong and emphasis
 """
 
-import markdown
+from __future__ import absolute_import
+from __future__ import unicode_literals
+from . import util
+from . import odict
 import re
-from urlparse import urlparse, urlunparse
-import sys
-if sys.version >= "3.0":
-    from html import entities as htmlentitydefs
-else:
-    import htmlentitydefs
+try:  # pragma: no cover
+    from urllib.parse import urlparse, urlunparse
+except ImportError:  # pragma: no cover
+    from urlparse import urlparse, urlunparse
+try:  # pragma: no cover
+    from html import entities
+except ImportError:  # pragma: no cover
+    import htmlentitydefs as entities
+
+
+def build_inlinepatterns(md_instance, **kwargs):
+    """ Build the default set of inline patterns for Markdown. """
+    inlinePatterns = odict.OrderedDict()
+    inlinePatterns["backtick"] = BacktickPattern(BACKTICK_RE)
+    inlinePatterns["escape"] = EscapePattern(ESCAPE_RE, md_instance)
+    inlinePatterns["reference"] = ReferencePattern(REFERENCE_RE, md_instance)
+    inlinePatterns["link"] = LinkPattern(LINK_RE, md_instance)
+    inlinePatterns["image_link"] = ImagePattern(IMAGE_LINK_RE, md_instance)
+    inlinePatterns["image_reference"] = ImageReferencePattern(
+        IMAGE_REFERENCE_RE, md_instance
+    )
+    inlinePatterns["short_reference"] = ReferencePattern(
+        SHORT_REF_RE, md_instance
+    )
+    inlinePatterns["autolink"] = AutolinkPattern(AUTOLINK_RE, md_instance)
+    inlinePatterns["automail"] = AutomailPattern(AUTOMAIL_RE, md_instance)
+    inlinePatterns["linebreak"] = SubstituteTagPattern(LINE_BREAK_RE, 'br')
+    if md_instance.safeMode != 'escape':
+        inlinePatterns["html"] = HtmlPattern(HTML_RE, md_instance)
+    inlinePatterns["entity"] = HtmlPattern(ENTITY_RE, md_instance)
+    inlinePatterns["not_strong"] = SimpleTextPattern(NOT_STRONG_RE)
+    inlinePatterns["em_strong"] = DoubleTagPattern(EM_STRONG_RE, 'strong,em')
+    inlinePatterns["strong_em"] = DoubleTagPattern(STRONG_EM_RE, 'em,strong')
+    inlinePatterns["strong"] = SimpleTagPattern(STRONG_RE, 'strong')
+    inlinePatterns["emphasis"] = SimpleTagPattern(EMPHASIS_RE, 'em')
+    if md_instance.smart_emphasis:
+        inlinePatterns["emphasis2"] = SimpleTagPattern(SMART_EMPHASIS_RE, 'em')
+    else:
+        inlinePatterns["emphasis2"] = SimpleTagPattern(EMPHASIS_2_RE, 'em')
+    return inlinePatterns
+
 
 """
 The actual regular expressions for patterns
@@ -56,50 +94,84 @@ The actual regular expressions for patterns
 """
 
 NOBRACKET = r'[^\]\[]*'
-BRK = ( r'\[('
-        + (NOBRACKET + r'(\[')*6
-        + (NOBRACKET+ r'\])*')*6
-        + NOBRACKET + r')\]' )
+BRK = (
+    r'\[(' +
+    (NOBRACKET + r'(\[')*6 +
+    (NOBRACKET + r'\])*')*6 +
+    NOBRACKET + r')\]'
+)
 NOIMG = r'(?<!\!)'
 
-BACKTICK_RE = r'(?<!\\)(`+)(.+?)(?<!`)\2(?!`)' # `e=f()` or ``e=f("`")``
-ESCAPE_RE = r'\\(.)'                             # \<
-EMPHASIS_RE = r'(\*)([^\*]+)\2'                    # *emphasis*
-STRONG_RE = r'(\*{2}|_{2})(.+?)\2'                      # **strong**
-STRONG_EM_RE = r'(\*{3}|_{3})(.+?)\2'            # ***strong***
+# `e=f()` or ``e=f("`")``
+BACKTICK_RE = r'(?:(?<!\\)((?:\\{2})+)(?=`+)|(?<!\\)(`+)(.+?)(?<!`)\3(?!`))'
 
-if markdown.SMART_EMPHASIS:
-    EMPHASIS_2_RE = r'(?<!\S)(_)(\S.+?)\2'        # _emphasis_
-else:
-    EMPHASIS_2_RE = r'(_)(.+?)\2'                 # _emphasis_
+# \<
+ESCAPE_RE = r'\\(.)'
 
+# *emphasis*
+EMPHASIS_RE = r'(\*)([^\*]+)\2'
+
+# **strong**
+STRONG_RE = r'(\*{2}|_{2})(.+?)\2'
+
+# ***strongem*** or ***em*strong**
+EM_STRONG_RE = r'(\*|_)\2{2}(.+?)\2(.*?)\2{2}'
+
+# ***strong**em*
+STRONG_EM_RE = r'(\*|_)\2{2}(.+?)\2{2}(.*?)\2'
+
+# _smart_emphasis_
+SMART_EMPHASIS_RE = r'(?<!\w)(_)(?!_)(.+?)(?<!_)\2(?!\w)'
+
+# _emphasis_
+EMPHASIS_2_RE = r'(_)(.+?)\2'
+
+# [text](url) or [text](<url>) or [text](url "title")
 LINK_RE = NOIMG + BRK + \
-r'''\(\s*(<.*?>|((?:(?:\(.*?\))|[^\(\)]))*?)\s*((['"])(.*?)\12)?\)'''
-# [text](url) or [text](<url>)
+    r'''\(\s*(<.*?>|((?:(?:\(.*?\))|[^\(\)]))*?)\s*((['"])(.*?)\12\s*)?\)'''
 
-IMAGE_LINK_RE = r'\!' + BRK + r'\s*\((<.*?>|([^\)]*))\)'
 # ![alttxt](http://x.com/) or ![alttxt](<http://x.com/>)
-REFERENCE_RE = NOIMG + BRK+ r'\s*\[([^\]]*)\]'           # [Google][3]
-IMAGE_REFERENCE_RE = r'\!' + BRK + '\s*\[([^\]]*)\]' # ![alt text][2]
-NOT_STRONG_RE = r'((^| )(\*|_)( |$))'                        # stand-alone * or _
-AUTOLINK_RE = r'<((?:f|ht)tps?://[^>]*)>'        # <http://www.123.com>
-AUTOMAIL_RE = r'<([^> \!]*@[^> ]*)>'               # <me@example.com>
+IMAGE_LINK_RE = r'\!' + BRK + r'\s*\(\s*(<.*?>|([^"\)\s]+\s*"[^"]*"|[^\)\s]*))\s*\)'
 
-HTML_RE = r'(\<([a-zA-Z/][^\>]*?|\!--.*?--)\>)'               # <...>
-ENTITY_RE = r'(&[\#a-zA-Z0-9]*;)'               # &amp;
-LINE_BREAK_RE = r'  \n'                     # two spaces at end of line
-LINE_BREAK_2_RE = r'  $'                    # two spaces at end of text
+# [Google][3]
+REFERENCE_RE = NOIMG + BRK + r'\s?\[([^\]]*)\]'
+
+# [Google]
+SHORT_REF_RE = NOIMG + r'\[([^\]]+)\]'
+
+# ![alt text][2]
+IMAGE_REFERENCE_RE = r'\!' + BRK + r'\s?\[([^\]]*)\]'
+
+# stand-alone * or _
+NOT_STRONG_RE = r'((^| )(\*|_)( |$))'
+
+# <http://www.123.com>
+AUTOLINK_RE = r'<((?:[Ff]|[Hh][Tt])[Tt][Pp][Ss]?://[^>]*)>'
+
+# <me@example.com>
+AUTOMAIL_RE = r'<([^> \!]*@[^> ]*)>'
+
+# <...>
+HTML_RE = r'(\<([a-zA-Z/][^\>]*?|\!--.*?--)\>)'
+
+# &amp;
+ENTITY_RE = r'(&[\#a-zA-Z0-9]*;)'
+
+# two spaces at end of line
+LINE_BREAK_RE = r'  \n'
 
 
 def dequote(string):
     """Remove quotes from around a string."""
-    if ( ( string.startswith('"') and string.endswith('"'))
-         or (string.startswith("'") and string.endswith("'")) ):
+    if ((string.startswith('"') and string.endswith('"')) or
+       (string.startswith("'") and string.endswith("'"))):
         return string[1:-1]
     else:
         return string
 
-ATTR_RE = re.compile("\{@([^\}]*)=([^\}]*)}") # {@id=123}
+
+ATTR_RE = re.compile(r"\{@([^\}]*)=([^\}]*)}")  # {@id=123}
+
 
 def handleAttributes(text, parent):
     """Set values of an element based on attribute definitions ({@id=123})."""
@@ -113,10 +185,13 @@ The pattern classes
 -----------------------------------------------------------------------------
 """
 
-class Pattern:
+
+class Pattern(object):
     """Base class that inline patterns subclass. """
 
-    def __init__ (self, pattern, markdown_instance=None):
+    ANCESTOR_EXCLUDES = tuple()
+
+    def __init__(self, pattern, markdown_instance=None):
         """
         Create an instant of an inline pattern.
 
@@ -126,14 +201,15 @@ class Pattern:
 
         """
         self.pattern = pattern
-        self.compiled_re = re.compile("^(.*?)%s(.*?)$" % pattern, re.DOTALL)
+        self.compiled_re = re.compile(r"^(.*?)%s(.*)$" % pattern,
+                                      re.DOTALL | re.UNICODE)
 
         # Api for Markdown to pass safe_mode into instance
         self.safe_mode = False
         if markdown_instance:
             self.markdown = markdown_instance
 
-    def getCompiledRegExp (self):
+    def getCompiledRegExp(self):
         """ Return a compiled regular expression. """
         return self.compiled_re
 
@@ -147,57 +223,100 @@ class Pattern:
         * m: A re match object containing a match of the pattern.
 
         """
-        pass
+        pass  # pragma: no cover
 
     def type(self):
         """ Return class name, to define pattern type """
         return self.__class__.__name__
 
-BasePattern = Pattern # for backward compatibility
+    def unescape(self, text):
+        """ Return unescaped text given text with an inline placeholder. """
+        try:
+            stash = self.markdown.treeprocessors['inline'].stashed_nodes
+        except KeyError:  # pragma: no cover
+            return text
 
-class SimpleTextPattern (Pattern):
+        def itertext(el):  # pragma: no cover
+            ' Reimplement Element.itertext for older python versions '
+            tag = el.tag
+            if not isinstance(tag, util.string_type) and tag is not None:
+                return
+            if el.text:
+                yield el.text
+            for e in el:
+                for s in itertext(e):
+                    yield s
+                if e.tail:
+                    yield e.tail
+
+        def get_stash(m):
+            id = m.group(1)
+            if id in stash:
+                value = stash.get(id)
+                if isinstance(value, util.string_type):
+                    return value
+                else:
+                    # An etree Element - return text content only
+                    return ''.join(itertext(value))
+        return util.INLINE_PLACEHOLDER_RE.sub(get_stash, text)
+
+
+class SimpleTextPattern(Pattern):
     """ Return a simple text of group(2) of a Pattern. """
     def handleMatch(self, m):
-        text = m.group(2)
-        if text == markdown.INLINE_PLACEHOLDER_PREFIX:
-            return None
-        return text
+        return m.group(2)
 
-class SimpleTagPattern (Pattern):
+
+class EscapePattern(Pattern):
+    """ Return an escaped character. """
+
+    def handleMatch(self, m):
+        char = m.group(2)
+        if char in self.markdown.ESCAPED_CHARS:
+            return '%s%s%s' % (util.STX, ord(char), util.ETX)
+        else:
+            return None
+
+
+class SimpleTagPattern(Pattern):
     """
     Return element of type `tag` with a text attribute of group(3)
     of a Pattern.
 
     """
-    def __init__ (self, pattern, tag):
+    def __init__(self, pattern, tag):
         Pattern.__init__(self, pattern)
         self.tag = tag
 
     def handleMatch(self, m):
-        el = markdown.etree.Element(self.tag)
+        el = util.etree.Element(self.tag)
         el.text = m.group(3)
         return el
 
 
-class SubstituteTagPattern (SimpleTagPattern):
-    """ Return a eLement of type `tag` with no children. """
-    def handleMatch (self, m):
-        return markdown.etree.Element(self.tag)
+class SubstituteTagPattern(SimpleTagPattern):
+    """ Return an element of type `tag` with no children. """
+    def handleMatch(self, m):
+        return util.etree.Element(self.tag)
 
 
-class BacktickPattern (Pattern):
+class BacktickPattern(Pattern):
     """ Return a `<code>` element containing the matching text. """
-    def __init__ (self, pattern):
+    def __init__(self, pattern):
         Pattern.__init__(self, pattern)
-        self.tag = "code"
+        self.ESCAPED_BSLASH = '%s%s%s' % (util.STX, ord('\\'), util.ETX)
+        self.tag = 'code'
 
     def handleMatch(self, m):
-        el = markdown.etree.Element(self.tag)
-        el.text = markdown.AtomicString(m.group(3).strip())
-        return el
+        if m.group(4):
+            el = util.etree.Element(self.tag)
+            el.text = util.AtomicString(m.group(4).strip())
+            return el
+        else:
+            return m.group(2).replace('\\\\', self.ESCAPED_BSLASH)
 
 
-class DoubleTagPattern (SimpleTagPattern):
+class DoubleTagPattern(SimpleTagPattern):
     """Return a ElementTree element nested in tag2 nested in tag1.
 
     Useful for strong emphasis etc.
@@ -205,38 +324,57 @@ class DoubleTagPattern (SimpleTagPattern):
     """
     def handleMatch(self, m):
         tag1, tag2 = self.tag.split(",")
-        el1 = markdown.etree.Element(tag1)
-        el2 = markdown.etree.SubElement(el1, tag2)
+        el1 = util.etree.Element(tag1)
+        el2 = util.etree.SubElement(el1, tag2)
         el2.text = m.group(3)
+        if len(m.groups()) == 5:
+            el2.tail = m.group(4)
         return el1
 
 
-class HtmlPattern (Pattern):
+class HtmlPattern(Pattern):
     """ Store raw inline html and return a placeholder. """
-    def handleMatch (self, m):
-        rawhtml = m.group(2)
-        inline = True
+    def handleMatch(self, m):
+        rawhtml = self.unescape(m.group(2))
         place_holder = self.markdown.htmlStash.store(rawhtml)
         return place_holder
 
+    def unescape(self, text):
+        """ Return unescaped text given text with an inline placeholder. """
+        try:
+            stash = self.markdown.treeprocessors['inline'].stashed_nodes
+        except KeyError:  # pragma: no cover
+            return text
 
-class LinkPattern (Pattern):
+        def get_stash(m):
+            id = m.group(1)
+            value = stash.get(id)
+            if value is not None:
+                try:
+                    return self.markdown.serializer(value)
+                except Exception:
+                    return r'\%s' % value
+
+        return util.INLINE_PLACEHOLDER_RE.sub(get_stash, text)
+
+
+class LinkPattern(Pattern):
     """ Return a link element from the given match. """
     def handleMatch(self, m):
-        el = markdown.etree.Element("a")
+        el = util.etree.Element("a")
         el.text = m.group(2)
-        title = m.group(11)
+        title = m.group(13)
         href = m.group(9)
 
         if href:
             if href[0] == "<":
                 href = href[1:-1]
-            el.set("href", self.sanitize_url(href.strip()))
+            el.set("href", self.sanitize_url(self.unescape(href.strip())))
         else:
             el.set("href", "")
 
         if title:
-            title = dequote(title) #.replace('"', "&quot;")
+            title = dequote(self.unescape(title))
             el.set("title", title)
         return el
 
@@ -257,55 +395,78 @@ class LinkPattern (Pattern):
         `username:password@host:port`.
 
         """
+        if not self.markdown.safeMode:
+            # Return immediately bipassing parsing.
+            return url
+
+        try:
+            scheme, netloc, path, params, query, fragment = url = urlparse(url)
+        except ValueError:  # pragma: no cover
+            # Bad url - so bad it couldn't be parsed.
+            return ''
+
         locless_schemes = ['', 'mailto', 'news']
-        scheme, netloc, path, params, query, fragment = url = urlparse(url)
-        safe_url = False
-        if netloc != '' or scheme in locless_schemes:
-            safe_url = True
+        allowed_schemes = locless_schemes + ['http', 'https', 'ftp', 'ftps']
+        if scheme not in allowed_schemes:
+            # Not a known (allowed) scheme. Not safe.
+            return ''
+
+        if netloc == '' and scheme not in locless_schemes:  # pragma: no cover
+            # This should not happen. Treat as suspect.
+            return ''
 
         for part in url[2:]:
             if ":" in part:
-                safe_url = False
+                # A colon in "path", "parameters", "query"
+                # or "fragment" is suspect.
+                return ''
 
-        if self.markdown.safeMode and not safe_url:
-            return ''
-        else:
-            return urlunparse(url)
+        # Url passes all tests. Return url as-is.
+        return urlunparse(url)
+
 
 class ImagePattern(LinkPattern):
     """ Return a img element from the given match. """
     def handleMatch(self, m):
-        el = markdown.etree.Element("img")
+        el = util.etree.Element("img")
         src_parts = m.group(9).split()
         if src_parts:
             src = src_parts[0]
             if src[0] == "<" and src[-1] == ">":
                 src = src[1:-1]
-            el.set('src', self.sanitize_url(src))
+            el.set('src', self.sanitize_url(self.unescape(src)))
         else:
             el.set('src', "")
         if len(src_parts) > 1:
-            el.set('title', dequote(" ".join(src_parts[1:])))
+            el.set('title', dequote(self.unescape(" ".join(src_parts[1:]))))
 
-        if markdown.ENABLE_ATTRIBUTES:
+        if self.markdown.enable_attributes:
             truealt = handleAttributes(m.group(2), el)
         else:
             truealt = m.group(2)
 
-        el.set('alt', truealt)
+        el.set('alt', self.unescape(truealt))
         return el
+
 
 class ReferencePattern(LinkPattern):
     """ Match to a stored reference and return link element. """
+
+    NEWLINE_CLEANUP_RE = re.compile(r'[ ]?\n', re.MULTILINE)
+
     def handleMatch(self, m):
-        if m.group(9):
+        try:
             id = m.group(9).lower()
-        else:
-            # if we got something like "[Google][]"
+        except IndexError:
+            id = None
+        if not id:
+            # if we got something like "[Google][]" or "[Google]"
             # we'll use "google" as the id
             id = m.group(2).lower()
 
-        if not id in self.markdown.references: # ignore undefined refs
+        # Clean up linebreaks in id
+        id = self.NEWLINE_CLEANUP_RE.sub(' ', id)
+        if id not in self.markdown.references:  # ignore undefined refs
             return None
         href, title = self.markdown.references[id]
 
@@ -313,7 +474,7 @@ class ReferencePattern(LinkPattern):
         return self.makeTag(href, title, text)
 
     def makeTag(self, href, title, text):
-        el = markdown.etree.Element('a')
+        el = util.etree.Element('a')
 
         el.set('href', self.sanitize_url(href))
         if title:
@@ -323,49 +484,53 @@ class ReferencePattern(LinkPattern):
         return el
 
 
-class ImageReferencePattern (ReferencePattern):
+class ImageReferencePattern(ReferencePattern):
     """ Match to a stored reference and return img element. """
     def makeTag(self, href, title, text):
-        el = markdown.etree.Element("img")
+        el = util.etree.Element("img")
         el.set("src", self.sanitize_url(href))
         if title:
             el.set("title", title)
-        el.set("alt", text)
+
+        if self.markdown.enable_attributes:
+            text = handleAttributes(text, el)
+
+        el.set("alt", self.unescape(text))
         return el
 
 
-class AutolinkPattern (Pattern):
+class AutolinkPattern(Pattern):
     """ Return a link Element given an autolink (`<http://example/com>`). """
     def handleMatch(self, m):
-        el = markdown.etree.Element("a")
-        el.set('href', m.group(2))
-        el.text = markdown.AtomicString(m.group(2))
+        el = util.etree.Element("a")
+        el.set('href', self.unescape(m.group(2)))
+        el.text = util.AtomicString(m.group(2))
         return el
 
-class AutomailPattern (Pattern):
+
+class AutomailPattern(Pattern):
     """
     Return a mailto link Element given an automail link (`<foo@example.com>`).
     """
     def handleMatch(self, m):
-        el = markdown.etree.Element('a')
-        email = m.group(2)
+        el = util.etree.Element('a')
+        email = self.unescape(m.group(2))
         if email.startswith("mailto:"):
             email = email[len("mailto:"):]
 
         def codepoint2name(code):
             """Return entity definition by code, or the code if not defined."""
-            entity = htmlentitydefs.codepoint2name.get(code)
+            entity = entities.codepoint2name.get(code)
             if entity:
-                return "%s%s;" % (markdown.AMP_SUBSTITUTE, entity)
+                return "%s%s;" % (util.AMP_SUBSTITUTE, entity)
             else:
-                return "%s#%d;" % (markdown.AMP_SUBSTITUTE, code)
+                return "%s#%d;" % (util.AMP_SUBSTITUTE, code)
 
         letters = [codepoint2name(ord(letter)) for letter in email]
-        el.text = markdown.AtomicString(''.join(letters))
+        el.text = util.AtomicString(''.join(letters))
 
         mailto = "mailto:" + email
-        mailto = "".join([markdown.AMP_SUBSTITUTE + '#%d;' %
+        mailto = "".join([util.AMP_SUBSTITUTE + '#%d;' %
                           ord(letter) for letter in mailto])
         el.set('href', mailto)
         return el
-

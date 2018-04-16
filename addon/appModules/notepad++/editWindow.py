@@ -24,7 +24,9 @@ from threading import Timer
 import re
 impPath = os.path.abspath(os.path.dirname(__file__))
 sys.path.append(impPath)
-import markdown
+import imp
+file, path, desc = imp.find_module('markdown')
+markdown = imp.load_module('markdown', file, path, desc)
 del sys.path[-1]
 
 addonHandler.initTranslation()
@@ -196,7 +198,7 @@ class EditWindow(EditableTextWithAutoSelectDetection, EditableTextWithSuggestion
 		# the replacement in sconstruct can't be rendered, so we transform it back
 		# but we use regular expressions rather than .replace
 		raw = re.sub(r'\[\[!meta title=\"(.*)\"\]\]', r'# \1 #', raw)
-		return  markdown.markdown(unicode(raw), extensions=['extra','toc'])
+		return  markdown.markdown(unicode(raw), extensions=['markdown.extensions.extra','markdown.extensions.toc'])
 
 	__gestures = {
 		"kb:control+b" : "goToMatchingBrace",
