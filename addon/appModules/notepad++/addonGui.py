@@ -42,7 +42,7 @@ class GuiManager(object):
 			gui.mainFrame.sysTrayIcon.preferencesMenu.RemoveItem(self.prefsMenuItem)
 			#If we die, so did the app. If the user relaunches, so should we.
 			GuiManager.isMultiInst = False
-		except wx.PyDeadObjectError:
+		except:  # wx.PyDeadObjectError is replaced by RuntimeError as of wx 4
 			pass
 
 class SettingsDialog(gui.SettingsDialog):
