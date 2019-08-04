@@ -1,6 +1,6 @@
 version: "{branch}-{build}"
 environment:
- PY_PYTHON: 3.7-32
+ PY_PYTHON: 3.7
 install:
   - py -m pip install markdown
   - py -m pip install --egg scons
