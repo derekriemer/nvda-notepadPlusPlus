@@ -5,7 +5,6 @@
 #See the file COPYING for more details.
 
 import wx
-
 import addonHandler
 import config
 import gui
@@ -38,11 +37,13 @@ class GuiManager(object):
 		self.prefsMenuItem.Enable(False)
 
 	def __del__(self):
+		log.debug("deleting the GUI.")
+		import tones;tones.beep(440,440)
 		try:
 			gui.mainFrame.sysTrayIcon.preferencesMenu.RemoveItem(self.prefsMenuItem)
 			#If we die, so did the app. If the user relaunches, so should we.
 			GuiManager.isMultiInst = False
-		except wx.PyDeadObjectError:
+		except (wx.PyDeadObjectError, AttributeError):
 			pass
 
 class SettingsDialog(gui.SettingsDialog):

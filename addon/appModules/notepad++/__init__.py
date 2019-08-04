@@ -10,7 +10,7 @@ import config
 import os
 import weakref
 import addonHandler
-import addonGui
+from . import addonGui
 import controlTypes
 import eventHandler
 import speech
@@ -55,7 +55,7 @@ class AppModule(appModuleHandler.AppModule):
 		self.isAutocomplete=False
 
 	def terminate(self):
-		del self.guiManager #deletes the object by way of reference count 0 
+		self.guiManager = none
 
 	def requestEvents(self):
 		#We need these for autocomplete
