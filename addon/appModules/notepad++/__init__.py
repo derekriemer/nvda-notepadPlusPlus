@@ -1,6 +1,6 @@
 #__init__.py
 #A part of theNotepad++ addon for NVDA
-#Copyright (C) 2016 Tuukka Ojala, Derek Riemer
+#Copyright (C) 2016-2019 Tuukka Ojala, Derek Riemer
 #This file is covered by the GNU General Public License.
 #See the file COPYING for more details.
 import core
@@ -48,6 +48,7 @@ class AppModule(appModuleHandler.AppModule):
 		confspec = {
 			"maxLineLength" : "integer(min=0, default=80)",
 			"lineLengthIndicator" : "boolean(default=False)",
+			"brailleAutocompleteSuggestions" : "boolean(default=True)",
 		}
 		config.conf.spec["notepadPp"] = confspec
 		self.guiManager = addonGui.GuiManager()

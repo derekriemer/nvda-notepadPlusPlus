@@ -1,6 +1,6 @@
 #editWindow.py
 #A part of theNotepad++ addon for NVDA
-#Copyright (C) 2016 Tuukka Ojala, Derek Riemer
+#Copyright (C) 2016-2019 Tuukka Ojala, Derek Riemer
 #This file is covered by the GNU General Public License.
 #See the file COPYING for more details.
 
@@ -154,10 +154,9 @@ class EditWindow(EditableTextWithAutoSelectDetection, EditableTextWithSuggestion
 			speech.speakMessage(_("No more search results in this direction"))
 
 	#Translators: when pressed, goes to the Next search result in Notepad++
-	script_reportFindResult.__doc__ = _("Queries the next or previous search result and speaks the selection and current line of it")
+	script_reportFindResult.__doc__ = _("Queries the next or previous search result and speaks the selection and current line.")
 	script_reportFindResult.category = "Notepad++"
 
-	
 	__gestures = {
 		"kb:control+b" : "goToMatchingBrace",
 		"kb:f2": "goToNextBookmark",
