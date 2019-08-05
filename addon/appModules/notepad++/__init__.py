@@ -56,7 +56,7 @@ class AppModule(appModuleHandler.AppModule):
 		self.isAutocomplete=False
 
 	def terminate(self):
-		self.guiManager = none
+		self.guiManager = None
 
 	def requestEvents(self):
 		#We need these for autocomplete
