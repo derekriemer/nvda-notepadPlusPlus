@@ -1,10 +1,11 @@
 version: "{branch}-{build}"
+
 environment:
  PY_PYTHON: 3.7-32
+ 
 install:
   - py -m pip install markdown
   - py -m pip install scons
-  
 
 build_script:
   - scons
@@ -16,6 +17,7 @@ artifacts:
     type: application/x-nvda-addon
   - path: '*.pot'
     type: application/x-pot
+    
 deploy:
   release: $(APPVEYOR_REPO_TAG_NAME)
   description: $(APPVEYOR_REPO_TAG_NAME)
