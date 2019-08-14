@@ -3,20 +3,27 @@
 #Copyright (C) 2016-2019 Tuukka Ojala, Derek Riemer
 #This file is covered by the GNU General Public License.
 #See the file COPYING for more details.
-import core
-import time
-import appModuleHandler
-import config
+
 import os
+import time
 import weakref
+# NVDA core imports
+import appModuleHandler
+import core
+import config
+import gui
 import addonHandler
-from . import addonGui
 import controlTypes
 import eventHandler
 import speech
 import nvwave
 from NVDAObjects.window.scintilla  import Scintilla
-from . import editWindow, incrementalFind, autocomplete
+# Do not try an absolute import. Because I have to name this module notepad++,
+# and + isn't a valid character in a normal python module,
+# You need to use from . import foo, for now.
+# ToDo: Hack NVDA core,  adding syntax for addons to map an executable name
+# to a python module under a different name.
+from . import addonSettingsPanel, editWindow, incrementalFind, autocomplete
 
 addonHandler.initTranslation()
 
@@ -26,7 +33,9 @@ class AppModule(appModuleHandler.AppModule):
 			clsList.insert(0, editWindow.EditWindow)
 			return
 		try: 
-			if obj.role == controlTypes.ROLE_LISTITEM and obj.parent.windowClassName == u'ListBox' and obj.parent.parent.parent.windowClassName == u'ListBoxX':
+			if (obj.role == controlTypes.ROLE_LISTITEM and
+				obj.parent.windowClassName == u'ListBox' and
+				obj.parent.parent.parent.windowClassName == u'ListBoxX'):
 				clsList.insert(0, autocomplete.AutocompleteList)
 				return
 		except AttributeError:
@@ -51,12 +60,17 @@ class AppModule(appModuleHandler.AppModule):
 			"brailleAutocompleteSuggestions" : "boolean(default=True)",
 		}
 		config.conf.spec["notepadPp"] = confspec
-		self.guiManager = addonGui.GuiManager()
+		gui.settingsDialogs.NVDASettingsDialog.categoryClasses.append(
+			addonSettingsPanel.SettingsPanel)
 		self.requestEvents()
 		self.isAutocomplete=False
 
 	def terminate(self):
-		self.guiManager = None
+		try:
+			gui.settingsDialogs.NVDASettingsDialog.categoryClasses.remove(
+				addonSettingsPanel.SettingsPanel)
+		except IndexError:
+			pass
 
 	def requestEvents(self):
 		#We need these for autocomplete
