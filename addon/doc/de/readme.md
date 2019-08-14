@@ -39,17 +39,6 @@ Um diese Funktionalität zu erschliessen werden drei Dinge getan:
 2. Drücken der Pfeil nach unten/oben Taste verursacht ein Lesen des nächsten oder vorherigen Vorschlags. 
 3. Der empfohlene Text wird gesprochen sobald ein Vorschlag erscheint.
 
-### Tastatur
-
-Zuweilen möchten Sie Tastenkombinationen in Notepad++ ändern oder hinzufügen.
-Zum Beispiel könnten Sie ein Makro aufgezeichnet haben das das letzte Zeichen in jeder Zeile entfernt.
-Wollen Sie nun eine Tastenkombination für dieses Makro definieren oder generell eine bestehende Tastenkombination ändern,
-so gehen Sie gewöhnlich zu Optionen und dann auf Tastatur, woraufhin sich ein Dialog öffnet.
-Bedauerlicherweise ist dieser Dialog standardmässig nicht sehr freundlich zu NVDA.
-Diese Erweiterung macht ihn jedoch voll zugänglich.
-Mittels Tabulator können Sie zwischen den verschiedenen Komponenten hin und her wechseln und durch Betätigen der Pfeiltasten die Werte ändern,
-genau so wie Sie es von anderen Dialogen gewöhnt sind.
-
 ### Inkrementelle Suche
 
 Eine der interessantesten funktionen von Notepad++ ist die
