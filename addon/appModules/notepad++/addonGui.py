@@ -18,7 +18,7 @@ class GuiManager(object):
 
 	def __new__(cls):
 		if GuiManager.isMultiInst:
-			#Do not create another GUI, as this is another instance of notepad++
+			#Do not create another GUI, as this is another instance of notepad++ setttings
 			return
 		return super(GuiManager, cls).__new__(cls)
 
@@ -43,7 +43,7 @@ class GuiManager(object):
 			gui.mainFrame.sysTrayIcon.preferencesMenu.RemoveItem(self.prefsMenuItem)
 			#If we die, so did the app. If the user relaunches, so should we.
 			GuiManager.isMultiInst = False
-		except (wx.PyDeadObjectError, AttributeError):
+		except (RuntimeError, AttributeError):
 			pass
 
 class SettingsDialog(gui.SettingsDialog):
