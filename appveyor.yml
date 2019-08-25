@@ -24,9 +24,10 @@ deploy:
   description: $(APPVEYOR_REPO_TAG_NAME)
   provider: GitHub
   auth_token:
-    secure: D6nDTGin+O15mi48HCwAAu4gXJyUMxQd31t84RdWEFlfzYfgbu4FTH2VLC6l46Fy
+    secure: KzOT07hQ360+it35h1n/1BU6DYiP9+l4OntltlNUYsZwhy+J0tKvZWGXxQVQYws0
   artifact: addon
   draft: false
   prerelease: false
+  
   on:
     appveyor_repo_tag: true        # deploy on tag push only
