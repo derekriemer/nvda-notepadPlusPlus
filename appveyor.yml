@@ -8,8 +8,7 @@ install:
   - py -m pip install scons
 
 build_script:
-  - echo "%PYTHON%"
-  - set path=%path%;%PYTHON%\Scripts
+  - set path=%path%;C:\Python37\Scripts
   - scons
   - scons pot
 
