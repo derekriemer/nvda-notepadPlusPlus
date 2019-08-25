@@ -64,7 +64,7 @@ Pressing nvda+shift+\ (back slash) at any time will report the following:
 By Default, if you press control+f you bring up the find dialog. 
 If you type text here and press enter, the text in the window is selected and the document is moved to the next search result. 
 In Notepad++ you can press f3 or shift+f3 to repeat the search in the forward or backward direction respectively. 
-NVDA will read both the current line, and the selection within the line which represents the found text.
+eNVDA will read both the current line, and the selection within the line which represents the found text.
 
 ## Non-Default Notepad++ Keyboard Shortcuts
 
