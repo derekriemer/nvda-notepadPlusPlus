@@ -3,6 +3,16 @@ version: "{branch}-{build}"
 environment:
  PY_PYTHON: 3.7-32
 
+init:
+  - ps: |
+      if ($env:APPVEYOR_REPO_TAG_NAME) {
+        if ($env:APPVEYOR_REPO_TAG_NAME.StartsWith("beta-")) {
+          Set-AppveyorBuildVariable "prerelease" true"
+        } else {
+          Set-AppveyorBuildVariable "prerelease" false"
+        }
+      }
+
 install:
   - py -m pip install markdown
   - py -m pip install scons
@@ -27,7 +37,19 @@ deploy:
     secure: KzOT07hQ360+it35h1n/1BU6DYiP9+l4OntltlNUYsZwhy+J0tKvZWGXxQVQYws0
   artifact: addon
   draft: false
-  prerelease: false
-  
+  prerelease: true
   on:
     appveyor_repo_tag: true        # deploy on tag push only
+    
+deploy:
+  release: $(APPVEYOR_REPO_TAG_NAME)
+  description: $(APPVEYOR_REPO_TAG_NAME)
+  provider: GitHub
+  auth_token:
+    secure: KzOT07hQ360+it35h1n/1BU6DYiP9+l4OntltlNUYsZwhy+J0tKvZWGXxQVQYws0
+  artifact: addon
+  draft: false
+  prerelease: $(prerelease)
+  on:
+    appveyor_repo_tag: true        # deploy on tag push only
+    - branch: /beta-/
