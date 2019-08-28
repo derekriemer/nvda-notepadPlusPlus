@@ -1,6 +1,7 @@
 # Notepad++ Extension pour NVDA #
 
 Cette extension améliore l'accessibilité de notepad++. Notepad++ est un éditeur de texte pour windows, et possède de nombreuses fonctionnalités. Pour en savoir plus à ce sujet aller sur <https://notepad-plus-plus.org/>
+Le travail original pour cette extension a été écrit par Derek Riemer et Tuukka Ojala. Les fonctionnalités ont ensuite été ajoutées par Robert Hänggi et Andre9642.
 
 ## Caractéristiques :
 
@@ -32,6 +33,8 @@ La fonctionnalité de la saisie automatique de Notepad++ n'est pas accessible pa
 2. En appuyant sur les flèches bas/haut il lira le texte suggéré suivant/précédent. 
 3. Le texte recommandé est verbalisé lorsque les suggestions apparaissent.
 
+Remarque: tout le texte est affiché en braille si un afficheur braille est connecté. Cette fonctionnalité est actuellement expérimentale, n'hésitez pas à nous signaler toute erreur.
+
 ### Recherche Incrémentielle
 
 L'une des caractéristiques les plus intéressantes de notepad++ est la possibilité d'utiliser la recherche incrémentielle. 
@@ -56,32 +59,6 @@ Par défaut, si vous appuyez sur contrôle+f vous ouvrez la boîte de dialogue d
 Si vous tapez du texte ici et appuyez sur Entrée, le texte dans la fenêtre est sélectionné et le document est déplacé vers le résultat de recherche suivant. 
 Dans Notepad++ Vous pouvez appuyer sur f3 ou maj+f3 pour répéter la recherche dans la direction vers l'avant ou vers l'arrière respectivement. 
 NVDA lira à la fois la ligne courante et la sélection dans la ligne qui représente le texte trouvé.
-
-### Aperçu de MarkDown ou Hypertext en tant que page Web 
-
-Notepad++ Nativement, ne supporte pas MarkDown (*.md) avec par exemple la coloration de langage. 
-Cependant, vous pouvez prévisualiser ce contenu comme un message consultable si vous appuyez sur NVDA+h (Échap pour fermer le message). 
-Appuyez sur NVDA+maj+h pour l'ouvrir dans votre navigateur standard. 
-Certaines extensions Markdown populaires telles que PHP Extra ou TOC sont prises en charge. 
-Il fonctionne également avec (à partir d'une seule page) Html. 
-
-Pour l'essayer, copiez le bloc suivant, collez-le dans un nouveau document Notepad ++ et appuyez sur NVDA+h :
-
-<br>
-
-    ---
-    ## D'où cela a commencé...  
-    > Il y a longtemps,  
-    > dans un pays étranger.  
-    ## Et où est-il allé ensuite  
-    1. Première étape  
-    2. Deuxième étape  
-    ## Finalement, il est devenu  
-    * non ordonné  
-    * mais reste  
-    * une liste  
-
-<br>
 
 ## Raccourcis clavier Notepad++ non par défaut
 
