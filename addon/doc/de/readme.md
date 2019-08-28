@@ -1,6 +1,8 @@
 # Notepad++ Erweiterung für NVDA #
 
 Diese Erweiterung verbessert die barrierefreie Bedienung von Notepad++. Notepad++ ist ein Text Editor für Windows und verfügt über viele Funktionen. Sie können mehr erfahren bei <https://notepad-plus-plus.org/>
+Ursprüngliche Programmierung durch Derek Riemer and Tuukka Ojala.
+Witere Features kommen von Robert Hänggi and Andre9642.
 
 ## Besonderheiten:
 
@@ -39,6 +41,19 @@ Um diese Funktionalität zu erschliessen werden drei Dinge getan:
 2. Drücken der Pfeil nach unten/oben Taste verursacht ein Lesen des nächsten oder vorherigen Vorschlags. 
 3. Der empfohlene Text wird gesprochen sobald ein Vorschlag erscheint.
 
+Hinweis: Der gesamte Text wird in Braille angezeigt, wenn eine braillezeile angeschlossen ist. Diese funktion ist derzeit experimentell, zögern sie nicht, einen Fehler zu melden.
+
+### Tastatur
+
+Zuweilen möchten Sie Tastenkombinationen in Notepad++ ändern oder hinzufügen.
+Zum Beispiel könnten Sie ein Makro aufgezeichnet haben das das letzte Zeichen in jeder Zeile entfernt.
+Wollen Sie nun eine Tastenkombination für dieses Makro definieren oder generell eine bestehende Tastenkombination ändern,
+so gehen Sie gewöhnlich zu Optionen und dann auf Tastatur, woraufhin sich ein Dialog öffnet.
+Bedauerlicherweise ist dieser Dialog standardmässig nicht sehr freundlich zu NVDA.
+Diese Erweiterung macht ihn jedoch voll zugänglich.
+Mittels Tabulator können Sie zwischen den verschiedenen Komponenten hin und her wechseln und durch Betätigen der Pfeiltasten die Werte ändern,
+genau so wie Sie es von anderen Dialogen gewöhnt sind.
+
 ### Inkrementelle Suche
 
 Eine der interessantesten funktionen von Notepad++ ist die
@@ -64,32 +79,6 @@ Steuerung+F öffnet standardmässig den Suchen Dialog.
 Wenn Sie hier Text eingeben und die Eingabetaste betätigen wird im Fenster der entsprechende Text ausgewählt und das Dokument zum nächsten Suchresultat verschoben. 
 In Notepad++ können Sie F3 oder Umschalt+F3 betätigen um die Suche in Vorwärts- oder Rückwärtsrichtung zu wiederholen.
 NVDA wird sowohl die aktuelle Zeile als auch den ausgewälten Text darin, der dem Suchergebnis entspricht, vorlesen.
-
-### Vorschau von "MarkDown" oder Hypertext als Webseite
-
-Notepad++ unterstützt normalerweise MarkDown (*.md) nicht durch beispielsweise Syntax-Hervorhebung.
-Nun können Sie sich solchen Inhalt in einem Browser-ähnlichen Fenster anzeigen lassen indem Sie NVDA+H betätigen (Escape zum Schliessen des Fensters). 
-Drücken von NVDA+Umschalt+H  öffnet jenen dagegen in Ihrem Standardbrowser.
-Einige populäre MarkDown-Erweiterungen wie beispielsweise PHP Extra oder TOC (Inhaltsverzeichnis) werden ebenfalls unterstützt.
-Zudem funktioniert es auch mit (ein-seitigem) Html.
-
-Um es auszuprobieren, kopieren Sie bitte folgenden Block, fügen Sie ihn in ein leeres Notepad++ Dokument ein und betätigen Sie NVDA+H.
-
-<br>
-
-    ---
-    ## Wo alles begann...  
-    > vor langer Zeit,  
-    > in einem fernen Land.  
-    ## Und wohin  es sich dann begab  
-    1. Erste Station  
-    2. Zweite Station  
-    ## Schlussendlich wurde es zu einer  
-    * zwar ungeordneten,  
-    * jedoch immer noch  
-    * verbleibenden Liste.  
-
-<br>
 
 ## Nicht standardmässige Notepad++ Tastatur Kombinationen
 
