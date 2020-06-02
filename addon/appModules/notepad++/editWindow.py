@@ -7,22 +7,14 @@
 import weakref
 import addonHandler
 import config
+import controlTypes
 from NVDAObjects.behaviors import EditableTextWithAutoSelectDetection, EditableTextWithSuggestions
-from editableText import EditableText
-import api
+
 from queueHandler import registerGeneratorObject
 import speech
 import textInfos
 import tones
 import ui
-import eventHandler
-import scriptHandler
-import sys
-import os
-import tempfile
-from threading import Timer
-import re
-
 addonHandler.initTranslation()
 
 class EditWindow(EditableTextWithAutoSelectDetection, EditableTextWithSuggestions):
