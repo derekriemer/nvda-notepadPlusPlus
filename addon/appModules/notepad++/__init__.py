@@ -4,9 +4,7 @@
 #This file is covered by the GNU General Public License.
 #See the file COPYING for more details.
 
-import os
-import time
-import weakref
+
 # NVDA core imports
 import appModuleHandler
 import core
@@ -16,8 +14,8 @@ import addonHandler
 import controlTypes
 import eventHandler
 import speech
-import nvwave
-from NVDAObjects.window.scintilla  import Scintilla
+from NVDAObjects.IAccessible import OutlineItem
+from NVDAObjects.IAccessible.sysTreeView32 import TreeViewItem
 # Do not try an absolute import. Because I have to name this module notepad++,
 # and + isn't a valid character in a normal python module,
 # You need to use from . import foo, for now.
@@ -37,6 +35,9 @@ class AppModule(appModuleHandler.AppModule):
 				obj.parent.windowClassName == u'ListBox' and
 				obj.parent.parent.parent.windowClassName == u'ListBoxX'):
 				clsList.insert(0, autocomplete.AutocompleteList)
+				return
+			if obj.role == controlTypes.ROLE_TREEVIEWITEM and obj.parent.parent.parent.name == 'Function List':
+				clsList.insert(0, FunctionListView)
 				return
 		except AttributeError:
 			pass
@@ -100,3 +101,26 @@ class AppModule(appModuleHandler.AppModule):
 			return
 		eventHandler.executeEvent("suggestionsClosed", edit)
 
+class FunctionListView(TreeViewItem, OutlineItem):
+	def script_goToCurrentFunction(self, gesture):
+		gesture.send()
+		# it seems that is not possible to jump to a element that contains children, E.G. a class. So we don't set the focus in this case.
+		if not (controlTypes.STATE_EXPANDED in self.states or controlTypes.STATE_COLLAPSED in self.states):
+			self.appModule.edit.setFocus()
+
+	#Translators: When pressed, set the cursor to the current element and set te focus in the edit window from notepad++.
+	script_goToCurrentFunction.__doc__ = _("Set the focus in the editable text field, presumably with the cursor in the current element of function list.")
+	script_goToCurrentFunction.category = "Notepad++"
+
+	def script_goToEditWindow(self, gesture):
+		self.appModule.edit.setFocus()
+
+	#Translators: When pressed,  set te focus in the edit window from notepad++.
+	script_goToEditWindow.__doc__ = _("Set the focus in the editable text field")
+	script_goToEditWindow.category = "Notepad++"
+
+
+	__gestures = {
+		"kb:enter" : "goToCurrentFunction",
+		"kb:escape" : "goToEditWindow",
+	}
