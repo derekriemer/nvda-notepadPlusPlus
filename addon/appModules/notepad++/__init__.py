@@ -13,8 +13,8 @@ import core
 import config
 import gui
 import addonHandler
-import controlTypes
 import eventHandler
+from controlTypes import Role
 import speech
 import nvwave
 from NVDAObjects.window.scintilla  import Scintilla
@@ -33,7 +33,7 @@ class AppModule(appModuleHandler.AppModule):
 			clsList.insert(0, editWindow.EditWindow)
 			return
 		try: 
-			if (obj.role == controlTypes.ROLE_LISTITEM and
+			if (obj.role == Role.LISTITEM and
 				obj.parent.windowClassName == u'ListBox' and
 				obj.parent.parent.parent.windowClassName == u'ListBoxX'):
 				clsList.insert(0, autocomplete.AutocompleteList)
@@ -42,13 +42,13 @@ class AppModule(appModuleHandler.AppModule):
 			pass
 	
 		if (
-		(obj.windowControlID == 1682 and obj.role == controlTypes.ROLE_EDITABLETEXT)
+		(obj.windowControlID == 1682 and obj.role == Role.EDITABLETEXT)
 		or
-		(obj.role == controlTypes.ROLE_BUTTON and obj.windowControlID in (67220, 67219))
+		(obj.role == Role.BUTTON and obj.windowControlID in (1683, 1684))
 		):
 			clsList.insert(0, incrementalFind.IncrementalFind)
 			return
-		if obj.windowControlID == 1689 and obj.role == controlTypes.ROLE_STATICTEXT:
+		if obj.windowControlID == 1689 and obj.role == Role.STATICTEXT:
 			clsList.insert(0, incrementalFind.LiveTextControl)
 			return
 
@@ -77,7 +77,7 @@ class AppModule(appModuleHandler.AppModule):
 		eventHandler.requestEvents("show", self.processID, u'ListBoxX')
 
 	def event_show(self, obj, nextHandler):
-		if obj.role == controlTypes.ROLE_PANE:
+		if obj.role == Role.PANE:
 			self.isAutocomplete=True
 			core.callLater(100, self.waitforAndReportDestruction,obj)
 			#get the edit field if the weak reference still has it.
