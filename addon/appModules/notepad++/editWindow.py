@@ -7,22 +7,14 @@
 import weakref
 import addonHandler
 import config
+import controlTypes
 from NVDAObjects.behaviors import EditableTextWithAutoSelectDetection, EditableTextWithSuggestions
-from editableText import EditableText
-import api
+
 from queueHandler import registerGeneratorObject
 import speech
 import textInfos
 import tones
 import ui
-import eventHandler
-import scriptHandler
-import sys
-import os
-import tempfile
-from threading import Timer
-import re
-
 addonHandler.initTranslation()
 
 class EditWindow(EditableTextWithAutoSelectDetection, EditableTextWithSuggestions):
@@ -157,7 +149,31 @@ class EditWindow(EditableTextWithAutoSelectDetection, EditableTextWithSuggestion
 	script_reportFindResult.__doc__ = _("Queries the next or previous search result and speaks the selection and current line.")
 	script_reportFindResult.category = "Notepad++"
 
+	def script_goToFunctionList(self, gesture):
+		obj = self.simplePrevious
+		while (obj):
+			if obj.role == controlTypes.ROLE_MENUBAR:
+				break
+			if obj.windowClassName == '#32770' and obj.name == 'Selected Tab':
+				try:
+					fl = obj.simpleLastChild # sometimes the object 'Function List' is here.
+					if fl.name == 'Function List':
+						fl.setFocus()
+						return
+					fl = fl.simpleFirstChild
+					if fl.name == 'Function List':
+						fl.setFocus()
+						return
+				except: pass
+			obj = obj.simplePrevious
+		speech.speakMessage(_("Function list view not found"))
+
+	#Translators: when pressed, goes to the function list view in notepad++.
+	script_goToFunctionList.__doc__ = _("Set the focus in the function list view, if is currently present.")
+	script_goToFunctionList.category = "Notepad++"
+
 	__gestures = {
+		"kb:control+shift+." : "goToFunctionList",
 		"kb:control+b" : "goToMatchingBrace",
 		"kb:f2": "goToNextBookmark",
 		"kb:shift+f2": "goToPreviousBookmark",
