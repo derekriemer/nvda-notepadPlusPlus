@@ -7,9 +7,11 @@
 import weakref
 import addonHandler
 import config
-from NVDAObjects.behaviors import EditableTextWithAutoSelectDetection, EditableTextWithSuggestions
-from editableText import EditableText
-import api
+try:
+	from nvdaBuiltin.appModules.notepadPlusPlus import NppEdit as EditWindowBaseCls
+except ImportError:
+	from NVDAObjects.behaviors import EditableTextWithAutoSelectDetection as EditWindowBaseCls
+from NVDAObjects.behaviors import EditableTextWithSuggestions
 from queueHandler import registerGeneratorObject
 import speech
 import textInfos
@@ -19,13 +21,11 @@ import eventHandler
 import scriptHandler
 import sys
 import os
-import tempfile
-from threading import Timer
-import re
 
 addonHandler.initTranslation()
 
-class EditWindow(EditableTextWithAutoSelectDetection, EditableTextWithSuggestions):
+
+class EditWindow(EditWindowBaseCls, EditableTextWithSuggestions):
 	"""An edit window that implements all of the scripts on the edit field for Notepad++"""
 
 	
