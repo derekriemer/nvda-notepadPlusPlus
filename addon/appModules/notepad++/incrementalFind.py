@@ -1,6 +1,6 @@
 #incrementalFind.py
 #A part of theNotepad++ addon for NVDA
-#Copyright (C) 2016 Tuukka Ojala, Derek Riemer
+#Copyright (C) 2016-2022 Tuukka Ojala, Derek Riemer
 #This file is covered by the GNU General Public License.
 #See the file COPYING for more details.
 
@@ -15,33 +15,25 @@ from logHandler import log
 
 
 class IncrementalFind(NVDAObject):
-	debug = False
 	cacheBookmark = None
 	die = False
-	debug=False
 
 	def schedule(self):
-		log.debug("may schedule a round.")
+		log.debug("Scheduling round.")
 		if self.die:
-			log.debug("Not rescheduling")
 			self.die=False
 			return
-		log.debug("Scheduling change watcher in 5 ms")
 		core.callLater(5, self.changeWatcher)
 	
 	def event_gainFocus(self):
 		super(IncrementalFind, self).event_gainFocus()
-		log.debug("Gain focus fired")
 		self.schedule()
 
 	def event_loseFocus(self):
 		self.die = True
-		log.debug("Scheduling distruction.")
 
 	def changeWatcher(self):
-		
 		self.schedule()
-		log.debug("Preparing change watcher.")
 		edit = self.appModule.edit
 		if None is edit:
 			#The editor gained focus. We're gonna die anyway on the next round.
@@ -49,7 +41,6 @@ class IncrementalFind(NVDAObject):
 		textInfo = edit.makeTextInfo(textInfos.POSITION_SELECTION)
 		if textInfo.bookmark == IncrementalFind.cacheBookmark:
 			#Nothing has changed. Just go away.
-			log.debug("Nothing has changed since the last round.")
 			return
 		IncrementalFind.cacheBookmark = textInfo.bookmark
 		textInfo.expand(textInfos.UNIT_LINE)
@@ -64,11 +55,6 @@ class IncrementalFind(NVDAObject):
 		#Squelch the "pressed" message as this gets quite annoying, I must say.
 		pass
 
-	#Debug script for testing why the thing isn't firing.
-	@script(gesture = 'kb:nvda+d')
-	def script_debug(self, gesture):
-		speech.speakMessage("Prepare for log spam")
-	
 
 class LiveTextControl(NVDAObject):
 	_cache = None

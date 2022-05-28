@@ -20,7 +20,7 @@ addon_info = {
 	"addon_description" : _("""Notepad++ App Module.
 This addon improves the accessibility of Notepad ++. To learn more, press the add-on help button."""),
 	# version
-	"addon_version" : "2021.10.1",
+	"addon_version" : "2022.05.1",
 	# Author(s)
 	"addon_author" : u"Derek Riemer <driemer.riemer@gmail.com>, Tuukka Ojala <tuukka.ojala@gmail.com>",
 	# URL for the add-on documentation support
@@ -48,3 +48,5 @@ i18nSources = pythonSources + ["buildVars.py"]
 # Files that will be ignored when building the nvda-addon file
 # Paths are relative to the addon directory, not to the root directory of your addon sources.
 excludedFiles = []
+
+

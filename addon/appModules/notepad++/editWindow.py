@@ -1,6 +1,6 @@
 #editWindow.py
 #A part of theNotepad++ addon for NVDA
-#Copyright (C) 2016-2019 Tuukka Ojala, Derek Riemer
+#Copyright (C) 2016-2022 Tuukka Ojala, Derek Riemer
 #This file is covered by the GNU General Public License.
 #See the file COPYING for more details.
 
@@ -28,9 +28,10 @@ addonHandler.initTranslation()
 class EditWindow(EditWindowBaseCls, EditableTextWithSuggestions):
 	"""An edit window that implements all of the scripts on the edit field for Notepad++"""
 
-	
 	def event_loseFocus(self):
 		#Hack: finding the edit field from the foreground window is unreliable, so cache it here.
+		# The object tree is all sorts of fubar,
+		# And actually can have cycles (so it's not a tree).
 		#We can't use the weakref cache, because NVDA probably (?) kill this object off when it loses focus.
 		#Also, derek is too lazy to verify this when it already works.
 		self.appModule.edit = self
@@ -43,6 +44,7 @@ class EditWindow(EditWindowBaseCls, EditableTextWithSuggestions):
 
 	def initOverlayClass(self):
 		#Notepad++ names the edit window "N" for some stupid reason.
+		# Nuke it.
 		self.name = ""
 
 	def script_goToMatchingBrace(self, gesture):
@@ -52,9 +54,9 @@ class EditWindow(EditWindowBaseCls, EditableTextWithSuggestions):
 		info.expand(textInfos.UNIT_LINE)
 		if info.text.strip() in ('{', '}'):
 			#This line is only one brace. Not very helpful to read, lets read the previous and next line as well.
-			#Move it's start back a line.
+			#Move its start back a line.
 			info.move(textInfos.UNIT_LINE, -1, endPoint = "start")
-			# Move it's end one line, forward.
+			# Move its end one line forward.
 			info.move(textInfos.UNIT_LINE, 1, endPoint = "end")
 			#speak the info.
 			registerGeneratorObject((speech.speakMessage(i) for i in info.text.split("\n")))
