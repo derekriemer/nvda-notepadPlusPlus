@@ -1,0 +1,87 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 'NotepadPlusPlus' '2022.05.1'\n"
+"Report-Msgid-Bugs-To: 'nvda-translations@groups.io'\n"
+"POT-Creation-Date: 2022-06-07 18:54+0800\n"
+"PO-Revision-Date: 2022-06-11 08:57+0800\n"
+"Last-Translator: Hongyi <hongyi010@qq.com>\n"
+"Language-Team: \n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 3.1\n"
+
+#. Translators: Title for the settings panel in NVDA's multi-category settings
+#. Add-on summary, usually the user visible name of the addon.
+#. Translators: Summary for this add-on to be shown on installation and add-on information.
+#: addon\appModules\notepad++\addonSettingsPanel.py:16 buildVars.py:17
+msgid "Notepad++"
+msgstr "Notepad++ 增强"
+
+#: addon\appModules\notepad++\addonSettingsPanel.py:22
+msgid "Enable &line length indicator"
+msgstr "启用行长度提示器（&L）"
+
+#. Translators: Setting for maximum line length used by line length indicator
+#: addon\appModules\notepad++\addonSettingsPanel.py:28
+msgid "&Maximum line length:"
+msgstr "最大行长度（&M）"
+
+#: addon\appModules\notepad++\addonSettingsPanel.py:36
+msgid "Show autocomplete &suggestions in braille"
+msgstr "用盲文显示自动完成建议（&S）"
+
+#. Translators: when pressed, goes to the matching brace in Notepad++
+#: addon\appModules\notepad++\editWindow.py:67
+msgid "Goes to the brace that matches the one under the caret"
+msgstr "转到成对符号的另一半"
+
+#. Translators: Script to move to the next bookmark in Notepad++.
+#: addon\appModules\notepad++\editWindow.py:74
+msgid "Goes to the next bookmark"
+msgstr "转到下一个书签"
+
+#. Translators: Script to move to the next bookmark in Notepad++.
+#: addon\appModules\notepad++\editWindow.py:81
+msgid "Goes to the previous bookmark"
+msgstr "转到上一个书签"
+
+#. Translators: Script to move the cursor to the first character on the current line that exceeds the users maximum allowed line length.
+#: addon\appModules\notepad++\editWindow.py:137
+msgid "Moves to the first character that is after the maximum line length"
+msgstr "将光标移动到“最大行长度”后面的第一个字符"
+
+#. Translators: Script that announces information about the current line.
+#: addon\appModules\notepad++\editWindow.py:144
+msgid "Speak the line info item on the status bar"
+msgstr "朗读状态栏上关于“行”的信息。"
+
+#. Translators: Message shown when there are no more search results in this direction using the notepad++ find command.
+#: addon\appModules\notepad++\editWindow.py:156
+msgid "No more search results in this direction"
+msgstr "在此查找方向未找到下一个结果。"
+
+#. Translators: when pressed, goes to the Next search result in Notepad++
+#: addon\appModules\notepad++\editWindow.py:159
+msgid ""
+"Queries the next or previous search result and speaks the selection and "
+"current line."
+msgstr "查找上一个或下一个结果，并朗读选中的内容及其所在的行。"
+
+#. Add-on description
+#. Translators: Long description to be shown for this add-on on add-on information from add-ons manager
+#: buildVars.py:20
+msgid ""
+"Notepad++ App Module.\n"
+"This addon improves the accessibility of Notepad ++. To learn more, press "
+"the add-on help button."
+msgstr ""
+"Notepad++ 应用程序模块。\n"
+"此插件改进了 Notepad++ 的无障碍支持，更多详情请参阅本插件的帮助文档。"
