@@ -2,7 +2,7 @@
 
 此插件改进了 Notepad++ 的无障碍支持。Notepad++是运行在 Windows 上的文本编辑器，具有许多功能，您可以在 [https://notepad-plus-plus.org][1] 上了解它的更多信息。
 
-本插件最初由 Derek Riemer 各 Tuukka Ojala 编写，后续的功能则由 Robert H?nggi 及 Andre9642 添加。
+本插件最初由 Derek Riemer 和 Tuukka Ojala 编写，后续的功能则由 Robert H?nggi 及 Andre9642 添加。
 
 ## 功能：
 
@@ -68,6 +68,6 @@ Notepad++ 最有趣的功能之一就是可以使用增量查找。增量查找�
 
 本插件期待 Notepad++ 使用默认快捷键。如果没有这样，请您根据需要在 NVDA 的输入手势对话框中更改此应用程序模块的快捷键以适应 Notepad++ 的命令。
 
-本插件的所有命令都在 Notepad++ 选项卡。
+本插件的所有命令都在 Notepad++ 设置区。
 
 [1]: https://notepad-plus-plus.org
