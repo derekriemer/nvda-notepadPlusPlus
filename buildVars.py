@@ -25,12 +25,12 @@ addon_info = {
 	"addon_description" : _("""Notepad++ App Module.
 This addon improves the accessibility of Notepad ++. To learn more, press the add-on help button."""),
 	# version
-	"addon_version" : "2023.06.3",
+	"addon_version" : "2024.04.1",
 	# Author(s)
 	"addon_author" : u"Derek Riemer <driemer.riemer@gmail.com>, Tuukka Ojala <tuukka.ojala@gmail.com>",
 	# URL for the add-on documentation support
 	"addon_url" : "https://github.com/derekriemer/nvda-notepadplusplus",
-		# URL for the add-on repository where the source code can be found
+	# URL for the add-on repository where the source code can be found
 	"addon_sourceURL": "https://github.com/derekriemer/nvda-notepadplusplus",
 
 	# Documentation file name
@@ -38,10 +38,8 @@ This addon improves the accessibility of Notepad ++. To learn more, press the ad
 	# Minimum NVDA version supported (e.g. "2018.3.0", minor version is optional)
 	"addon_minimumNVDAVersion" : "2021.2",
 	# Last NVDA version supported/tested (e.g. "2018.4.0", ideally more recent than minimum version)
-	"addon_lastTestedNVDAVersion" : "2023.1",
-	# Add-on update channel (default is stable or None)
-	"addon_updateChannel" : None,
-		# Add-on update channel (default is None, denoting stable releases,
+	"addon_lastTestedNVDAVersion" : "2024.1",
+	# Add-on update channel (default is None, denoting stable releases,
 	# and for development releases, use "dev".)
 	# Do not change unless you know what you are doing!
 	"addon_updateChannel": None,
