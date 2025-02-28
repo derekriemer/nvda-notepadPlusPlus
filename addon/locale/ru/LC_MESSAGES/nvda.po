@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: NotepadPlusPlus 2019.08.0\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
-"POT-Creation-Date: 2019-08-22 17:30+0200\n"
-"PO-Revision-Date: 2024-01-07 09:08+0300\n"
+"POT-Creation-Date: 2025-02-28 10:53+0500\n"
+"PO-Revision-Date: 2025-02-28 10:53+0500\n"
 "Last-Translator: Danil Kostenkov <danilkostenkov38@gmail.com>\n"
 "Language-Team: Danil Kostenkov <danilkostenkov38@gmail.com>\n"
 "Language: ru_RU\n"
@@ -12,69 +12,53 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
-"X-Generator: Poedit 3.4.2\n"
-"X-Poedit-Basepath: c:/users/Rémy Ruiz/appdata/roaming/nvda/addons/"
-"NotepadPlusPlus\n"
+"X-Generator: Poedit 3.5\n"
+"X-Poedit-Basepath: ../../../..\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-SearchPath-0: AppModules\n"
-"X-Poedit-SearchPath-1: globalPlugins/skype7\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPath-1: addon/appModules/notepad++\n"
 
-#: appModules\notepad++\addonGui.py:29
-msgid "Notepad++..."
-msgstr "Notepad++..."
+#: addon/appModules/notepad++/addonSettingsPanel.py:16 buildVars.py:22
+msgid "Notepad++"
+msgstr "Notepad++"
 
-#. Translators: Title for the settings dialog
-#: appModules\notepad++\addonGui.py:51
-msgid "Notepad++ settings"
-msgstr "Настройки Notepad++"
-
-#. Translators: A setting for enabling/disabling line length indicator.
-#: appModules\notepad++\addonGui.py:58
+#: addon/appModules/notepad++/addonSettingsPanel.py:22
 msgid "Enable &line length indicator"
 msgstr "Включить индикатор длины &строки"
 
-#. Translators: Setting for maximum line length used by line length indicator
-#: appModules\notepad++\addonGui.py:63
+#: addon/appModules/notepad++/addonSettingsPanel.py:28
 msgid "&Maximum line length:"
 msgstr "&Максимальная длина строки:"
 
-#. Translators: A setting for enabling/disabling autocomplete suggestions in braille.
-#: appModules\notepad++\addonGui.py:69
+#: addon/appModules/notepad++/addonSettingsPanel.py:36
 msgid "Show autocomplete &suggestions in braille"
 msgstr "Показывать &предложения автозаполнения по Брайлю"
 
-#. Translators: when pressed, goes to the matching brace in Notepad++
-#: appModules\notepad++\editWindow.py:65
+#: addon/appModules/notepad++/editWindow.py:67
 msgid "Goes to the brace that matches the one under the caret"
 msgstr "Переходит к скобке, которая соответствует скобке под кареткой"
 
-#. Translators: Script to move to the next bookmark in Notepad++.
-#: appModules\notepad++\editWindow.py:72
+#: addon/appModules/notepad++/editWindow.py:74
 msgid "Goes to the next bookmark"
 msgstr "Переходит к следующей закладке"
 
-#. Translators: Script to move to the next bookmark in Notepad++.
-#: appModules\notepad++\editWindow.py:79
+#: addon/appModules/notepad++/editWindow.py:81
 msgid "Goes to the previous bookmark"
 msgstr "Переходит к предыдущей закладке"
 
-#. Translators: Script to move the cursor to the first character on the current line that exceeds the users maximum allowed line length.
-#: appModules\notepad++\editWindow.py:135
+#: addon/appModules/notepad++/editWindow.py:137
 msgid "Moves to the first character that is after the maximum line length"
 msgstr "Переходит к первому символу после максимальной длины строки"
 
-#. Translators: Script that announces information about the current line.
-#: appModules\notepad++\editWindow.py:142
+#: addon/appModules/notepad++/editWindow.py:144
 msgid "Speak the line info item on the status bar"
 msgstr "Объявляет позицию курсора в строке состояния"
 
-#. Translators: Message shown when there are no more search results in this direction using the notepad++ find command.
-#: appModules\notepad++\editWindow.py:154
+#: addon/appModules/notepad++/editWindow.py:156
 msgid "No more search results in this direction"
 msgstr "Результатов поиска в этом направлении больше нет"
 
-#. Translators: when pressed, goes to the Next search result in Notepad++
-#: appModules\notepad++\editWindow.py:157
+#: addon/appModules/notepad++/editWindow.py:159
 msgid ""
 "Queries the next or previous search result and speaks the selection and "
 "current line."
@@ -82,23 +66,21 @@ msgstr ""
 "Переходит к следующему, или предыдущему найденному запросу, и проговаривает "
 "выделение и текущую строку."
 
-#. Add-on summary, usually the user visible name of the addon.
-#. Translators: Summary for this add-on to be shown on installation and add-on information.
-#: buildVars.py:17
-msgid "Notepad++"
-msgstr "Notepad++"
-
-#. Add-on description
-#. Translators: Long description to be shown for this add-on on add-on information from add-ons manager
-#: buildVars.py:20
+#: buildVars.py:25
 msgid ""
 "Notepad++ App Module.\n"
 "This addon improves the accessibility of Notepad ++. To learn more, press "
 "the add-on help button."
 msgstr ""
-"Модуль приложения Notepad++.\n"
+"Дополнение для приложения Notepad++.\n"
 "Это дополнение улучшает доступность Notepad++. Чтобы узнать больше, нажмите "
 "кнопку справки по дополнению."
+
+#~ msgid "Notepad++..."
+#~ msgstr "Notepad++..."
+
+#~ msgid "Notepad++ settings"
+#~ msgstr "Настройки Notepad++"
 
 #~ msgid ""
 #~ "Queries the next or previous search result and speaks the selection and "
