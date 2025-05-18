@@ -17,13 +17,13 @@ Voit lisätä niin monta kirjanmerkkiä kuin haluat.
 
 Notepad++:ssa on viivoitin, jota voi käyttää rivin pituuden tarkistamiseen. Tämä ominaisuus ei kuitenkaan ole saavutettava tai merkityksellinen näkövammaisille käyttäjille, joten tähän lisäosaan on lisätty rivipituuden ilmaisin, joka piippaa aina kun rivi on pidempi kuin määritelty merkkien määrä.
 
-Ota tämä ominaisuus käyttöön käynnistämällä ensin Notepad++, menemällä sitten NVDA-valikkoon ja valitsemalla Notepad++-vaihtoehto Asetukset-valikosta. Ruksaa "Ota käyttöön rivipituuden ilmaisin" -valintaruutu ja muuta tarvittaessa merkkien enimmäismäärää. Kun ominaisuus on käytössä, kuulet piippauksen vierittäessäsi rivejä, jotka ovat liian pitkiä tai joiden merkkien määrä ylittää enimmäispituuden. Vaihtoehtoisesti voit painaa NVDA+G siirtyäksesi ensimmäiseen enimmäispituuden ylittävään merkkiin aktiivisella rivillä.
+Ota tämä ominaisuus käyttöön käynnistämällä ensin Notepad++, menemällä NVDA-valikkoon ja valitsemalla sen jälkeen Notepad++-vaihtoehto Asetukset-valikosta. Ruksaa "Ota käyttöön rivipituuden ilmaisin" -valintaruutu ja muuta tarvittaessa merkkien enimmäismäärää. Kun ominaisuus on käytössä, kuulet piippauksen vierittäessäsi rivejä, jotka ovat liian pitkiä tai joiden merkkien määrä ylittää enimmäispituuden. Vaihtoehtoisesti voit painaa NVDA+G siirtyäksesi ensimmäiseen enimmäispituuden ylittävään merkkiin aktiivisella rivillä.
 
 ### Vastaavaan sulkeeseen siirtyminen
 
 Notepad++:ssa voit siirtyä ohjelmakoodissa vastaavan sulkumerkin kohdalle painamalla Ctrl+B.
 Siirtymistä varten sinun täytyy olla yhden merkin verran sulkeiden sisällä.
-Kun painat tätä komentoa, NVDA lukee rivin, jolle siirryttiin, ja jos rivi koostuu vain sulkumerkistä, se lukee ylemmän ja alemman rivin sulkeen ylä- ja alapuolelta, jotta saat tuntuman kontekstista.
+Kun painat tätä komentoa, NVDA lukee rivin, jolle siirryttiin, ja jos rivi koostuu vain sulkumerkistä, se lukee ylemmän ja alemman rivin sulkeen ylä- ja alapuolelta, jotta saat tuntuman asiayhteydestä.
 
 ### Automaattinen täydennys
 
@@ -33,7 +33,7 @@ Oletuksena Notepad++:n automaattinen täydennys ei ole saavutettava. Automaattis
 2. Ala/ylänuolen painaminen lukee seuraavan/edellisen ehdotetun tekstin.
 3. Suositeltu teksti puhutaan ehdotusten ilmestyessä.
 
-Huom: Teksti näytetään myös pistekirjoituksena, mikäli pistenäyttö on kytketty. Tämä ominaisuus on tällä hetkellä kokeellinen, joten älä epäröi ilmoittaa mahdollisista bugeista.
+Huom: Teksti näytetään myös pistekirjoituksena, mikäli pistenäyttö on käytössä. Tämä ominaisuus on tällä hetkellä kokeellinen, joten älä epäröi ilmoittaa mahdollisista virheistä.
 
 ### Lisäävä haku
 
@@ -45,7 +45,7 @@ NVDA puhuu kirjoittaessasi rivin, jolta Notepad++ löysi hakemasi tekstin. Myös
 Kun löydät haluamasi tekstin, paina Esc-näppäintä, jolloin kyseinen tekstirivi on kohdistimen alla.
 Avaa tämä valintaikkuna valitsemalla Etsi-valikosta "Lisäävä haku" tai paina Alt+Ctrl+I.
 
-### Nykyisen rivin tietojen puhuminen
+### Nykyisen rivin tietojen puhuminen (ei toimi suomalaisissa näppäinasetteluissa)
 
 Painamalla NVDA+Vaihto+\ (kenoviiva) puhutaan seuraavat tiedot:
 
