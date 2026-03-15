@@ -1,0 +1,8 @@
+# Build dependencies
+SCons>=4.10.1
+Markdown>=3.0
+
+# Development tooling
+flake8>=7.0
+flake8-tabs>=2.0.0
+pre-commit>=3.0
