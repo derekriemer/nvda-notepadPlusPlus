@@ -12,6 +12,7 @@ try:
 except ImportError:
 	from NVDAObjects.behaviors import EditableTextWithAutoSelectDetection as EditWindowBaseCls
 from NVDAObjects.behaviors import EditableTextWithSuggestions
+from NVDAObjects.inputComposition import InputCompositionTextInfo
 from queueHandler import registerGeneratorObject
 import speech
 import textInfos
@@ -23,6 +24,13 @@ import sys
 import os
 
 addonHandler.initTranslation()
+
+
+def _hasActiveInputComposition(obj):
+	"""Return True when NVDA has current IME composition text for this object."""
+	if getattr(obj, "isReading", False):
+		return bool(getattr(obj, "readingString", ""))
+	return bool(getattr(obj, "compositionString", ""))
 
 
 class EditWindow(EditWindowBaseCls, EditableTextWithSuggestions):
@@ -46,6 +54,11 @@ class EditWindow(EditWindowBaseCls, EditableTextWithSuggestions):
 		#Notepad++ names the edit window "N" for some stupid reason.
 		# Nuke it.
 		self.name = ""
+
+	def _get_TextInfo(self):
+		if _hasActiveInputComposition(self):
+			return InputCompositionTextInfo
+		return super(EditWindow, self).TextInfo
 
 	def script_goToMatchingBrace(self, gesture):
 		gesture.send()
