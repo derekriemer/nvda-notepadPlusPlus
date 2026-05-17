@@ -58,9 +58,6 @@ class EditWindow(EditWindowBaseCls, EditableTextWithSuggestions):
 	def _get_TextInfo(self):
 		if _hasActiveInputComposition(self):
 			return InputCompositionTextInfo
-		superGetter = getattr(super(EditWindow, self), "_get_TextInfo", None)
-		if superGetter:
-			return superGetter()
 		return super(EditWindow, self).TextInfo
 
 	def script_goToMatchingBrace(self, gesture):
