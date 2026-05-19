@@ -1,7 +1,7 @@
 # Notepad++ Add-on for NVDA #
 
 This add-on improves the accessibility of notepad++. Notepad++ is a text editor for windows, and has many features. You can learn more about it at <https://notepad-plus-plus.org/>
-The original work for this addon was written by Derek Riemer and Tuukka Ojala. Features were later added by Robert Hänggi and Andre9642.
+The original work for this addon was written by Derek Riemer and Tuukka Ojala. Features were later added by Ken Chang, Robert Hänggi, and Andre9642.
 
 ## Features:
 
