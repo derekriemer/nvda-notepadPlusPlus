@@ -5,8 +5,13 @@
 #See the file COPYING for more details.
 
 import weakref
+import ctypes
+import locale
 import addonHandler
 import config
+import watchdog
+import winKernel
+from logHandler import log
 try:
 	from nvdaBuiltin.appModules.notepadPlusPlus import NppEdit as EditWindowBaseCls
 except ImportError:
@@ -25,6 +30,21 @@ import os
 
 addonHandler.initTranslation()
 
+# Scintilla message constants (from Scintilla.iface / Scintilla.h; these are
+# stable across Scintilla versions - Notepad++ 8.9.7 uses Scintilla 5.x).
+SCI_AUTOCACTIVE = 2102
+# "get int AutoCGetCurrentText=2610(, stringresult text)" - a "stringresult"
+# message: call once with lParam=0 to get the required buffer length
+# (excluding the NUL terminator), then again with a big-enough buffer to
+# fill it. This asks Scintilla's own internal autocomplete state directly
+# for the currently-highlighted suggestion's text, bypassing the popup UI
+# entirely - no dependency on MSAA, on how the popup is rendered, or on
+# native listbox selection state, all of which were confirmed empty for
+# this control via diagnostic logging.
+SCI_AUTOCGETCURRENTTEXT = 2610
+SCI_GETCODEPAGE = 2137
+SC_CP_UTF8 = 65001
+
 
 def _hasActiveInputComposition(obj):
 	"""Return True when NVDA has current IME composition text for this object."""
@@ -35,6 +55,58 @@ def _hasActiveInputComposition(obj):
 
 class EditWindow(EditWindowBaseCls, EditableTextWithSuggestions):
 	"""An edit window that implements all of the scripts on the edit field for Notepad++"""
+
+	def getAutocompleteCurrentText(self):
+		"""Ask Scintilla directly for the text of the currently selected
+		autocomplete suggestion, via SCI_AUTOCGETCURRENTTEXT. Returns None if
+		autocomplete isn't active, or if anything about the cross-process
+		read fails, rather than raising - callers should treat None as
+		"couldn't determine the text" and fall back to other approaches.
+		"""
+		try:
+			hwnd = self.windowHandle
+			processHandle = self.processHandle
+			active = watchdog.cancellableSendMessage(hwnd, SCI_AUTOCACTIVE, 0, 0)
+			if not active:
+				return None
+			# First call: lParam=0 asks Scintilla for the required length
+			# (not including the NUL terminator), without writing anything.
+			length = watchdog.cancellableSendMessage(hwnd, SCI_AUTOCGETCURRENTTEXT, 0, 0)
+			if length <= 0:
+				return None
+			bufLen = length + 1
+			# Scintilla will write into this buffer via lParam, but since
+			# Notepad++ runs in a different process, the pointer we pass
+			# must be valid in *its* address space, not ours - so we
+			# allocate memory in the remote process, pass that address as
+			# lParam, then copy the written bytes back into our own buffer
+			# via ReadProcessMemory. This is the same technique NVDA core
+			# uses to read this editor's own document text.
+			remoteBuf = winKernel.virtualAllocEx(
+				processHandle, None, bufLen, winKernel.MEM_COMMIT, winKernel.PAGE_READWRITE
+			)
+			try:
+				watchdog.cancellableSendMessage(hwnd, SCI_AUTOCGETCURRENTTEXT, 0, remoteBuf)
+				localBuf = ctypes.create_string_buffer(bufLen)
+				winKernel.readProcessMemory(processHandle, remoteBuf, localBuf, bufLen, None)
+			finally:
+				winKernel.virtualFreeEx(processHandle, remoteBuf, 0, winKernel.MEM_RELEASE)
+			# Match NVDA core's own ScintillaTextInfo._get_encoding: don't
+			# assume UTF-8, ask the document what codepage it's actually
+			# using (autocomplete suggestions can contain non-ASCII
+			# identifiers in non-Unicode files too).
+			codepage = watchdog.cancellableSendMessage(hwnd, SCI_GETCODEPAGE, 0, 0)
+			if codepage == SC_CP_UTF8:
+				encoding = "utf-8"
+			else:
+				encoding = locale.getlocale()[1] or "utf-8"
+			text = localBuf.value.decode(encoding, errors="replace")
+			return text or None
+		except Exception:
+			log.exception(
+				"notepad++ addon: SCI_AUTOCGETCURRENTTEXT read failed"
+			)
+			return None
 
 	def event_loseFocus(self):
 		#Hack: finding the edit field from the foreground window is unreliable, so cache it here.

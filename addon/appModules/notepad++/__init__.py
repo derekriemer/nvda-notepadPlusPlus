@@ -14,6 +14,7 @@ import config
 import gui
 import addonHandler
 import eventHandler
+from logHandler import log
 from controlTypes import Role
 import speech
 import nvwave
@@ -32,15 +33,24 @@ class AppModule(appModuleHandler.AppModule):
 		if obj.windowClassName == u'Scintilla' and obj.windowControlID == 0:
 			clsList.insert(0, editWindow.EditWindow)
 			return
-		try: 
-			if (obj.role == Role.LISTITEM and
-				obj.parent.windowClassName == u'ListBox' and
-				obj.parent.parent.parent.windowClassName == u'ListBoxX'):
-				clsList.insert(0, autocomplete.AutocompleteList)
-				return
+		try:
+			if obj.role == Role.LISTITEM:
+				# Walk up a few ancestors looking for the ListBoxX autocomplete
+				# popup, rather than assuming a fixed parent/grandparent depth.
+				# On current Notepad++/Scintilla builds the real chain is
+				# ListBox -> ListBox -> ListBoxX -> ListBoxX -> #32769, five
+				# levels deep, not the three levels originally assumed here -
+				# confirmed via diagnostic logging against a live session.
+				ancestor = obj.parent
+				for _ in range(6):
+					if ancestor is None:
+						break
+					if ancestor.windowClassName == u'ListBoxX':
+						clsList.insert(0, autocomplete.AutocompleteList)
+						return
+					ancestor = ancestor.parent
 		except AttributeError:
-			pass
-	
+			log.exception("notepad++ addon: AttributeError while walking ancestor chain")
 		if (
 		(obj.windowControlID == 1682 and obj.role == Role.EDITABLETEXT)
 		or
