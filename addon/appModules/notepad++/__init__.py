@@ -32,15 +32,11 @@ class AppModule(appModuleHandler.AppModule):
 		if obj.windowClassName == u'Scintilla' and obj.windowControlID == 0:
 			clsList.insert(0, editWindow.EditWindow)
 			return
-		try: 
-			if (obj.role == Role.LISTITEM and
-				obj.parent.windowClassName == u'ListBox' and
-				obj.parent.parent.parent.windowClassName == u'ListBoxX'):
+		if obj.role == Role.LISTITEM and autocomplete.isSuggestion(obj):
+			if isinstance(obj, autocomplete.IAccessible):
 				clsList.insert(0, autocomplete.AutocompleteList)
 				return
-		except AttributeError:
-			pass
-	
+
 		if (
 		(obj.windowControlID == 1682 and obj.role == Role.EDITABLETEXT)
 		or
@@ -62,41 +58,67 @@ class AppModule(appModuleHandler.AppModule):
 		config.conf.spec["notepadPp"] = confspec
 		gui.settingsDialogs.NVDASettingsDialog.categoryClasses.append(
 			addonSettingsPanel.SettingsPanel)
-		self.requestEvents()
 		self.isAutocomplete=False
+		self._lastSuggestion = None
+		self._suggestionErrorLogged = False
+		self._edit = lambda: None
+		self.edit = None
+		self.requestEvents()
 
 	def terminate(self):
 		try:
 			gui.settingsDialogs.NVDASettingsDialog.categoryClasses.remove(
 				addonSettingsPanel.SettingsPanel)
-		except IndexError:
+		except ValueError:
 			pass
 
 	def requestEvents(self):
-		#We need these for autocomplete
-		eventHandler.requestEvents("show", self.processID, u'ListBoxX')
+		for event, window in (("show", "ListBoxX"), ("selection", "ListBox"), ("selection", "ListBoxX")):
+			eventHandler.requestEvents(event, self.processID, window)
 
 	def event_show(self, obj, nextHandler):
-		if obj.role == Role.PANE:
-			self.isAutocomplete=True
-			core.callLater(100, self.waitforAndReportDestruction,obj)
-			#get the edit field if the weak reference still has it.
-			edit = self._edit()
-			if not edit:
-				return
-			eventHandler.executeEvent("suggestionsOpened", edit)
-		nextHandler()
-
+		try:
+			if obj.windowClassName == "ListBoxX" and not self.isAutocomplete:
+				self.isAutocomplete = True
+				self._lastSuggestion = None
+				core.callLater(100, self.waitforAndReportDestruction, obj)
+				edit = self._edit()
+				if edit:
+					eventHandler.executeEvent("suggestionsOpened", edit)
+		finally:
+			nextHandler()
 
 	def waitforAndReportDestruction(self, obj):
-		if obj.parent: #None when no parent.
-			core.callLater(100, self.waitforAndReportDestruction,obj)
+		import ctypes
+		user32 = ctypes.windll.user32
+		if user32.IsWindow(obj.windowHandle) and user32.IsWindowVisible(obj.windowHandle):
+			self.reportCurrentSuggestion()
+			core.callLater(100, self.waitforAndReportDestruction, obj)
 			return
-		#The object is dead.
-		self.isAutocomplete=False
-		#get the edit field if the weak reference still has it.
+		self.isAutocomplete = False
 		edit = self._edit()
+		if edit:
+			eventHandler.executeEvent("suggestionsClosed", edit)
+
+
+	def reportCurrentSuggestion(self):
+		if not self.isAutocomplete:
+			return
+		edit = self._edit() or self.edit
 		if not edit:
 			return
-		eventHandler.executeEvent("suggestionsClosed", edit)
-
+		try:
+			current = autocomplete.currentSuggestion(edit)
+			if not current or current == self._lastSuggestion:
+				return
+			self._lastSuggestion = current
+			speech.cancelSpeech()
+			speech.speakMessage(current[1])
+			if config.conf["notepadPp"]["brailleAutocompleteSuggestions"]:
+				import braille
+				braille.handler.message("⣏ %s ⣹" % current[1])
+		except Exception:
+			if not self._suggestionErrorLogged:
+				from logHandler import log
+				log.exception("NotepadPlusPlus: failed to read Scintilla autocomplete")
+				self._suggestionErrorLogged = True
